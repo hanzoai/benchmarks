@@ -7,6 +7,7 @@ replace github.com/zap-proto/zip => /home/z/work/zap/zip
 
 require (
 	github.com/valyala/fasthttp v1.72.0
+	github.com/zap-proto/http v0.2.0
 	github.com/zap-proto/zip v0.0.0-00010101000000-000000000000
 )
 
@@ -29,7 +30,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/zap-proto/fiber/v3 v3.2.1 // indirect
 	github.com/zap-proto/go v1.3.0 // indirect
-	github.com/zap-proto/http v0.2.0 // indirect
 	golang.org/x/crypto v0.53.0 // indirect
 	golang.org/x/net v0.56.0 // indirect
 	golang.org/x/sys v0.46.0 // indirect

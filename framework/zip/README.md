@@ -44,6 +44,34 @@ see 1M+: a 10GbE/RDMA link, multiple NICs, or the **ZAP binary transport** — t
 framing than HTTP ⇒ more req/sec per byte on the same wire, and it's what the cloud
 stack already speaks natively.
 
+## ZAP vs HTTP — the native binary transport (`./zapload`)
+zip is ZAP-native, so this is the one that matters. `zapload` is the bombardier-for-ZAP
+(HTTP tools can't speak it). Same handler, loopback c125:
+
+| transport | req/sec | note |
+|---|--:|---|
+| zip HTTP (fasthttp) | 338–400k | zero-alloc HTTP path |
+| zip ZAP (default GOGC) | 91k | **alloc/GC-bound** |
+| zip ZAP (GOGC=800) | 203k | 2.2× — confirms GC-bound |
+
+Surprise: ZAP is *slower today*, and it's the codec, not the wire. `zap-proto/http`
+v0.2.0 allocates per request — `MarshalRequest` mints a fresh `[]byte`, header decode
+does `string()` copies into a `map[string][]string` — so it's GC-bound (GOGC 100→800
+more than doubles it, p99 12ms→4.6ms). fasthttp's HTTP path is zero-alloc, so it wins
+now. The ZAP **wire** is tighter (fewer bytes than HTTP text ⇒ more req/sec per byte on
+a saturated link); the real win is gated on a **zero-alloc codec** (bytebufferpool
+frames, no header string-copies) — the optimization target in `zap-proto/http`, and
+where ZAP overtakes HTTP.
+
+## System tuning (spark)
+- `enP7s7` (2.5GbE) has ONE hardware RX queue and the driver refuses `ethtool -L`
+  ("Operation not supported") → enabled **RPS** (`rps_cpus=fffff`) to spread RX softirq
+  across all 20 cores in software.
+- Both loaders wired: `enP7s7` 2.5GbE (evo) + `enx…` 1GbE (dbc) — dual-NIC ingress is
+  the path to higher aggregate, each NIC its own RX path.
+
 ## Next
-- **ZAP transport** throughput (needs a ZAP load client — bombardier/hey speak HTTP).
-- **HTTPS** vs HTTP; drive **cloud's real `/health`** (cloud middleware tax vs bare zip).
+- **Zero-alloc ZAP codec** in `zap-proto/http`, then re-bench (should pass HTTP).
+- **PQ transports**: PQ-TLS 1.3 vs PQ-QUIC vs PQ-TLS+ZAP — handshake cost (ML-KEM) +
+  steady-state AEAD throughput.
+- Drive **cloud's real `/health`** (cloud middleware tax vs bare zip).
