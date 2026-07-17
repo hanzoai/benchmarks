@@ -4,7 +4,14 @@
 // duration and reports req/sec + latency percentiles, so ZAP is measured
 // apples-to-apples with the HTTP number.
 //
-//	go run ./zapload -addr 127.0.0.1:8391 -c 100 -d 8s
+// Two scenarios, matching the server's -scenario flag:
+//
+//   - hello: GET /health, trivial "ok" — transport/framing tax.
+//
+//   - rpc:   POST /rpc carrying the native ZAP-typed eth-call body from the
+//     shared record package — the JSON-skip end-to-end number.
+//
+//     go run ./zapload -addr 127.0.0.1:8391 -c 125 -d 6s -scenario rpc
 package main
 
 import (
@@ -15,16 +22,26 @@ import (
 	"sync/atomic"
 	"time"
 
+	rec "github.com/hanzoai/benchmarks/framework/zip/record"
 	"github.com/valyala/fasthttp"
 	zaphttp "github.com/zap-proto/http"
 )
 
 func main() {
 	addr := flag.String("addr", "127.0.0.1:8391", "zap server host:port")
-	path := flag.String("path", "/health", "request path")
+	path := flag.String("path", "/health", "request path (hello scenario)")
+	scenario := flag.String("scenario", "hello", "hello | rpc")
 	conns := flag.Int("c", 100, "concurrency (goroutines)")
 	dur := flag.Duration("d", 8*time.Second, "duration")
 	flag.Parse()
+
+	// Build the ZAP-typed request body once (identical bytes every worker sends)
+	// from the shared record package — the exact record the JSON side carries.
+	rpcBody := rec.ZapEncodeReq(rec.SampleID, rec.SampleBlock, rec.SampleMethod, rec.SampleAccount[:])
+	reqPath := *path
+	if *scenario == "rpc" {
+		reqPath = "/rpc"
+	}
 
 	var ops, errs int64
 	lat := make([][]time.Duration, *conns)
@@ -46,9 +63,15 @@ func main() {
 			resp := fasthttp.AcquireResponse()
 			defer fasthttp.ReleaseRequest(req)
 			defer fasthttp.ReleaseResponse(resp)
-			req.Header.SetMethod(fasthttp.MethodGet)
-			req.SetRequestURI(*path)
+			req.SetRequestURI(reqPath)
 			req.Header.SetHost(*addr)
+			if *scenario == "rpc" {
+				req.Header.SetMethod(fasthttp.MethodPost)
+				req.Header.SetContentType("application/zap")
+				req.SetBody(rpcBody)
+			} else {
+				req.Header.SetMethod(fasthttp.MethodGet)
+			}
 			var s []time.Duration
 			for time.Now().Before(deadline) {
 				t0 := time.Now()
@@ -81,7 +104,7 @@ func main() {
 		}
 		return all[i]
 	}
-	fmt.Printf("ZAP  addr=%s  c=%d  d=%s\n", *addr, *conns, elapsed.Round(time.Millisecond))
+	fmt.Printf("ZAP  addr=%s  scenario=%s  path=%s  c=%d  d=%s\n", *addr, *scenario, reqPath, *conns, elapsed.Round(time.Millisecond))
 	fmt.Printf("  Reqs/sec  %.0f\n", float64(ops)/elapsed.Seconds())
 	fmt.Printf("  Requests  %d  (errors %d)\n", ops, errs)
 	if len(all) > 0 {

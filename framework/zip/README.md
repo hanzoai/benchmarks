@@ -75,6 +75,84 @@ blob). ZAP's win is **CPU** (zero-alloc, no open-ended HTTP-header tokenizing), 
 On body-heavy responses ZAP ties or slightly trails HTTP because the encoder copies the
 body into the frame tail (a `writev`-style split body is the follow-up there).
 
+## ZAP vs HTTP+JSON — the JSON-skip axis (`serde_test.go` + `/rpc`)
+
+A **separate, orthogonal** axis from the framing-CPU test above. That one carries
+the HTTP body **opaque** and never touches JSON, so it cannot show serialization
+cost. This one does: **native ZAP reads typed binary fields zero-copy (no scan, no
+reflect, no per-field alloc); HTTP+JSON must (de)serialize text every call.** Same
+logical record, same compute, same field set both sides — only the wire differs.
+
+**Record** (an eth-style call, plays to ZAP's binary fields):
+`Req{ method string, account [20]byte, block u64, id u64 }` →
+`Resp{ id u64, balance u64, nonce u64, blockHash [32]byte }`. Server decodes all 4
+request fields, echoes `id`, folds every field into `balance` (so no field read is
+dead-code-eliminated on either side), emits all 4 response fields. JSON is held to
+its **fastest** libs (goccy, sonic), account/hash travel as `0x`-hex strings (real
+eth-RPC), and JSON is **not** charged for hex→binary decoding (most charitable to JSON).
+
+### Microbench — `go test -bench … -benchmem -count=3` (median of 3, GB10 arm64, go1.26)
+
+**Decode only** — the zero-copy win, starkest:
+| codec | ns/op | B/op | allocs/op | vs ZAP |
+|---|--:|--:|--:|--:|
+| JSON stdlib | 2334 | 672 | 13 | 174× |
+| JSON goccy | 473 | 352 | 4 | 35× |
+| JSON sonic | 845 | 720 | 8 | 63× |
+| **ZAP** | **13.4** | **0** | **0** | **1×** |
+
+**Encode only** — the honest wash (ZAP allocs *more* here):
+| codec | ns/op | B/op | allocs/op |
+|---|--:|--:|--:|
+| JSON stdlib | 650 | 352 | 4 |
+| JSON goccy | 424 | 352 | 4 |
+| JSON sonic | 668 | 400 | 6 |
+| **ZAP** | **629** | **696** | **12** |
+
+**Full round trip** (encode req + decode req + encode resp + decode resp) and
+**server handler** (decode req + compute + encode resp — the per-request cost):
+| codec | round-trip ns | allocs | · | handler ns | allocs |
+|---|--:|--:|---|--:|--:|
+| JSON stdlib | 3107 | 17 | · | 1444 | 9 |
+| JSON goccy | 904 | 8 | · | 431 | 4 |
+| JSON sonic | 1509 | 14 | · | 736 | 7 |
+| **ZAP** | **648** | 12 | · | **271** | 5 |
+
+**On-wire bytes:** request JSON 103 / ZAP 82 · response JSON 130 / ZAP 80 · total
+**JSON 233 / ZAP 162** (ZAP smaller here — JSON's hex strings + decimal ints are verbose).
+
+### End-to-end `/rpc` — `-c 125 -d 6s`, loopback, keep-alive, default GOGC/GOMAXPROCS (median of 3)
+| transport / codec | req/sec | vs ZAP | driver |
+|---|--:|--:|---|
+| HTTP+JSON stdlib | 406,799 | 0.76× | bombardier |
+| HTTP+JSON goccy | 451,909 | 0.84× | bombardier |
+| HTTP+JSON sonic | 483,065 | 0.90× | bombardier |
+| **ZAP-typed** | **534,945** | **1.00×** | `./zapload -scenario rpc` |
+
+### Honest caveats a reviewer should know
+- **The win is decode, not encode.** ZAP decode is ~13 ns / 0 alloc (168× stdlib,
+  35× goccy). ZAP *encode* is a wash on time and allocates **more** (12 vs 4): v1.3.0's
+  `SetText`/`SetBytes` defer the tail via a copy + offsets slice and `StartObject`
+  heap-escapes the ObjectBuilder. luxfi/zap's inline `SetBytesFixed`/`ReserveFixed` +
+  a pooled builder would close that; the published `zap-proto/go v1.3.0` API doesn't
+  expose them, so this bench reports the tag-reproducible number.
+- **End-to-end ~1.1× over the *fastest* JSON (sonic), ~1.3× over stdlib.** Smaller than
+  the 174× decode gap because at 500k rps the socket/scheduler dominates; serialization
+  is a shrinking slice of the per-request cost.
+- ZAP legitimately does **not** scan the payload bytes JSON must scan (its zero-copy
+  advantage); the fold consumes `len`+first-byte of each field to prove every field is
+  decoded on both sides without forcing ZAP to do work its design avoids.
+
+### Run
+```
+go test -bench 'Decode|Encode|Serde|Handler' -benchmem -count=3 -run '^$'   # microbench
+go test -run 'WireSizes|RoundTripEquivalence' -v                            # sizes + correctness
+# end-to-end: server + loaders (bombardier for HTTP, ./zapload for ZAP)
+go build -o /tmp/zipbench . && go build -o /tmp/zapload ./zapload
+/tmp/zipbench -fw zip -addr :8091 -scenario rpc -transport http -json goccy   # bombardier -m POST …
+/tmp/zipbench -fw zip -addr :8091 -scenario rpc -transport zap                # /tmp/zapload -scenario rpc
+```
+
 ## System tuning (`../../tune.sh`) — 2.67× over the wire
 Run `sudo ../../tune.sh <nic>` on the server AND every loader. It sets: performance
 governor, NIC ring→max, **RPS+RFS+XPS** (spread RX/TX softirq across all cores — the
