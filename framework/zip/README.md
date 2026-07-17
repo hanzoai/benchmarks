@@ -24,8 +24,26 @@ framework layer is maximally visible; on any handler doing real work it is <1%. 
 at parity with the fasthttp it wraps. (Localhost + `hey`'s client overhead cap the
 *absolute* ceiling — the zip/fasthttp **ratio** is the signal, not the raw number.)
 
+## Distributed — server on spark, load from evo (32c x86) over the wire
+`./distributed.sh` runs the server here and drives bombardier from evo. Same handler.
+
+| loader → target | req/sec (fasthttp / zip) | latency | note |
+|---|--:|--:|---|
+| loopback c500 (spark) | 365k / 348k | <1 ms | server + load share 20 cores |
+| evo → spark c1000 | 194k / 194k | 5.1 ms | **link-bound** |
+| evo → spark c4000 | 167k | 24 ms | congestion collapse |
+| evo → spark c8000 | 154k | 52 ms | worse — link saturated |
+
+## The ceiling is I/O, not the box
+More connections make it *slower* (c8000 < c4000 < c1000) while latency explodes —
+textbook link saturation on the `eno1` 192.168.77.0/24 (1GbE-class) path. spark's 20
+cores sit mostly idle at 194k. **The box is not maxed; the network link is.** fasthttp
+does ~150–250k req/sec *per core* on tiny requests, so spark's serving ceiling is
+comfortably seven figures — you just can't *deliver* that many requests over 1GbE. To
+see 1M+: a 10GbE/RDMA link, multiple NICs, or the **ZAP binary transport** — tighter
+framing than HTTP ⇒ more req/sec per byte on the same wire, and it's what the cloud
+stack already speaks natively.
+
 ## Next
-- **ZAP transport** throughput (needs a ZAP load client — `hey` speaks HTTP only).
-- **HTTPS** (`https://` transport) vs HTTP.
-- Drive **cloud's real `/health`** and compare — isolates cloud's middleware stack tax
-  from the bare framework.
+- **ZAP transport** throughput (needs a ZAP load client — bombardier/hey speak HTTP).
+- **HTTPS** vs HTTP; drive **cloud's real `/health`** (cloud middleware tax vs bare zip).
