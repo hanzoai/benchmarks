@@ -63,12 +63,25 @@ a saturated link); the real win is gated on a **zero-alloc codec** (bytebufferpo
 frames, no header string-copies) — the optimization target in `zap-proto/http`, and
 where ZAP overtakes HTTP.
 
-## System tuning (spark)
-- `enP7s7` (2.5GbE) has ONE hardware RX queue and the driver refuses `ethtool -L`
-  ("Operation not supported") → enabled **RPS** (`rps_cpus=fffff`) to spread RX softirq
-  across all 20 cores in software.
-- Both loaders wired: `enP7s7` 2.5GbE (evo) + `enx…` 1GbE (dbc) — dual-NIC ingress is
-  the path to higher aggregate, each NIC its own RX path.
+## System tuning (`../../tune.sh`) — 2.67× over the wire
+Run `sudo ../../tune.sh <nic>` on the server AND every loader. It sets: performance
+governor, NIC ring→max, **RPS+RFS+XPS** (spread RX/TX softirq across all cores — the
+2.5GbE NIC has 1 hardware queue and the driver refuses `ethtool -L`), `netdev_max_backlog`
+1k→300k, `somaxconn`→65535, 256 MiB socket buffers, wide ephemeral ports, `tw_reuse`.
+
+evo→spark, same handler, 2.5GbE:
+
+| concurrency | untuned | tuned |
+|---|--:|--:|
+| c1000 | 194k | **518k** |
+| c2000 | collapsed | **518k** |
+| c4000 | 154k | **474k** (peak 696k) |
+
+**2.67×.** RPS killed the single-core-softirq cap; deep backlog + buffers stopped drops.
+Tuned network (518k) now *beats* loopback (365-400k) — over the wire spark's 20 cores
+serve full-time instead of sharing with the load gen, so 518k ≈ spark's real ceiling.
+Next lever to seven figures: **dual loader** (evo 2.5G on `enP7s7` + dbc 1G on `enx…`,
+each its own NIC/RX path) for aggregate ingress.
 
 ## Next
 - **Zero-alloc ZAP codec** in `zap-proto/http`, then re-bench (should pass HTTP).
