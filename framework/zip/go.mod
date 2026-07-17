@@ -2,13 +2,13 @@ module github.com/hanzoai/benchmarks/framework/zip
 
 go 1.26.4
 
-// Use the working copy of zip so the bench tracks local changes.
-replace github.com/zap-proto/zip => /home/z/work/zap/zip
-
+// Published deps only — the zero-alloc codec is now merged and tagged
+// (zap-proto/http v0.2.1), so the bench is reproducible off tags without any
+// local working-copy replace.
 require (
 	github.com/valyala/fasthttp v1.72.0
-	github.com/zap-proto/http v0.2.0
-	github.com/zap-proto/zip v0.0.0-00010101000000-000000000000
+	github.com/zap-proto/http v0.2.1
+	github.com/zap-proto/zip v1.8.3
 )
 
 require (
