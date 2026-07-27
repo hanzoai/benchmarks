@@ -1,6 +1,6 @@
 module github.com/hanzoai/benchmarks/framework/zip
 
-go 1.26.4
+go 1.26.5
 
 // Published deps only — the zero-alloc codec is now merged and tagged
 // (zap-proto/http v0.2.1), so the bench is reproducible off tags without any
