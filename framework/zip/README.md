@@ -52,10 +52,13 @@ it). Same `/health` handler, warm keep-alive, default GOGC, default GOMAXPROCS.
 **FIXED — the ZAP codec is now zero-alloc and ZAP beats HTTP.** The alloc/GC bound
 below is gone: `zap-proto/http` hand-rolls the frame encode/decode straight into
 pooled buffers (no `zap.Builder`, no `map[string][]string`, no `json.Marshal`; headers
-stream into the frame tail as compact sorted-key JSON, byte-identical to the old wire —
-golden tests still pass), and the server holds one `RequestCtx` per connection instead
+are length-prefixed name/value pairs in the frame tail, which is what makes decode
+0 allocs/op), and the server holds one `RequestCtx` per connection instead
 of one per request. Codec allocs/op: MarshalRequest 11→0, MarshalResponse 19→0,
 UnmarshalResponse 11→0. Full round trip: **0 allocs/req at default GOGC**.
+
+Header framing is a wire break: `zap-proto/http` v0.3.x peers cannot talk to v0.2.x,
+so server and `zapload` must be built from the same tag (they are — one module).
 
 Loopback (spark, c125, both server+load share 20 cores):
 
