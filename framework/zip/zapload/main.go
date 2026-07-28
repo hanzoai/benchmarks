@@ -55,7 +55,7 @@ func main() {
 			defer wg.Done()
 			// Per-worker Transport: its own hot conn, no shared pool mutex (the
 			// shared pool serializes N goroutines and dominates the tail).
-			t := zaphttp.NewTransport(*addr)
+			t := zaphttp.Dial("tcp", *addr)
 			t.SetMaxIdleConns(2)
 			t.SetReadTimeout(10 * time.Second)
 			defer t.CloseIdleConnections()
