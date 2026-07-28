@@ -1,0 +1,18 @@
+Processing configuration file '/tmp/poc_ds/config.xml'.
+Logging warning to /tmp/poc_ds/s.log
+### datastore over SeaweedFS (S-Chain storage, optimized binary) ###
+  agg     0.025s
+  filter  0.007s
+  topk    0.030s
+  scan    0.014s
+  RSS: 68MB  | parts on SeaweedFS (S-Chain), local dir: 24K
+/home/z/poc-bench.sh: line 21: 1002391 Killed                  $DS server --config-file=/tmp/poc_ds/config.xml
+Processing configuration file '/tmp/ch_local/c.xml'.
+Logging error to /tmp/ch_local/s.log
+### vanilla ClickHouse (local disk, official binary) ###
+  agg     0.009s
+  filter  0.004s
+  topk    0.020s
+  scan    0.003s
+  RSS: 130MB  | local disk: 99M
+BENCH_DONE

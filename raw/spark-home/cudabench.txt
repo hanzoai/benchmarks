@@ -1,0 +1,102 @@
+======================================================================
+CUDA BENCH RUN Mon Jun  8 07:02:39 AM UTC 2026   host=spark
+hanzo bin: 156765272 Jun 2 11:25
+llama-bench: /home/z/llama.cpp/build/bin/llama-bench
+hanzo 0.6.1
+----------------------------------------------------------------------
+--- GPU compute apps after quiesce ---
+pid, used_gpu_memory [MiB], process_name
+
+### LLAMA: Qwen3-8B-Q8_0  (07:02:43Z)
+| model                          |       size |     params | backend    | ngl |  fa |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --: | --------------: | -------------------: |
+| qwen3 8B Q8_0                  |   8.11 GiB |     8.19 B | CUDA       |  99 |   1 |           pp512 |      2851.17 ± 36.22 |
+| qwen3 8B Q8_0                  |   8.11 GiB |     8.19 B | CUDA       |  99 |   1 |           tg128 |         26.73 ± 0.01 |
+
+build: 31e8249 (1)
+
+### LLAMA: Qwen3-4B-Q8_0  (07:03:04Z)
+| model                          |       size |     params | backend    | ngl |  fa |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --: | --------------: | -------------------: |
+| qwen3 4B Q8_0                  |   3.98 GiB |     4.02 B | CUDA       |  99 |   1 |           pp512 |     4919.69 ± 164.93 |
+| qwen3 4B Q8_0                  |   3.98 GiB |     4.02 B | CUDA       |  99 |   1 |           tg128 |         49.81 ± 0.02 |
+
+build: 31e8249 (1)
+
+### LLAMA: Qwen3-30B-A3B-Q4KM  (07:03:14Z)
+| model                          |       size |     params | backend    | ngl |  fa |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --: | --------------: | -------------------: |
+| qwen3moe 30B.A3B Q4_K - Medium |  17.28 GiB |    30.53 B | CUDA       |  99 |   1 |           pp512 |      2766.71 ± 24.08 |
+| qwen3moe 30B.A3B Q4_K - Medium |  17.28 GiB |    30.53 B | CUDA       |  99 |   1 |           tg128 |         91.31 ± 0.41 |
+
+build: 31e8249 (1)
+
+### OURS: Qwen3-8B-Q8_0  (07:03:29Z)  extra: 
+Time to first token: 2.16s
+Prompt: 360 tokens, 169.97 T/s
+Decode: 62 tokens, 25.29 T/s
+Time to first token: 2.11s
+Prompt: 360 tokens, 174.42 T/s
+Decode: 62 tokens, 25.14 T/s
+Time to first token: 2.10s
+Prompt: 360 tokens, 175.10 T/s
+Decode: 62 tokens, 25.31 T/s
+>>> OURS Qwen3-8B-Q8_0 BEST  prefill=175.10 T/s  decode=25.31 T/s
+
+### OURS: Qwen3-4B-Q8_0  (07:04:38Z)  extra: 
+Time to first token: 2.23s
+Prompt: 360 tokens, 163.12 T/s
+Decode: 111 tokens, 43.26 T/s
+Time to first token: 2.02s
+Prompt: 360 tokens, 180.36 T/s
+Decode: 111 tokens, 43.33 T/s
+Time to first token: 2.31s
+Prompt: 360 tokens, 157.76 T/s
+Decode: 111 tokens, 43.27 T/s
+>>> OURS Qwen3-4B-Q8_0 BEST  prefill=180.36 T/s  decode=43.33 T/s
+
+### OURS: Qwen3-30B-A3B-Q4KM  (07:05:36Z)  extra: 
+Time to first token: 3.42s
+Prompt: 360 tokens, 105.88 T/s
+Decode: 61 tokens, 57.17 T/s
+Time to first token: 3.44s
+Prompt: 360 tokens, 105.45 T/s
+Decode: 61 tokens, 57.38 T/s
+Time to first token: 3.12s
+Prompt: 360 tokens, 116.32 T/s
+Decode: 61 tokens, 57.55 T/s
+>>> OURS Qwen3-30B-A3B-Q4KM BEST  prefill=116.32 T/s  decode=57.55 T/s
+
+=== run complete Mon Jun  8 07:06:57 AM UTC 2026 ===
+
+======================================================================
+SPEC-DECODE INVESTIGATION  Mon Jun  8 07:07:59 AM UTC 2026
+----------------------------------------------------------------------
+Models present (all GGUF):
+  Qwen3-8B-Q8_0.gguf            8.11 GiB  arch=qwen3      vocab=151936 eos=151645
+  Qwen3-4B-Q8_0.gguf            3.98 GiB  arch=qwen3      vocab=151936 eos=151645
+  Qwen3-30B-A3B-Q4_K_M.gguf     17.28 GiB arch=qwen3moe   vocab=151936 (128 experts)
+  zen-nano-0.6b-Q4_K_M.gguf     ~0.4 GiB  arch=qwen3      vocab=151936 eos=151645  <- valid DRAFT (tokenizer matches 8B)
+  zen-5-nano-0.8B/ (safetensors) arch=qwen3 (assistant candidate for MTP)
+
+CLI spec-decode levers in this binary (hanzo 0.6.1): --mtp-model, --mtp-n-predict ONLY.
+  (No --draft-model / --gamma; classic draft+verify SpeculativeLoader is Rust-SDK-only via TextSpeculativeBuilder.)
+
+EMPIRICAL TEST: hanzo run --format gguf -m Qwen3-4B-Q8_0 --mtp-model zen-5-nano-0.8B --mtp-n-predict 4
+  RESULT: "Error: This pipeline does not support speculative decoding attachment."
+
+ROOT CAUSE (source): Pipeline trait default attach_speculative() bails with that exact message
+  (hanzo-engine/src/pipeline/mod.rs:450-454). Only the NORMAL (safetensors) pipeline overrides it
+  to accept SpeculativeConfig::Mtp; the GGUF pipeline does NOT override it. Confirmed in current HEAD too.
+  => GGUF models have NO speculative decoding path in this engine (neither MTP nor draft+gamma).
+  => Our spec-decode cannot be benchmarked vs llama for these GGUF models. The draft+target pair exists
+     and is tokenizer-compatible, but the CLI/GGUF-pipeline plumbing to run it does not.
+
+----------------------------------------------------------------------
+LLAMA SPEC-DECODE (llama-speculative, CUDA, /home/z/src/hanzo/llama.cpp build f008051)
+  8B target + zen-nano-0.6b draft : REJECTED "draft model special tokens must match target"
+     (vocab matches 151936, but special-token IDs differ: official Qwen3 vs zen finetune)
+  8B target + Qwen3-4B draft (special tokens match, cache size 26):
+     --draft-max 4 : accept 71/100 (71%) BUT decode = 6.97 t/s  (vanilla 8B = 26.73 t/s) -> 4B draft far too expensive, spec LOSES
+  Conclusion: no tiny (~0.6B) draft with matching special tokens exists for the official Qwen3-8B here,
+  so spec-decode cannot be shown to win on this box (the only 0.6B Qwen3 GGUF is a finetune w/ mismatched specials).

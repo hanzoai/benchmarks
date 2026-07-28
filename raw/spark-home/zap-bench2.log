@@ -1,0 +1,53 @@
++ cd /home/z/zap-cpp-core/c++
++ ZB=src/benchmark
++ ZAPD=build/src/zap
++ export CXX=clang++-21
++ CXX=clang++-21
++ FLAGS='-std=gnu++23 -stdlib=libc++ -O2 -DNDEBUG -fno-char8_t -w -pthread'
++ INC='-Isrc -Ibuild/src -Isrc/benchmark'
++ for w in carsales catrank eval
++ PATH=build/src/zap:/home/z/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/z/go/bin
++ build/src/zap/zap compile -I src -oc++ --src-prefix=src/benchmark src/benchmark/carsales.zap
++ tail -1
++ protoc --cpp_out=src/benchmark --proto_path=src/benchmark src/benchmark/carsales.proto
++ tail -1
+[libprotobuf WARNING google/protobuf/compiler/parser.cc:646] No syntax specified for the proto file: carsales.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
++ for w in carsales catrank eval
++ PATH=build/src/zap:/home/z/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/z/go/bin
++ build/src/zap/zap compile -I src -oc++ --src-prefix=src/benchmark src/benchmark/catrank.zap
++ tail -1
++ protoc --cpp_out=src/benchmark --proto_path=src/benchmark src/benchmark/catrank.proto
++ tail -1
+[libprotobuf WARNING google/protobuf/compiler/parser.cc:646] No syntax specified for the proto file: catrank.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
++ for w in carsales catrank eval
++ PATH=build/src/zap:/home/z/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/z/go/bin
++ tail -1
++ build/src/zap/zap compile -I src -oc++ --src-prefix=src/benchmark src/benchmark/eval.zap
++ protoc --cpp_out=src/benchmark --proto_path=src/benchmark src/benchmark/eval.proto
++ tail -1
+[libprotobuf WARNING google/protobuf/compiler/parser.cc:646] No syntax specified for the proto file: eval.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
++ echo '=== compile + link the benchmark (zap + protobuf + null impls) ==='
+=== compile + link the benchmark (zap + protobuf + null impls) ===
++ SRC=src/benchmark/runner.c++
++ for w in carsales catrank eval
++ SRC='src/benchmark/runner.c++ src/benchmark/zap-carsales.c++ src/benchmark/protobuf-carsales.c++ src/benchmark/null-carsales.c++ src/benchmark/carsales.zap.c++ src/benchmark/carsales.pb.cc'
++ for w in carsales catrank eval
++ SRC='src/benchmark/runner.c++ src/benchmark/zap-carsales.c++ src/benchmark/protobuf-carsales.c++ src/benchmark/null-carsales.c++ src/benchmark/carsales.zap.c++ src/benchmark/carsales.pb.cc src/benchmark/zap-catrank.c++ src/benchmark/protobuf-catrank.c++ src/benchmark/null-catrank.c++ src/benchmark/catrank.zap.c++ src/benchmark/catrank.pb.cc'
++ for w in carsales catrank eval
++ SRC='src/benchmark/runner.c++ src/benchmark/zap-carsales.c++ src/benchmark/protobuf-carsales.c++ src/benchmark/null-carsales.c++ src/benchmark/carsales.zap.c++ src/benchmark/carsales.pb.cc src/benchmark/zap-catrank.c++ src/benchmark/protobuf-catrank.c++ src/benchmark/null-catrank.c++ src/benchmark/catrank.zap.c++ src/benchmark/catrank.pb.cc src/benchmark/zap-eval.c++ src/benchmark/protobuf-eval.c++ src/benchmark/null-eval.c++ src/benchmark/eval.zap.c++ src/benchmark/eval.pb.cc'
++ LIBS='build/src/zap/libzap.a build/src/zap/libkj.a -lprotobuf -lpthread'
++ clang++-21 -std=gnu++23 -stdlib=libc++ -O2 -DNDEBUG -fno-char8_t -w -pthread -Isrc -Ibuild/src -Isrc/benchmark src/benchmark/runner.c++ src/benchmark/zap-carsales.c++ src/benchmark/protobuf-carsales.c++ src/benchmark/null-carsales.c++ src/benchmark/carsales.zap.c++ src/benchmark/carsales.pb.cc src/benchmark/zap-catrank.c++ src/benchmark/protobuf-catrank.c++ src/benchmark/null-catrank.c++ src/benchmark/catrank.zap.c++ src/benchmark/catrank.pb.cc src/benchmark/zap-eval.c++ src/benchmark/protobuf-eval.c++ src/benchmark/null-eval.c++ src/benchmark/eval.zap.c++ src/benchmark/eval.pb.cc build/src/zap/libzap.a build/src/zap/libkj.a -lprotobuf -lpthread -o /tmp/zapbench
++ tail -8
+clang++-21: error: no such file or directory: 'src/benchmark/carsales.zap.c++'
+clang++-21: error: no such file or directory: 'src/benchmark/catrank.zap.c++'
+clang++-21: error: no such file or directory: 'src/benchmark/eval.zap.c++'
+clang++-21: error: no such file or directory: 'build/src/zap/libkj.a'
+++ '[' -x /tmp/zapbench ']'
+++ echo FAILED
++ echo '  bench binary: FAILED'
+  bench binary: FAILED
++ echo '=== RUN: zap vs protobuf, carsales (object reuse mode, count iterations) ==='
+=== RUN: zap vs protobuf, carsales (object reuse mode, count iterations) ===
++ '[' -x /tmp/zapbench ']'
++ echo '=== BENCH DONE ==='
+=== BENCH DONE ===

@@ -1,0 +1,54 @@
++ cd /home/z/zap-cpp-core/c++
++ echo '=== protoc + libprotobuf available? ==='
+=== protoc + libprotobuf available? ===
++ which protoc
+/usr/bin/protoc
++ protoc --version
+libprotoc 3.21.12
++ ZB=src/benchmark
++ ZAPTOOL=build/src/zap/zap
++ ZAPCPP=build/src/zap
++ echo '=== generate zap + proto code for the bench workloads ==='
+=== generate zap + proto code for the bench workloads ===
++ for w in carsales catrank eval
++ PATH=build/src/zap:/home/z/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/z/go/bin
++ build/src/zap/zap compile -oc++ --src-prefix=src/benchmark src/benchmark/carsales.zap
++ tail -1
+src/benchmark/carsales.zap:25:2-5: error: Not defined: Cxx
++ protoc --cpp_out=src/benchmark --proto_path=src/benchmark src/benchmark/carsales.proto
++ tail -1
+[libprotobuf WARNING google/protobuf/compiler/parser.cc:646] No syntax specified for the proto file: carsales.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
++ for w in carsales catrank eval
++ PATH=build/src/zap:/home/z/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/z/go/bin
++ build/src/zap/zap compile -oc++ --src-prefix=src/benchmark src/benchmark/catrank.zap
++ tail -1
+src/benchmark/catrank.zap:25:2-5: error: Not defined: Cxx
++ protoc --cpp_out=src/benchmark --proto_path=src/benchmark src/benchmark/catrank.proto
++ tail -1
+[libprotobuf WARNING google/protobuf/compiler/parser.cc:646] No syntax specified for the proto file: catrank.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
++ for w in carsales catrank eval
++ PATH=build/src/zap:/home/z/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/z/go/bin
++ build/src/zap/zap compile -oc++ --src-prefix=src/benchmark src/benchmark/eval.zap
++ tail -1
+src/benchmark/eval.zap:25:2-5: error: Not defined: Cxx
++ protoc --cpp_out=src/benchmark --proto_path=src/benchmark src/benchmark/eval.proto
++ tail -1
+[libprotobuf WARNING google/protobuf/compiler/parser.cc:646] No syntax specified for the proto file: eval.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
++ sed 's|.*/||'
++ tr '\n' ' '
++ ls 'src/benchmark/*.zap.h' src/benchmark/carsales.pb.h src/benchmark/catrank.pb.h src/benchmark/eval.pb.h
+carsales.pb.h catrank.pb.h eval.pb.h + echo
+
++ echo '=== compile the benchmark runner (zap + protobuf + null) ==='
+=== compile the benchmark runner (zap + protobuf + null) ===
++ CXX=clang++-21
++ INC='-Isrc -Ibuild/src -Isrc/benchmark'
++ FLAGS='-std=gnu++23 -stdlib=libc++ -O2 -DNDEBUG -fno-char8_t -w'
++ clang++-21 -std=gnu++23 -stdlib=libc++ -O2 -DNDEBUG -fno-char8_t -w -Isrc -Ibuild/src -Isrc/benchmark -c src/benchmark/runner.c++ -o /tmp/runner.o
++ tail -5
+++ '[' -f /tmp/runner.o ']'
+++ echo yes
++ echo '  (runner.o built: yes)'
+  (runner.o built: yes)
++ echo '=== BENCH SETUP DONE ==='
+=== BENCH SETUP DONE ===

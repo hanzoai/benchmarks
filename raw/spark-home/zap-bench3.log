@@ -1,0 +1,44 @@
++ cd /home/z/zap-cpp-core/c++
++ ZB=src/benchmark
+++ pwd
++ ZAPD=/home/z/zap-cpp-core/c++/build/src/zap
++ export PATH=/home/z/zap-cpp-core/c++/build/src/zap:/home/z/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/z/go/bin
++ PATH=/home/z/zap-cpp-core/c++/build/src/zap:/home/z/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/z/go/bin
++ export CXX=clang++-21
++ CXX=clang++-21
++ FLAGS='-std=gnu++23 -stdlib=libc++ -O2 -DNDEBUG -fno-char8_t -w -pthread'
++ INC='-Isrc -Ibuild/src -Isrc/benchmark'
++ for w in carsales catrank
++ /home/z/zap-cpp-core/c++/build/src/zap/zap compile -I src -oc++:src/benchmark --src-prefix=src src/benchmark/carsales.zap
++ tail -2
++ protoc --cpp_out=src/benchmark --proto_path=src/benchmark src/benchmark/carsales.proto
++ tail -1
+[libprotobuf WARNING google/protobuf/compiler/parser.cc:646] No syntax specified for the proto file: carsales.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
++ for w in carsales catrank
++ tail -2
++ /home/z/zap-cpp-core/c++/build/src/zap/zap compile -I src -oc++:src/benchmark --src-prefix=src src/benchmark/catrank.zap
++ protoc --cpp_out=src/benchmark --proto_path=src/benchmark src/benchmark/catrank.proto
++ tail -1
+[libprotobuf WARNING google/protobuf/compiler/parser.cc:646] No syntax specified for the proto file: catrank.proto. Please use 'syntax = "proto2";' or 'syntax = "proto3";' to specify a syntax version. (Defaulted to proto2 syntax.)
++ ls src/benchmark/carsales.zap.c++ src/benchmark/carsales.pb.cc
++ tr '\n' ' '
++ sed 's|.*/||'
+carsales.zap.c++': No such file or directory carsales.pb.cc + echo
+
++ SRC=src/benchmark/runner.c++
++ for w in carsales catrank
++ SRC='src/benchmark/runner.c++ src/benchmark/zap-carsales.c++ src/benchmark/protobuf-carsales.c++ src/benchmark/null-carsales.c++ src/benchmark/carsales.zap.c++ src/benchmark/carsales.pb.cc'
++ for w in carsales catrank
++ SRC='src/benchmark/runner.c++ src/benchmark/zap-carsales.c++ src/benchmark/protobuf-carsales.c++ src/benchmark/null-carsales.c++ src/benchmark/carsales.zap.c++ src/benchmark/carsales.pb.cc src/benchmark/zap-catrank.c++ src/benchmark/protobuf-catrank.c++ src/benchmark/null-catrank.c++ src/benchmark/catrank.zap.c++ src/benchmark/catrank.pb.cc'
++ LIBS='build/src/zap/libzap.a build/src/kj/libkj-async.a build/src/kj/libkj.a -lprotobuf -lsnappy -lpthread'
++ clang++-21 -std=gnu++23 -stdlib=libc++ -O2 -DNDEBUG -fno-char8_t -w -pthread -Isrc -Ibuild/src -Isrc/benchmark src/benchmark/runner.c++ src/benchmark/zap-carsales.c++ src/benchmark/protobuf-carsales.c++ src/benchmark/null-carsales.c++ src/benchmark/carsales.zap.c++ src/benchmark/carsales.pb.cc src/benchmark/zap-catrank.c++ src/benchmark/protobuf-catrank.c++ src/benchmark/null-catrank.c++ src/benchmark/catrank.zap.c++ src/benchmark/catrank.pb.cc build/src/zap/libzap.a build/src/kj/libkj-async.a build/src/kj/libkj.a -lprotobuf -lsnappy -lpthread -o /tmp/zapbench
++ tail -6
+clang++-21: error: no such file or directory: 'src/benchmark/carsales.zap.c++'
+clang++-21: error: no such file or directory: 'src/benchmark/catrank.zap.c++'
+++ '[' -x /tmp/zapbench ']'
+++ echo FAILED
++ echo '  bench binary: FAILED'
+  bench binary: FAILED
++ '[' -x /tmp/zapbench ']'
++ echo '=== BENCH3 DONE ==='
+=== BENCH3 DONE ===

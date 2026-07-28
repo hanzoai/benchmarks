@@ -1,0 +1,8 @@
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 124609 MiB):
+  Device 0: NVIDIA GB10, compute capability 12.1, VMM: yes, VRAM: 124609 MiB
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+| qwen35moe 35B.A3B Q4_K - Medium |  20.81 GiB |    34.66 B | CUDA       |  99 |          pp1024 |      1956.86 ± 32.65 |
+| qwen35moe 35B.A3B Q4_K - Medium |  20.81 GiB |    34.66 B | CUDA       |  99 |           tg128 |         54.35 ± 0.56 |
+
+build: 31e8249 (1)

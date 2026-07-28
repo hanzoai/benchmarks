@@ -1,0 +1,7 @@
+[2m2026-06-02T03:44:47.147718Z[0m [32m INFO[0m [2mhanzo::commands::bench[0m[2m:[0m Loading model for benchmarking...
+
+thread 'main' (4171698) panicked at hanzo-engine/src/gguf/content.rs:151:22:
+called `Result::unwrap()` on an `Err` value: Unknown GGUF architecture `qwen35moe`
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+/home/z/run-q36-bench.sh: line 3: 4171698 Aborted                 (core dumped) ~/work/hanzo-evobuild/engine/target/release/hanzo bench --format gguf -m ~/work/qwen36 -f qwen3.6.gguf --prompt-len 64 --gen-len 64 --iterations 1
+BENCH_EXIT=134

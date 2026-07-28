@@ -1,0 +1,16 @@
+warning: hanzo-kernels@0.9.2: Builder { cuda_root: Some("/usr/local/cuda"), kernel_paths: ["src/affine.cu", "src/binary.cu", "src/cast.cu", "src/conv.cu", "src/fill.cu", "src/indexing.cu", "src/moe/moe_gguf.cu", "src/moe/moe_wmma.cu", "src/moe/moe_wmma_gguf.cu", "src/quantized.cu", "src/reduce.cu", "src/sort.cu", "src/ternary.cu", "src/unary.cu"], watch: [], include_paths: ["src/binary_op_macros.cuh", "src/compatibility.cuh", "src/cuda_utils.cuh", "src/moe/gguf.cuh", "src/moe/moe_utils.cuh"], compute_cap: Some(121), out_dir: "/home/z/work/hanzo-evobuild/engine/target/release/build/hanzo-kernels-136a9d078be7d5d5/out", extra_args: ["--expt-relaxed-constexpr", "-std=c++17", "-O3", "--use_fast_math"] }
+warning: hanzo-kernels@0.9.2: Builder { cuda_root: Some("/usr/local/cuda"), kernel_paths: ["src/moe/moe_gguf.cu", "src/moe/moe_wmma.cu", "src/moe/moe_wmma_gguf.cu"], watch: [], include_paths: ["src/binary_op_macros.cuh", "src/compatibility.cuh", "src/cuda_utils.cuh", "src/moe/gguf.cuh", "src/moe/moe_utils.cuh"], compute_cap: Some(121), out_dir: "/home/z/work/hanzo-evobuild/engine/target/release/build/hanzo-kernels-136a9d078be7d5d5/out", extra_args: ["--expt-relaxed-constexpr", "-std=c++17", "-O3", "--use_fast_math", "-Xcompiler", "-fPIC"] }
+warning: hanzo-quant@1.0.2: Using 10 threads for compilation
+warning: hanzo-quant@1.0.2: Compiling 34 of 34 kernels
+warning: hanzo-paged-attn@1.0.2: Using 10 threads for compilation
+warning: hanzo-paged-attn@1.0.2: Compiling 14 of 14 kernels
+warning: hanzo-flash-attn@0.9.2: fetching CUTLASS 7d49e6c7e2f8896c47f586706e67e1fb215529dc from https://github.com/NVIDIA/cutlass/archive/7d49e6c7e2f8896c47f586706e67e1fb215529dc.tar.gz
+   Compiling hanzo-engine v1.0.2 (/home/z/work/hanzo-evobuild/engine/hanzo-engine)
+warning: hanzo-engine@1.0.2: Using 10 threads for compilation
+warning: hanzo-engine@1.0.2: All kernels up-to-date, skipping compilation
+   Compiling hanzo-server-core v1.0.2 (/home/z/work/hanzo-evobuild/engine/hanzo-server-core)
+   Compiling hanzo v1.0.2 (/home/z/work/hanzo-evobuild/engine/hanzo)
+   Compiling hanzo-cli v1.0.2 (/home/z/work/hanzo-evobuild/engine/hanzo-cli)
+    Finished `release` profile [optimized] target(s) in 6m 14s
+│ Decode (64 tokens @ d4) ┆ 56.7 ± 0.6  ┆ 17.63 ms/T       │
+FA_REBENCH_DONE

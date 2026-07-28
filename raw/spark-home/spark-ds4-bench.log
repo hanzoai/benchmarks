@@ -1,0 +1,18 @@
+ds4-bench: context buffers 753.89 MiB (ctx=32897, backend=cuda, prefill_chunk=2048, raw_kv_rows=2304, compressed_kv_rows=8226)
+ds4: CUDA backend initialized on NVIDIA GB10 (sm_121)
+ds4: CUDA host registration skipped: operation not supported
+ds4: CUDA loading model tensors into device cache
+ds4: CUDA loading model tensors 16.02 GiB cached
+ds4: CUDA loading model tensors 32.06 GiB cached
+ds4: CUDA loading model tensors 48.02 GiB cached
+ds4: CUDA loading model tensors 52.38 GiB cached
+ds4: CUDA loading model tensors 57.45 GiB cached
+ds4: CUDA loading model tensors 59.59 GiB cached
+ds4: CUDA loading model tensors 59.84 GiB cached
+ds4: CUDA loading model tensors 60.15 GiB cached
+ds4: CUDA loading model tensors 60.24 GiB cached
+ds4: CUDA loading model tensors 60.31 GiB cached
+ds4: CUDA loading model tensors 60.43 GiB cached
+ds4: CUDA loading model tensors 60.56 GiB cached
+ds4: CUDA loading model tensors 60.68 GiB cached
+ds4: CUDA loading model tensors 60.74 GiB cached

@@ -1,0 +1,4 @@
+[2m2026-07-09T16:30:27.690861Z[0m [32m INFO[0m [2mhanzo::commands::bench[0m[2m:[0m Loading model for benchmarking...
+[2m2026-07-09T16:30:28.563000Z[0m [32m INFO[0m [2mhanzo_quant::utils::log[0m[2m:[0m DType selected is BF16.
+[2m2026-07-09T16:30:28.563396Z[0m [32m INFO[0m [2mhanzo_engine::pipeline::loaders::auto_device_map[0m[2m:[0m Using automatic device mapping parameters: text[max_seq_len: 2048, max_batch_size: 1].
+Error: This model does not fit on the devices ["cuda[0] (avail: 94159MB)"], and exceeds total capacity by 9627MB. Auto device mapping params: text[max_seq_len: 2048, max_batch_size: 1]

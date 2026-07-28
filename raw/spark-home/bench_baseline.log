@@ -1,0 +1,36 @@
+=== GPU util pre-check ===
+4 %, [N/A]
+=== ComfyUI queue ===
+{"queue_running": [], "queue_pending": []}
+===== LLAMA.CPP fa=1 =====
+| model                          |       size |     params | backend    | ngl |  fa |            test |                  t/s |
+| qwen3 8B Q4_K - Medium         |   4.68 GiB |     8.19 B | CUDA       |  -1 |   1 |           pp512 |      1795.73 ± 42.74 |
+| qwen3 8B Q4_K - Medium         |   4.68 GiB |     8.19 B | CUDA       |  -1 |   1 |          pp1024 |     2381.74 ± 533.26 |
+| qwen3 8B Q4_K - Medium         |   4.68 GiB |     8.19 B | CUDA       |  -1 |   1 |          pp2048 |      2779.87 ± 78.73 |
+===== HANZO BASELINE bf16 (auto) =====
+[2m2026-07-11T09:34:36.122936Z[0m [32m INFO[0m [2mhanzo_quant::utils::log[0m[2m:[0m Model has 36 repeating layers.
+[2m2026-07-11T09:34:46.351267Z[0m [32m INFO[0m [2mhanzo_server_core::server[0m[2m:[0m Model loaded.
+[2m2026-07-11T09:34:46.484785Z[0m [32m INFO[0m [2mhanzo::commands::bench[0m[2m:[0m Model loaded.
+Model: /home/z/models
+│ Prefill (512 tokens)  ┆ 2391.2 ± 192.5 ┆ 215.60 ms (TTFT) │
+│ Prefill (1024 tokens) ┆ 2284.7 ± 239.4 ┆ 453.40 ms (TTFT) │
+│ Prefill (2048 tokens) ┆ 2342.1 ± 141.0 ┆ 877.60 ms (TTFT) │
+--- durable bf16 ---
+model=/home/z/models iterations=5
+Prefill (512 tokens): 2391.24 tok/s (+/-192.46), 215.600 ms
+Prefill (1024 tokens): 2284.74 tok/s (+/-239.43), 453.400 ms
+Prefill (2048 tokens): 2342.13 tok/s (+/-140.98), 877.600 ms
+===== HANZO BASELINE f16 =====
+[2m2026-07-11T09:34:56.003201Z[0m [32m INFO[0m [2mhanzo_quant::utils::log[0m[2m:[0m Model has 36 repeating layers.
+[2m2026-07-11T09:35:04.666643Z[0m [32m INFO[0m [2mhanzo_server_core::server[0m[2m:[0m Model loaded.
+[2m2026-07-11T09:35:04.793712Z[0m [32m INFO[0m [2mhanzo::commands::bench[0m[2m:[0m Model loaded.
+Model: /home/z/models
+│ Prefill (512 tokens)  ┆ 2444.4 ± 237.8 ┆ 211.80 ms (TTFT) │
+│ Prefill (1024 tokens) ┆ 2495.9 ± 70.3  ┆ 410.60 ms (TTFT) │
+│ Prefill (2048 tokens) ┆ 2563.7 ± 36.4  ┆ 799.00 ms (TTFT) │
+--- durable f16 ---
+model=/home/z/models iterations=5
+Prefill (512 tokens): 2444.44 tok/s (+/-237.80), 211.800 ms
+Prefill (1024 tokens): 2495.92 tok/s (+/-70.28), 410.600 ms
+Prefill (2048 tokens): 2563.73 tok/s (+/-36.37), 799.000 ms
+BASELINE_BENCH_DONE
