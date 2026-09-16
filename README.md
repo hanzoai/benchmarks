@@ -16,6 +16,18 @@ harness that stands the real StatefulSet up, plus `bench-agents/`
 `bench-inference/` `bench-serialize/` `bench-blockchain/`. Written up in
 **[LOAD.md](LOAD.md)** and [METHODOLOGY.md](METHODOLOGY.md).
 
+## Does this checkout work
+
+```bash
+make check                          # or: bash check.sh
+CLOUD_SRC=/path/to/cloud make check # including the four that build the binary
+```
+
+Twelve lanes, in the order that needs the least, so the first failure names the
+smallest missing piece. A lane whose data nobody has fetched is **skipped** and
+says which command fetches it — a green over four silent skips is the same green
+a broken suite prints, so it counts them separately.
+
 ## Run one
 
 ```bash

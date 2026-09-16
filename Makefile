@@ -2,10 +2,13 @@ GO      ?= go
 GOFLAGS ?= -mod=mod
 export GOPRIVATE = github.com/hanzoai
 
-.PHONY: all test bench scale k3s-up k3s-down help
+.PHONY: all check test bench scale k3s-up k3s-down help
 
 help: ## list targets
 	@grep -hE '^[a-z-]+:.*##' $(MAKEFILE_LIST) | sed -E 's/:.*## / — /' | sort
+
+check: ## does this checkout work — every lane, skipping what it cannot reach
+	@bash check.sh
 
 all: test bench ## property tests + throughput
 
