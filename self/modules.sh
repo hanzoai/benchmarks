@@ -14,7 +14,8 @@ set -uo pipefail
 # `cloud_src` finds it or says how to get it (../host.sh).
 HERE="$(cd "$(dirname "$0")" && pwd)"
 . "$HERE/../host.sh"
-cd "$(cloud_src)" || exit 1
+SRC="$(cloud_src)" || exit 1
+cd "$SRC"
 export GOWORK=off
 
 host
