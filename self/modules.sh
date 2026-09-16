@@ -58,7 +58,12 @@ except Exception: print("")' 2>/dev/null)
 case "$latest" in
   v0.0.0-*) say "this module, published as" "no release — $latest is a pseudo-version of main" ;;
   "")       say "this module, published as" "the proxy does not serve it" ;;
-  *)        upstream=$(git ls-remote "$(git remote get-url origin 2>/dev/null)" "refs/tags/$latest" 2>/dev/null | wc -l | tr -d ' ')
+  *)        # THE MODULE PATH IS THE REPOSITORY, and `origin` is not. A Go module
+            # path resolves to exactly one URL by construction, whereas origin is
+            # whatever this checkout was cloned from — in a worktree of the private
+            # tree it is hanzo-inc/cloud, so the tag was looked for in the wrong
+            # repository and a published release read back as ABSENT.
+            upstream=$(git ls-remote "https://${mod%%/*}/$(echo "$mod" | cut -d/ -f2-)" "refs/tags/$latest" 2>/dev/null | wc -l | tr -d ' ')
             [ "${upstream:-0}" -gt 0 ] \
               && say "this module, published as" "$latest" \
               || say "this module, published as" "$latest — SERVED BY THE PROXY, ABSENT FROM THE REPO" ;;
