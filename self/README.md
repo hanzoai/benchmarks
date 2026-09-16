@@ -17,7 +17,7 @@ Taken on an M-series laptop, 2026-09-10, median of four runs.
 |---|---|
 | private modules required | **0** |
 | modules fetchable with no credential | **127 of 127** (re-run 2026-09-16) |
-| this module, published as | **no release** — `go get` resolves it to a pseudo-version of main |
+| this module, published as | **v1.801.572** — the first semver release the repo has carried |
 | build from source | 13 s (9–18) · 6 s re-measured 2026-09-16, warmer cache |
 | binary | 80 MB |
 | boot to a healthy answer | **1.2 s** |
@@ -33,8 +33,10 @@ row that matters:
 | op-call plane | 200 |
 
 
-**Every dependency is public and the module itself is not consumable.** Those are
-different questions and this lane used to ask only the first. `hanzoai/cloud` is
+**Every dependency is public and now so is the module.** Those are different
+questions and this lane used to ask only the first. Asking the second is what
+turned up that there was no release at all — fixed by publishing v1.801.572, and
+the row below is the lane confirming it. `hanzoai/cloud` is
 public and carries 571 tags, none of them semver, so `go get github.com/hanzoai/cloud`
 resolves to `v0.0.0-<date>-<hash>` — whatever is on main at that moment — and
 there is no release anyone can pin. The proxy still serves 471 versions
