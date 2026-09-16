@@ -71,6 +71,7 @@ serves, and reaches one operation through every transport it opens.
 |---|---|
 | private modules required | **0** |
 | modules the binary needs, fetchable with no credential | **127 of 127** |
+| this module, published as | **no release** — `go get` resolves it to a pseudo-version of main |
 | build from source | 13 s |
 | binary | 80 MB |
 | boot to a healthy answer | **1.2 s** |
