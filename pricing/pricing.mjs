@@ -23,6 +23,8 @@
  *     $0.0504 per vCPU-hour, metered tools per call, LLM tokens per token.
  */
 
+import { host } from '../say.mjs'
+
 const RAIL = {
   vcpuSec: 0.00000772,
   gbSec: 0.00000386,
@@ -120,6 +122,7 @@ const marginalCall =
   seconds * CALL.gb * RAIL.gbSec +
   (CALL.egressKb / 1024 / 1024) * RAIL.egressGb
 
+host()
 console.log(`\n══ WHAT A CALL COSTS ══\n`)
 console.log(`  compute time      ${(seconds * 1000).toFixed(1)} ms  (sandbox ${CALL.sandboxMs} + embed ${CALL.embedMs} + memory ${CALL.memoryMs} + resume ${CALL.resumeMs})`)
 console.log(`  marginal cost     $${marginalCall.toFixed(8)} per call`)

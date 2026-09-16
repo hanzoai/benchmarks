@@ -17,7 +17,14 @@ host() {
     cores=$(nproc 2>/dev/null)
     os=$(. /etc/os-release 2>/dev/null && echo "$PRETTY_NAME")
   fi
-  printf 'host: %s · %s cores · %s · %s\n\n' "${cpu:-unknown}" "${cores:-?}" "$(uname -m)" "${os:-$(uname -s)}"
+  # THE LOAD IS PART OF THE HOST. The same lane on the same laptop read 601
+  # bytes per agent at load 3 and 594 at load 73 — a machine that is busy is not
+  # the machine the number claims to be from, and a reader cannot tell after the
+  # fact. One field, printed with the rest.
+  local load
+  load=$(uptime 2>/dev/null | sed 's/.*averages*: *//' | awk '{print $1}')
+  printf 'host: %s · %s cores · %s · %s · load %s\n\n' \
+    "${cpu:-unknown}" "${cores:-?}" "$(uname -m)" "${os:-$(uname -s)}" "${load:-?}"
 }
 
 # One row of a lane's table, and — when `BENCH_JSON` names a file — one entry in

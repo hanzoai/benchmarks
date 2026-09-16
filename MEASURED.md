@@ -16,7 +16,21 @@ and not comparable, including against itself next month. Every lane that
 measures time prints its host now, from `bench/host.sh`, and the tables below
 carry it.
 
-Timings are the median of the pass; memory is deterministic and has no range.
+Timings are the median of the pass; memory is deterministic and has no range
+**on a quiet machine**, which is a condition this line did not used to carry.
+
+On a host at load average 3, the goroutine lane reads 573.0 MB and 601 bytes per
+agent on every run — twelve for twelve, byte-identical, across three separately
+built binaries. On a second host at load 17 to 73 the same lane read 594, 595,
+596 and 599 bytes. Two things differ between those readings and this pass cannot
+separate them: the machines are not the same machine, and only one of them was
+busy. The cross-machine part is already known — an M1 Max and an M4 Max differ
+by about five bytes here — so the honest statement is that determinism has been
+observed under quiet conditions and variation of about 1% under load, cause
+unresolved.
+
+Take memory figures from an idle host, and say which one.
+
 This is the same pass the two papers cite, and they carry the ranges:
 `hanzoai/papers` `hanzo-dormant-agents` and `hanzo-multi-hop-retrieval`. One set
 of numbers, one run behind them — if you re-run and get different figures,
