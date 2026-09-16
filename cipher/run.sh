@@ -48,7 +48,11 @@ CGO_ENABLED=1 CGO_CFLAGS="$FLAGS_C" CGO_LDFLAGS="$FLAGS_L" go build -tags libsql
 # A value nothing else could have written, so a hit is this run's rather than a
 # coincidence in someone else's page.
 CANARY="canary-$(head -c 8 /dev/urandom | xxd -p)"
-hits() { LC_ALL=C grep -ral "$CANARY" "$1" 2>/dev/null | wc -l | tr -d ' '; }
+# GREP EXITS NON-ZERO WHEN IT MATCHES NOTHING, and `set -o pipefail` is on, so
+# the whole substitution failed and `set -e` took the lane down at rc=2 — before
+# the control assertion could say a word. Finding no canary is the ANSWER here,
+# not an error; it is what an encrypted store is supposed to look like.
+hits() { { LC_ALL=C grep -ral "$CANARY" "$1" 2>/dev/null || true; } | wc -l | tr -d ' '; }
 headers() { for f in "$1"/*.db; do head -c 15 "$f" | LC_ALL=C tr -c '[:print:]' '.'; echo; done | sort -u; }
 
 # Start it, write the canary, stop it, look. Prints one row whether it ran or
@@ -67,8 +71,16 @@ probe() {
   if [ "$up" != yes ]; then
     # The last line, not the first: the same refusal appears earlier as a warn
     # inside a JSON log record, where the quotes truncate it.
-    say "$label" "refuses — $(grep 'cek:' "$dir/log" | tail -1 | sed 's/.*cek: //' | cut -c1-72)"
-    PID=""; rm -rf "$dir"; return
+    # A ROW THAT SAYS "refuses" AND NOT WHY IS NOT A RESULT. The reason is
+    # matched on `cek:`, which is one build's wording; against a tree that
+    # refuses for another reason every row read "refuses — " with nothing after
+    # the dash, and the lane looked like it had measured something.
+    local why
+    why=$({ grep 'cek:' "$dir/log" 2>/dev/null || true; } | tail -1 | sed 's/.*cek: //' | cut -c1-72)
+    [ -n "$why" ] || why="reason not in the log — see $dir/log, kept"
+    say "$label" "refuses — $why"
+    [ -n "$why" ] && [ "${why#reason not}" != "$why" ] || rm -rf "$dir"
+    PID=""; return
   fi
   curl -s -o /dev/null -m 8 -X POST "http://127.0.0.1:$port/v1/base/collections/notes" \
     -H 'Content-Type: application/json' -d "{\"doc\":{\"body\":\"$CANARY\"}}"
@@ -89,7 +101,15 @@ echo "── The control: the path that says it does not encrypt ──"
 unset CLOUD_KMS_MASTER_KEY_REF
 export CLOUD_DEV_UNENCRYPTED=1
 probe "$CIPHER" "CLOUD_DEV_UNENCRYPTED=1" 18150
-CH=$(hits "${CONTROL_DIR:-/nonexistent}")
+# The control has to have RUN. probe leaves CONTROL_DIR unset when the server
+# refused to start, and a hits() over a directory that was never written is a
+# zero that means "nothing happened", which is the one answer this control may
+# not give quietly.
+if [ -z "${CONTROL_DIR:-}" ]; then
+  echo "the control never started, so nothing above is evidence" >&2
+  exit 1
+fi
+CH=$(hits "$CONTROL_DIR")
 rm -rf "${CONTROL_DIR:-}"
 [ "${CH:-0}" -eq 0 ] && {
   echo "the search found nothing on a store that is not encrypted; the zeros above are not evidence" >&2
