@@ -309,3 +309,22 @@ its leaderboard, in first place, on every board, and the page says so plainly �
 "Our own system is marked in white." That is the same position this suite is in,
 and it is why `METHOD.md` fixes splits and readers before a run rather than
 after.
+
+## Re-read 2026-09-18: nothing they publish has moved
+
+The sitemap is the same 98 URLs, none added, none withdrawn. Every figure this
+file cites was checked against the page it was read from — 37 of them across
+`/lab/memory`, `/lab/sandbox`, `/lab/inference` and `/pricing` — and all 37 are
+still there, unchanged.
+
+One looked like it had gone and had not. The Pro price is recorded here as
+"$20/month" and the page now renders it as `$20` beside `/mo` in separate
+elements, so an exact-string check misses it. The plan is unchanged: one per
+organization, $20 of credit included each month, metered past that, no per-seat
+fee. Worth writing down because the next re-read will hit the same edge, and
+"the competitor changed their price" is exactly the kind of thing that gets
+believed without being looked at.
+
+So the comparison baseline is stable, and every row in this suite that sets a
+number beside one of theirs is still setting it beside the number they publish
+today.
