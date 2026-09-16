@@ -20,8 +20,10 @@ import (
 	_ "embed"
 	"fmt"
 	"os"
+	"os/exec"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -57,7 +59,10 @@ func main() {
 	}
 
 	fmt.Printf("\n── Agent as goroutine · %s ──\n\n", runtime.Version())
-	fmt.Printf("  host: %s/%s, %d cores\n\n", runtime.GOOS, runtime.GOARCH, runtime.NumCPU())
+	// The load belongs here for the same reason the core count does: this lane
+	// read 601 bytes per agent on a host at load 3 and 594 on one at load 73, and
+	// a reader cannot tell the two apart from the number alone.
+	fmt.Printf("  host: %s/%s, %d cores, load %s\n\n", runtime.GOOS, runtime.GOARCH, runtime.NumCPU(), load1())
 
 	// ── 1. Spawn latency. One agent, started, doing nothing yet.
 	//
@@ -201,4 +206,22 @@ func fmtN(n int) string {
 		out += string(c)
 	}
 	return out
+}
+
+// load1 is the one-minute load average, or "?" where the OS will not say.
+func load1() string {
+	out, err := exec.Command("uptime").Output()
+	if err != nil {
+		return "?"
+	}
+	txt := string(out)
+	i := strings.LastIndex(txt, ":")
+	if i < 0 {
+		return "?"
+	}
+	f := strings.FieldsFunc(txt[i+1:], func(r rune) bool { return r == ',' || r == ' ' || r == '\n' })
+	if len(f) == 0 {
+		return "?"
+	}
+	return f[0]
 }

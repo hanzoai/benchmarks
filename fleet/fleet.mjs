@@ -16,6 +16,7 @@ import { execFileSync } from 'node:child_process'
 import { statSync, rmSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { say } from '../say.mjs'
+import { host } from '../say.mjs'
 
 const DIR = process.argv[2] ?? '/tmp/fleet-bench'
 const TENANTS = Number(process.env.TENANTS ?? 100_000)
@@ -55,6 +56,7 @@ const agent = (i) =>
 const bytes = () => statSync(db).size
 const mb = (n) => (n / 1024 / 1024).toFixed(1)
 
+host()
 console.log(`writing ${TOTAL.toLocaleString()} dormant agents (${TENANTS.toLocaleString()} tenants × ${PER_TENANT})`)
 console.log(`one agent record: ${agent(1).length} bytes of JSON\n`)
 

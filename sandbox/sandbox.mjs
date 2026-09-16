@@ -40,12 +40,14 @@ const row = (label, s, note) =>
     `  ${label.padEnd(30)} ${ms(s.p50).padStart(10)}  p95 ${ms(s.p95).padStart(10)}  ${note ?? ''}`
   )
 
+host()
 console.log(`\n── Sandbox cold start · ${RUNS} runs each ──\n`)
 
 // ── 1. A V8 context: a fresh global inside the isolate that is already running.
 // Cheap because it shares the heap — which is also why it is NOT what anyone
 // means by a sandbox, and why the row below exists.
 import vm from 'node:vm'
+import { host } from '../say.mjs'
 const isolate = []
 for (let i = 0; i < RUNS * 20; i++) {
   const t0 = performance.now()
