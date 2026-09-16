@@ -1,6 +1,6 @@
 /**
  * What the lane claims, checked: `make test` here, or
- * `node --test 'bench/market/test/*.test.mjs'` from the root.
+ * `node --test 'market/test/*.test.mjs'` from the root.
  *
  * Nothing here reaches the network, spends anything or needs a credential: the
  * dry platform answers the same seven operations from arithmetic, so the whole
@@ -17,7 +17,7 @@ import { readers } from '../grade.mjs'
 import * as local from '../local.mjs'
 import { advanceRun, records } from '../run.mjs'
 
-const fixture = () => loadFrom('bench/market/test/tight-desk.json')
+const fixture = () => loadFrom('market/test/tight-desk.json')
 const clone = (d) => JSON.parse(JSON.stringify(d))
 const dir = () => mkdtempSync(join(tmpdir(), 'market-'))
 const lines = (p) => existsSync(p) ? readFileSync(p, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []

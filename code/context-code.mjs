@@ -4,7 +4,7 @@
  * Each item is a completion point: the file's imports, the code above the
  * point, and k candidate snippets from other files of the same repository,
  * one of which is the snippet the next line needs. The ranking has the shape
- * of bench/brain/context.mjs — bounded generators, one linear scorer, every
+ * of brain/context.mjs — bounded generators, one linear scorer, every
  * contribution recorded — with typed links in place of facts:
  *
  *   dense    cosine between the last lines above the point and the candidate

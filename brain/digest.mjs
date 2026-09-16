@@ -30,7 +30,7 @@ import { readFileSync, existsSync } from 'node:fs'
 
 export const ENGINE = ['context.mjs', 'rank.mjs', 'score.mjs']
 
-/** The code lane's engine, relative to bench/brain/. */
+/** The code lane's engine, relative to brain/. */
 export const CODE_ENGINE = ['../code/context-code.mjs', 'metrics.mjs', 'llm.mjs']
 
 /** sha256 of each engine file, plus one digest over all of them in order. */

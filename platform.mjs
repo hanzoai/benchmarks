@@ -10,8 +10,12 @@
  * the transports harness, `-json`), so a rerun that changes a number changes this
  * file, and a lane that fails leaves its section out rather than a stale one in.
  *
- *   node bench/platform.mjs            # runs every lane, writes benchmarks-platform.json
- *   node bench/platform.mjs self transports # just those
+ *   node platform.mjs                  # runs every lane, writes benchmarks-platform.json
+ *   node platform.mjs self transports  # just those
+ *
+ * Four of the five build the cloud binary, so they need its source: see
+ * `cloud_src` in host.sh. Without it they resolve to whatever checkout is next
+ * door, which may be a different repository that answers a different question.
  */
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
@@ -49,7 +53,14 @@ for (const l of lanes) {
   } catch (e) {
     // A lane that fails says so and contributes nothing. A section carried over
     // from a previous run would be the one thing worse than an absent one.
-    process.stderr.write(`  ${l.lane} failed; leaving it out\n`)
+    //
+    // AND IT SAYS WHY. "failed; leaving it out" was the whole report, so four
+    // lanes failing for one fixable reason — the cloud source resolving to a
+    // different repository — looked like four unrelated breakages and named
+    // none of them. The lane's own last words are the diagnosis.
+    const said = [e.stderr, e.stdout].map((x) => (x || '').toString().trim()).filter(Boolean).join('\n')
+    const why = said.split('\n').filter((x) => !/^ld: warning/.test(x)).slice(-1)[0] || e.message
+    process.stderr.write(`  ${l.lane} failed; leaving it out — ${why.slice(0, 160)}\n`)
     continue
   }
   const line = text.split('\n').find((x) => x.startsWith('host: '))

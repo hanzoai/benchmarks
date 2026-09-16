@@ -237,11 +237,11 @@ export function records({ bench, arm, meta, metrics }) {
     benchmark: {
       id: bench.id, title: bench.title, version: bench.digest,
       dataset: bench.firm.surface, license: 'our own work queue; no third-party dataset',
-      origin: `bench/market/benches/${bench.id}.json`,
+      origin: `market/benches/${bench.id}.json`,
       splits: [{ name: 'all', items: bench.tasks, definition: `${bench.duration.periods} ${bench.duration.period}s of ${bench.cadence.tasks_per_period} tasks` }],
       metric: bench.outcome.metric,
       metrics: [bench.outcome.metric, 'tasks_complete', 'tasks_refused', 'spend_micro_usd', 'cost_per_task_micro_usd'],
-      citation: `bench/market/benches/${bench.id}.json @ ${bench.commit || 'uncommitted'}`,
+      citation: `market/benches/${bench.id}.json @ ${bench.commit || 'uncommitted'}`,
       notes: `${bench.completion} Outcome read ${bench.outcome.window_periods} ${bench.duration.period}(s) after the period it measures. ` +
         `Budget ${bench.budget.cap_micro_usd} micro-USD per ${bench.duration.period} per arm, ${bench.budget.max_task_micro_usd} per task, enforced by the platform. ` +
         `Control: ${bench.control.arm} — ${bench.control.why}`,
@@ -251,13 +251,13 @@ export function records({ bench, arm, meta, metrics }) {
       id: `${bench.id}-${arm.id}`, benchmark: bench.id, split: 'all',
       system: arm.id, version: arm.model, baseline: arm.id === bench.control.arm, study: bench.id,
       reader: arm.model, embedder: '', k: null, temperature: null, max_tokens: null,
-      prompt: `bench/market/benches/${bench.id}.json`, prompt_digest: brief,
+      prompt: `market/benches/${bench.id}.json`, prompt_digest: brief,
       dataset_digest: '', store_digest: '', facts_digest: '', commit: meta.commit,
       questions: metrics.questions, answered: metrics.answered,
       when: meta.started, ended: meta.ended ?? '', by: meta.agent,
       measures: metrics.measures,
       notes: `${metrics.periods.closed} of ${metrics.periods.planned} periods read; ${metrics.complete} of ${metrics.questions} tasks complete. ` +
-        `harness ${arm.harness}, stack ${arm.stack}. definition ${bench.digest} (bench/market/benches/${bench.id}.json @ ${bench.commit || 'uncommitted'}).`,
+        `harness ${arm.harness}, stack ${arm.stack}. definition ${bench.digest} (market/benches/${bench.id}.json @ ${bench.commit || 'uncommitted'}).`,
     },
   }
 }

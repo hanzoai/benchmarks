@@ -4,7 +4,7 @@
  * Every cost input is either measured on this machine or a published list
  * price. Nothing is estimated without saying so.
  *
- *   MEASURED (bench/fleet, brain.mjs, sandbox.mjs, this laptop, Sept 2026)
+ *   MEASURED (fleet/, brain/, sandbox/, this laptop, Sept 2026)
  *     dormant agent state      477 bytes
  *     microVM boot             309 ms    (hanzo-vm, n=20; there is no pooled mode)
  *     pooled sandbox exec      35.8 ms   HISTORICAL — docker exec, a runtime we do not ship

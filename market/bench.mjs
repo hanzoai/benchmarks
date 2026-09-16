@@ -16,7 +16,10 @@ import { execFileSync } from 'node:child_process'
 import { readers } from './grade.mjs'
 
 const here = new URL('.', import.meta.url)
-const root = new URL('../../', here)
+// The repository root, one level up — this lane used to live two levels down,
+// in cloud/bench/market, and the climb came with it. A half-migrated path is
+// how `market/benches/code-desk.json` was looked for outside the repository.
+const root = new URL('../', here)
 const dir = new URL('./benches/', here)
 
 /** The windows a budget resets on. The platform's set (apps/agents/budget.go), not a second one. */
