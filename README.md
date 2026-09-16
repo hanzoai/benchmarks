@@ -1,63 +1,71 @@
-# hanzoai/benchmarks — unified benchmark + load framework for Hanzo cloud products
+# hanzoai/benchmarks
 
-One place to prove what the cloud stack does under load and at scale. Before this,
-cloud-product benchmarks did not exist as a framework — perf work was scattered across
-unrelated repos (`engine-v4bench`, `enso-bench`, `lux/benchmarks`, `zap/bench`, GPU/
-consensus/model harnesses). This is the home for **api.hanzo.ai / the `hanzoai/cloud`
-unified binary and its subsystems** (gateway, ai, kms, commerce, iam, …).
+Every benchmark for the Hanzo stack, in one repository, with the records they
+produced. Clone it, run a lane, compare against the committed run.
 
-## Layout
+## Two kinds of measurement, and they answer different questions
 
-```
-cloud/<suite>/      Go property + micro benchmarks that need no cluster (fast, CI-able)
-  shard/            horizontal writer-scale routing (hanzoai/ha HRW/rendezvous)  ✅
-k3s/                local N-pod INTEGRATION harness (k3s is installed at /usr/local/bin/k3s)
-load/               HTTP/gRPC load profiles (k6 / ghz) — wired when the tools are present
-```
+**Lanes** — one directory per claim, at the root. What a thing costs, measured,
+with a control beside it. `brain/` `code/` `fleet/` `goroutine/` `sandbox/`
+`cipher/` `egress/` `self/` `transport/` `pricing/` `market/`. The tables and
+what each one found are in **[MEASURED.md](MEASURED.md)**; what competitors
+publish, and where it was read from, is in **[naive.md](naive.md)**.
 
-Two tiers, on purpose:
-- **Property/micro (`cloud/<suite>`)** — pure Go, deterministic, runs in seconds, proves
-  an *invariant* (e.g. one-owner-per-org) and measures a *primitive* (routing ns/op). No
-  cluster, so it runs in CI on every PR.
-- **Integration (`k3s/`)** — stands the real StatefulSet up locally and drives end-to-end
-  load, so throughput scaling and failover are measured against the actual binary.
+**Load and scale** — `cloud/` Go property benchmarks, `k3s/` an integration
+harness that stands the real StatefulSet up, plus `bench-agents/`
+`bench-inference/` `bench-serialize/` `bench-blockchain/`. Written up in
+**[LOAD.md](LOAD.md)** and [METHODOLOGY.md](METHODOLOGY.md).
 
-## Run
+## Run one
 
 ```bash
-make scale     # print the horizontal-scale proof (1M tenants across N=3/10/100 pods)
-make bench     # routing throughput (ns/op, allocs) across ring sizes
-make k3s-up    # (integration) stand up cloud StatefulSet N=3 in local k3s
-make k3s-down
+node fleet/fleet.mjs /tmp/fleet     # 1M dormant agents: bytes, write rate, resume
+cd goroutine && go build -o /tmp/g . && /tmp/g
+node sandbox/sandbox.mjs            # V8 context, isolate, hanzo-vm
+node pricing/pricing.mjs            # what a call costs and what it could charge
+bash transport/run.sh               # what an agent pays per call, per transport
+bash self/run.sh                    # build it, boot it, ask each transport
+bash cipher/run.sh                  # write a value, look for it on the disk
+bash egress/run.sh                  # what leaves the machine
 ```
 
-## What the shard suite proves (why horizontal scale is safe)
+`BENCH_JSON=out.json` on any lane writes its rows to a file as well as the
+terminal.
 
-`cloud/shard` benchmarks the exact routing primitive the in-binary shard router uses —
-`hanzoai/ha` HRW/rendezvous org→owner election — the thing that guarantees **no two pods
-ever write one tenant's SQLite file** (the unrecoverable failure). Measured over **1,000,000
-tenants** (see `make scale`):
+## What you need
 
-| N pods | per-pod mean | stddev | max skew | verdict |
-|-------:|-------------:|-------:|---------:|---------|
-| 3      | 333,333      | 0.05%  | 0.10%    | dead-even |
-| 10     | 100,000      | 0.31%  | 1.05%    | even |
-| 100    | 10,000       | 0.98%  | 4.46%    | even |
+Node 20+ and Go for everything; `uv` for the two Python readers in `brain/`.
 
-- **One owner per org, deterministic** — 100k orgs × 6 re-elections all agree → the
-  no-dual-writer invariant holds mathematically (`TestDeterministicSingleOwner`).
-- **Even load** — 0.05% stddev at N=3 → no hot shard → write capacity scales ~linearly
-  (per-org SQLite has no shared lock).
-- **Minimal rebalance** — growing 4→5 pods remaps only **20.1%** of tenants (ideal 20%),
-  so a scale-up moves the fewest tenant files (`TestMinimalReshuffleOnScale`).
-- **Routing tax** — ~**545 ns/op at N=3** (~1.8M routes/sec/core); scales O(N) per lookup.
+**Four lanes build the cloud binary** — `self`, `egress`, `cipher`, `transport`
+— because they measure a binary rather than a library. They look for the source
+next to this repo, then at `~/work/hanzo/cloud`:
 
-### Finding (benchmark-driven)
-`ha.Owner` allocates O(N) per election (5 allocs @ N=3 → 102 @ N=100). Negligible at the
-target N=3, but an allocation-free rendezvous in `hanzoai/ha` would help large rings — a
-tracked optimization, not a blocker.
+```bash
+git clone https://github.com/hanzoai/cloud ../cloud
+CLOUD_SRC=/path/to/cloud bash self/run.sh    # or name it outright
+```
 
-## Adding a suite
-Drop `cloud/<name>/<name>_test.go` with `Benchmark*` (perf) and `Test*ScaleProof`-style
-property tests that print with `-v`. Keep it cluster-free where possible; push end-to-end
-load into `k3s/`.
+They do not clone it for you. A benchmark that fetches its own subject decides
+which revision you measured.
+
+`brain/` needs its vectors built once (`node brain/brain.mjs`, then
+`embed-facts.mjs`) and a local Ollama for the embedder; `code/` needs
+RepoBench-R fetched into `data/`. Both are gitignored — large, and derived.
+
+## The records are here too
+
+`brain/runs/` and `code/runs/` hold the predictions and metrics every published
+table was generated from, committed. `node brain/results.mjs` rebuilds
+RESULTS.md from them, and `brain/mab/freeze.mjs --tag=v1 --verify` re-runs the
+frozen MemoryAgentBench lane and checks it still produces the same predictions.
+
+That is the point of keeping them: a number you cannot re-derive is a claim, and
+a claim is not a benchmark.
+
+## Where a number came from
+
+Lanes that measure time print their host, because they have to — the same lane
+reads about twice as fast on an M4 Max as on an M1 Max. Frozen configurations
+carry a digest of the engine files that decide their rows, so an edit to the
+engine is visible against the record rather than silent. Commit hashes were
+tried first and did not survive a rebase.
