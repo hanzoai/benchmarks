@@ -41,6 +41,29 @@ say "modules the binary needs" "$total"
 say "fetchable with no credential" "$ok"
 say "not" "$refused"
 
+# AND CAN ANYONE DEPEND ON THIS ONE? Every row above is about what the binary is
+# built FROM. Ownership also means the thing itself is consumable, and those are
+# different questions with different answers: hanzoai/cloud is public, has 571
+# tags, and not one of them is semver — so `go get` resolves it to a
+# pseudo-version of whatever is on main, and there is no release to pin.
+#
+# Worse, the proxy still serves 471 versions that were deleted from the repo, so
+# a pin to one of them fetches cache rather than code anyone can check out. That
+# is the shape this row exists to make visible.
+mod=$(awk '/^module /{print $2; exit}' go.mod)
+latest=$(curl -s --max-time 20 "https://proxy.golang.org/$(esc "$mod")/@latest" |
+  python3 -c 'import json,sys
+try: print(json.load(sys.stdin).get("Version",""))
+except Exception: print("")' 2>/dev/null)
+case "$latest" in
+  v0.0.0-*) say "this module, published as" "no release — $latest is a pseudo-version of main" ;;
+  "")       say "this module, published as" "the proxy does not serve it" ;;
+  *)        upstream=$(git ls-remote "$(git remote get-url origin 2>/dev/null)" "refs/tags/$latest" 2>/dev/null | wc -l | tr -d ' ')
+            [ "${upstream:-0}" -gt 0 ] \
+              && say "this module, published as" "$latest" \
+              || say "this module, published as" "$latest — SERVED BY THE PROXY, ABSENT FROM THE REPO" ;;
+esac
+
 control=$(ask "github.com/hanzoai/a-module-that-does-not-exist")
 say "control: an absent module" "$control"
 [ "$control" = "200" ] && {
