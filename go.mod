@@ -7,7 +7,7 @@ require (
 	github.com/go-python/gpython v0.2.0
 	github.com/hanzoai/ha v0.1.1
 	github.com/tetratelabs/wazero v1.12.0
-	github.com/zap-proto/zip v1.36.48
+	github.com/zap-proto/zip v1.36.50
 )
 
 require (
