@@ -20,7 +20,7 @@ func languages() {
 	const n = 2000
 	t0 := time.Now()
 	var last goja.Value
-	for i := 0; i < n; i++ {
+	for range n {
 		vm := goja.New()
 		v, err := vm.RunString(`(function(a,b){return a+b})(2,3)`)
 		if err != nil {
@@ -36,7 +36,7 @@ func languages() {
 	vm := goja.New()
 	const calls = 100_000
 	t1 := time.Now()
-	for i := 0; i < calls; i++ {
+	for range calls {
 		_, _ = vm.RunString(`2+3`)
 	}
 	fmt.Printf("  goja, warm vm         %.0f ns per eval\n",
@@ -51,7 +51,7 @@ func python() {
 	const n = 200
 	t0 := time.Now()
 	var out py.Object
-	for i := 0; i < n; i++ {
+	for range n {
 		ctx := py.NewContext(py.DefaultContextOpts())
 		mod, err := py.RunFile(ctx, "add.py", py.CompileOpts{}, nil)
 		if err != nil {

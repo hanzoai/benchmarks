@@ -90,7 +90,7 @@ func main() {
 		var wg sync.WaitGroup
 		wg.Add(spawns)
 		start := time.Now()
-		for i := 0; i < spawns; i++ {
+		for range spawns {
 			go func() { wg.Done() }()
 		}
 		wg.Wait()
@@ -155,7 +155,7 @@ func main() {
 	cfg := wazero.NewModuleConfig().WithName("")
 	t2 := time.Now()
 	var fn api.Function
-	for i := 0; i < insts; i++ {
+	for range insts {
 		mod, err := rt.InstantiateModule(ctx, compiled, cfg)
 		if err != nil {
 			fmt.Printf("  wasm instantiate failed: %v\n", err)
@@ -175,7 +175,7 @@ func main() {
 		f := mod.ExportedFunction("add")
 		const calls = 100_000
 		t3 := time.Now()
-		for i := 0; i < calls; i++ {
+		for range calls {
 			_, _ = f.Call(ctx, 2, 3)
 		}
 		fmt.Printf("  call into sandbox     %.0f ns\n", float64(time.Since(t3).Nanoseconds())/float64(calls))
@@ -198,14 +198,14 @@ func main() {
 
 func fmtN(n int) string {
 	s := strconv.Itoa(n)
-	out := ""
+	var out strings.Builder
 	for i, c := range s {
 		if i > 0 && (len(s)-i)%3 == 0 {
-			out += ","
+			out.WriteByte(',')
 		}
-		out += string(c)
+		out.WriteRune(c)
 	}
-	return out
+	return out.String()
 }
 
 // load1 is the one-minute load average, or "?" where the OS will not say.

@@ -21,14 +21,14 @@ type JSONMessage struct {
 // ZAPMessage is a zero-copy representation
 // The wire format IS the memory format
 type ZAPMessage struct {
-	ID           uint64
-	Type         uint32
-	_padding     uint32
-	Timestamp    int64
-	PayloadPtr   uint32 // offset to payload
-	PayloadLen   uint32
-	TagsPtr      uint32 // offset to tags array
-	TagsCount    uint32
+	ID         uint64
+	Type       uint32
+	_padding   uint32
+	Timestamp  int64
+	PayloadPtr uint32 // offset to payload
+	PayloadLen uint32
+	TagsPtr    uint32 // offset to tags array
+	TagsCount  uint32
 	// Variable data follows in same buffer
 }
 
@@ -155,7 +155,7 @@ func zapDecode(buf []byte) (id uint64, msgType uint32, timestamp int64, payload 
 	// Read tags
 	tags = make([]string, tagsCount)
 	offset := int(tagsPtr)
-	for i := uint32(0); i < tagsCount; i++ {
+	for i := range tagsCount {
 		tagLen := binary.LittleEndian.Uint16(buf[offset:])
 		offset += 2
 		tags[i] = unsafe.String(&buf[offset], int(tagLen))
@@ -255,7 +255,7 @@ func BenchmarkZAPBatch100(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		offset := 0
-		for j := 0; j < 100; j++ {
+		for j := range 100 {
 			size := zapEncode(buf[offset:], uint64(j), 1, 1706000000000,
 				"Execute function get_weather with args: {\"location\": \"San Francisco\"}",
 				[]string{"weather", "api", "external"})
@@ -269,7 +269,7 @@ func BenchmarkJSONBatch100(b *testing.B) {
 	b.ReportAllocs()
 
 	for i := 0; i < b.N; i++ {
-		for j := 0; j < 100; j++ {
+		for j := range 100 {
 			msg := JSONMessage{
 				ID:        uint64(j),
 				Type:      "tool_call",

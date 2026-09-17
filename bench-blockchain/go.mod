@@ -1,3 +1,3 @@
 module github.com/zap-protocol/benchmarks/bench-blockchain
 
-go 1.21
+go 1.27.1

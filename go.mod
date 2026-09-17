@@ -1,6 +1,6 @@
 module github.com/hanzoai/benchmarks
 
-go 1.26.8
+go 1.27.1
 
 require (
 	github.com/dop251/goja v0.0.0-20260627200808-0b76000cabdb

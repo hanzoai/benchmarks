@@ -17,7 +17,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"sort"
+	"slices"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -93,7 +93,7 @@ func main() {
 	for _, s := range lat {
 		all = append(all, s...)
 	}
-	sort.Slice(all, func(i, j int) bool { return all[i] < all[j] })
+	slices.Sort(all)
 	pct := func(p float64) time.Duration {
 		if len(all) == 0 {
 			return 0
