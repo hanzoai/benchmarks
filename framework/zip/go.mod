@@ -1,20 +1,17 @@
 module github.com/hanzoai/benchmarks/framework/zip
 
-go 1.26.5
+go 1.27.1
 
 // Published deps only — the zero-alloc codec is merged and tagged, so the bench
 // is reproducible off tags without any local working-copy replace. Versions live
 // in the require block below, not in this comment.
 require (
-	github.com/valyala/fasthttp v1.72.0
-	github.com/zap-proto/http v0.3.1
-	github.com/zap-proto/zip v1.17.2
-)
-
-require (
 	github.com/bytedance/sonic v1.15.2
 	github.com/goccy/go-json v0.10.6
+	github.com/valyala/fasthttp v1.72.0
 	github.com/zap-proto/go v1.3.0
+	github.com/zap-proto/http v0.3.1
+	github.com/zap-proto/zip v1.17.2
 )
 
 require (

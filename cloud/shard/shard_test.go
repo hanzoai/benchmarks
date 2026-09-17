@@ -50,7 +50,7 @@ func TestScaleProof(t *testing.T) {
 	for _, n := range []int{3, 10, 100} {
 		peers := ring(n)
 		count := map[string]int{}
-		for i := 0; i < orgs; i++ {
+		for i := range orgs {
 			o, ok := ha.Owner(orgSlug(i), peers)
 			if !ok {
 				t.Fatalf("N=%d org %d: no owner elected", n, i)
@@ -95,12 +95,12 @@ func TestScaleProof(t *testing.T) {
 // so two pods never both believe they own an org's files.
 func TestDeterministicSingleOwner(t *testing.T) {
 	peers := ring(7)
-	for i := 0; i < 100_000; i++ {
+	for i := range 100_000 {
 		a, ok := ha.Owner(orgSlug(i), peers)
 		if !ok {
 			t.Fatalf("org %d: no owner", i)
 		}
-		for r := 0; r < 5; r++ {
+		for range 5 {
 			b, _ := ha.Owner(orgSlug(i), peers)
 			if b.ID != a.ID {
 				t.Fatalf("org %d: owner diverged %q vs %q — dual-writer risk", i, a.ID, b.ID)
@@ -117,7 +117,7 @@ func TestMinimalReshuffleOnScale(t *testing.T) {
 	const orgs = 200_000
 	before, after := ring(4), ring(5)
 	moved := 0
-	for i := 0; i < orgs; i++ {
+	for i := range orgs {
 		s := orgSlug(i)
 		a, _ := ha.Owner(s, before)
 		b, _ := ha.Owner(s, after)

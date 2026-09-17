@@ -22,9 +22,9 @@ type JSONWarpMessage struct {
 
 // JSONValidatorSet - for consensus updates
 type JSONValidatorSet struct {
-	Epoch      uint64            `json:"epoch"`
-	Validators []JSONValidator   `json:"validators"`
-	TotalStake uint64            `json:"total_stake"`
+	Epoch      uint64          `json:"epoch"`
+	Validators []JSONValidator `json:"validators"`
+	TotalStake uint64          `json:"total_stake"`
 }
 
 type JSONValidator struct {
@@ -116,7 +116,7 @@ func zapDecodeWarpMessage(buf []byte) (srcChain, dstChain [32]byte, nonce uint64
 	payload = buf[payloadPtr : payloadPtr+payloadLen]
 
 	sigs = make([][]byte, sigsCount)
-	for i := uint32(0); i < sigsCount; i++ {
+	for i := range sigsCount {
 		sigs[i] = buf[sigsPtr+i*64 : sigsPtr+(i+1)*64]
 	}
 
@@ -246,7 +246,7 @@ func BenchmarkZAPValidatorSet100(b *testing.B) {
 		offset += 8
 
 		// Each validator: 32-byte nodeID + 48-byte pubkey + 8-byte stake + 8+8 times
-		for j := 0; j < 100; j++ {
+		for j := range 100 {
 			// NodeID (32 bytes)
 			binary.LittleEndian.PutUint64(buf[offset:], uint64(j))
 			offset += 32
@@ -342,7 +342,7 @@ func BenchmarkZAPConsensusVoteBatch1000(b *testing.B) {
 	b.ReportAllocs()
 
 	for i := 0; i < b.N; i++ {
-		for j := 0; j < 1000; j++ {
+		for j := range 1000 {
 			offset := j * 144 // Fixed vote size
 			// BlockHash (32 bytes)
 			binary.LittleEndian.PutUint64(buf[offset:], uint64(j))
@@ -404,11 +404,11 @@ func BenchmarkZAPStateAccess(b *testing.B) {
 
 func BenchmarkJSONStateAccess(b *testing.B) {
 	// Must parse entire state to access any field
-	state := map[string]interface{}{
-		"accounts": make([]map[string]interface{}, 1000),
+	state := map[string]any{
+		"accounts": make([]map[string]any, 1000),
 	}
-	for i := 0; i < 1000; i++ {
-		state["accounts"].([]map[string]interface{})[i] = map[string]interface{}{
+	for i := range 1000 {
+		state["accounts"].([]map[string]any)[i] = map[string]any{
 			"address": "0x1234567890abcdef",
 			"balance": 100000,
 			"nonce":   i,
@@ -420,9 +420,9 @@ func BenchmarkJSONStateAccess(b *testing.B) {
 	b.ReportAllocs()
 
 	for i := 0; i < b.N; i++ {
-		var parsed map[string]interface{}
+		var parsed map[string]any
 		json.Unmarshal(data, &parsed)
 		// Access one account
-		_ = parsed["accounts"].([]interface{})[i%1000]
+		_ = parsed["accounts"].([]any)[i%1000]
 	}
 }
