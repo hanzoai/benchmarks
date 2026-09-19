@@ -70,6 +70,13 @@ for (const d of runs) { const mm = d.match(/^locomo-retrieval-(dev|test|all)-(.+
 for (const g of Object.values(groups2)) g.rows.sort((a, b) => a.order - b.order)
 writeFileSync(new URL('./benchmarks-retrieval.json', here), JSON.stringify({ generated: new Date().toISOString(), tables: Object.values(groups2) }, null, 1))
 
+// LongMemEval for hanzo.ai/benchmarks/longmemeval: the cosine baseline's counts, with the engine's counts
+// (`ctx@k`, `mrr.ctx`) beside them in the same tally, from the run that computed both on one cache.
+const lmeBase = new URL('./longmemeval/baseline-all-minilm.json', here), lmeRun = runs.find((d) => d === 'longmemeval-all-context-minilm')
+if (existsSync(lmeBase)) { const b = read('./longmemeval/baseline-all-minilm.json'), r = lmeRun ? read(`./runs/${lmeRun}/metrics.json`) : null, meta = lmeRun ? read(`./runs/${lmeRun}/meta.json`) : {}
+  if (r) for (const [type, t] of Object.entries(r.tally)) { const bt = b.tally[type]; if (!bt) continue; bt.mrr.ctx = t.mrr.ctx; for (const kind of ['all', 'any']) for (const [key, v] of Object.entries(t[kind])) if (key.startsWith('ctx@')) bt[kind][key] = v }
+  writeFileSync(new URL('./benchmarks-longmemeval.json', here), JSON.stringify({ generated: new Date().toISOString(), ...b, context: r ? { run: lmeRun, row: r.row, frozen: r.frozen, commit: meta.commit ?? null, engine: meta.engine ?? null, latency_ms: r.latency_ms, wall_seconds: meta.wall_seconds ?? null } : null }, null, 1)) }
+
 // The code lane (../code/runs): one table per setting and split, one row per configuration.
 const codeDir = new URL('../code/runs/', here)
 const codeRuns = existsSync(codeDir) ? readdirSync(codeDir).filter((d) => existsSync(new URL(`../code/runs/${d}/metrics.json`, here))).sort() : []

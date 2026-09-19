@@ -36,11 +36,12 @@ node run.mjs --policy=oracle  --k=20 --reader=gemma4:31b --cats=1,2,3,4
 # MemoryAgentBench FactConsolidation, LoCoMo-Conv, LongMemEval
 node mab/lane.mjs --help
 node conv/retrieve.mjs --help
-node longmemeval/retrieve.mjs --help
+EMBED=all-minilm node longmemeval/retrieve.mjs      # LongMemEval-S cosine baseline, and the vector cache
+node longmemeval/engine.mjs --embed=minilm       # the engine on it, LoCoMo-frozen (needs locomo10.json + brain-vectors-minilm.json)
 
 # the tables
 node depth.mjs runs/<name>                        # how far down the list the evidence sat
-node results.mjs                                 # RESULTS.md and the three benchmarks*.json
+node results.mjs                                 # RESULTS.md and the four benchmarks*.json
 node tables.mjs                                  # LaTeX tables into ../../../papers/tables/
 
 # the record
@@ -53,11 +54,12 @@ never in a run file.
 
 Only the run steps need a dataset, a model or a key. `node results.mjs` reads
 `runs/*/metrics.json`, `runs/*/meta.json`, `ablations/*.json` and
-`../code/runs/*/metrics.json` and writes `RESULTS.md`, `benchmarks.json`,
-`benchmarks-retrieval.json` and `benchmarks-code.json`. On a fresh clone, with
-no data fetched and nothing installed, it reproduces all four; they differ from
+`../code/runs/*/metrics.json`, plus `longmemeval/baseline-all-minilm.json`, and
+writes `RESULTS.md`, `benchmarks.json`, `benchmarks-retrieval.json`,
+`benchmarks-code.json` and `benchmarks-longmemeval.json`. On a fresh clone, with
+no data fetched and nothing installed, it reproduces all five; they differ from
 the committed copies only in the `generated` timestamp. `hanzo.ai/benchmarks`
-reads the same three JSON files, so that command is the check on the page.
+reads the same four JSON files, so that command is the check on the page.
 
 A run in progress is still a run: `run.mjs` checkpoints, and `results.mjs`
 reports whatever a run has answered so far. Regenerate the tables when a run
@@ -163,7 +165,9 @@ index carries most of the gain; the second hop moves single-hop and temporal
 questions; the shapes that lost — pseudo-relevance feedback, chain search,
 surface-entity expansion, global reciprocal-rank fusion — are rows in the same
 tables. Answer rows, the MemoryAgentBench lane, the extraction coverage and the
-LongMemEval baseline are written into `RESULTS.md` by their runs as they finish.
+LongMemEval rows are written into `RESULTS.md` by their runs as they finish. On
+LongMemEval-S the same engine, frozen on LoCoMo and not tuned there, takes session ALL@5 from 85.8 to
+90.6 and ALL@10 from 93.4 to 97.0 over cosine with the same vectors (`longmemeval/README.md`).
 
 LoCoMo-Conv (arXiv 2609.03467) is not released at the time of writing — its one
 release address answers 404 — so no LoCoMo-Conv number appears anywhere here.
