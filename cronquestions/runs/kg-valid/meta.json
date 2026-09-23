@@ -1,0 +1,17 @@
+{
+ "bench": "CronQuestions (Saxena et al., ACL 2021), data_v2",
+ "dataset_sha256": "0a2f77148977afb02a159b23cc942925b9455c98fcbe61ef164706324fd4734e",
+ "facts_sha256": "445b10489052df9e20cb94231c68f78bad25df967f3bea5db46c5f64f7576706",
+ "plan_sha256": "0170a452c07daa428a2f5e0d4ca71a0dc05915557aae6053ca0f080c89ef13eb",
+ "split": "valid",
+ "row": "kg",
+ "store": "dictionaries over facts.tsv, no store",
+ "subject": "",
+ "reader": "none",
+ "commit": "f8a63ef311ae",
+ "host": "",
+ "load_1m": {
+  "at_start": 49.8720703125
+ },
+ "when": "2026-09-23T05:06:02+00:00"
+}

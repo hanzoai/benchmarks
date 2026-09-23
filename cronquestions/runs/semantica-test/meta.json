@@ -1,0 +1,18 @@
+{
+ "bench": "CronQuestions (Saxena et al., ACL 2021), data_v2",
+ "dataset_sha256": "0a2f77148977afb02a159b23cc942925b9455c98fcbe61ef164706324fd4734e",
+ "facts_sha256": "445b10489052df9e20cb94231c68f78bad25df967f3bea5db46c5f64f7576706",
+ "plan_sha256": "45d055ec5fe5a541145f6ae79a7263ed40589ae3005de066c197ae99c61817da",
+ "split": "test",
+ "row": "semantica",
+ "store": "semantica 0.7.0 TemporalGraphQuery, python 3.12.12",
+ "subject": "semantica-agi/semantica 3910c33bc88c",
+ "reader": "none",
+ "commit": "f8a63ef311ae",
+ "host": "host: Apple M1 Max \u00b7 10 cores \u00b7 arm64 \u00b7 macOS 26.6.2 \u00b7 load 11.00",
+ "load_1m": {
+  "at_start": 11.00341796875,
+  "peak_queries": 28.65283203125
+ },
+ "when": "2026-09-20T00:25:31+00:00"
+}

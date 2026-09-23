@@ -1,0 +1,81 @@
+{
+ "benchmark": "cronquestions",
+ "row": "hanzo-wire",
+ "split": "test",
+ "n": 26168,
+ "of": 30000,
+ "hits@1": {
+  "overall": {
+   "mean": 0.700282788138184,
+   "lo": 0.6946652399877713,
+   "hi": 0.7055181901559157
+  },
+  "simple_entity": {
+   "n": 7812,
+   "mean": 0.0,
+   "lo": 0.0,
+   "hi": 0.0
+  },
+  "simple_time": {
+   "n": 5046,
+   "mean": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  },
+  "before_after": {
+   "n": 2151,
+   "mean": 0.9855880985588099,
+   "lo": 0.9804741980474198,
+   "hi": 0.9902370990237099
+  },
+  "first_last": {
+   "n": 11159,
+   "mean": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  }
+ },
+ "load": {
+  "assertions": 1311666,
+  "assertions_per_s": 7519.988208661974,
+  "bytes": 477511680,
+  "facts": 327983,
+  "facts_per_s": 1880.3783071617167,
+  "refused": {
+   "at is required: an assertion with no instant can never mature": 14,
+   "timestamp is more than 5m0s ahead of the server clock": 252
+  },
+  "seconds": 174.423943709
+ },
+ "query_ms": {
+  "all": {
+   "n": 27096,
+   "p50": 0.044167,
+   "p99": 2.58875,
+   "mean": 0.1271306258119292
+  },
+  "at": {
+   "n": 7812,
+   "p50": 0.035291,
+   "p99": 0.96975,
+   "mean": 0.07127807744495647
+  },
+  "history": {
+   "n": 18356,
+   "p50": 0.048417,
+   "p99": 2.880292,
+   "mean": 0.1425463216931788
+  },
+  "touch": {
+   "n": 928,
+   "p50": 0.052708,
+   "p99": 2.319208,
+   "mean": 0.2923780334051723
+  }
+ },
+ "notes": {
+  "calls_timed": "every call",
+  "query_wall_s": 3.450925959,
+  "truncated_reads": 0
+ }
+}

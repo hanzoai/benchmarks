@@ -1,0 +1,48 @@
+{
+ "benchmark": "cronquestions",
+ "row": "kg",
+ "split": "valid",
+ "n": 26122,
+ "of": 30000,
+ "hits@1": {
+  "overall": {
+   "mean": 0.9992726437485644,
+   "lo": 0.9989663884848021,
+   "hi": 0.9995788990123268
+  },
+  "simple_entity": {
+   "n": 7745,
+   "mean": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  },
+  "simple_time": {
+   "n": 5197,
+   "mean": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  },
+  "before_after": {
+   "n": 1982,
+   "mean": 0.9904137235116044,
+   "lo": 0.9858728557013118,
+   "hi": 0.9944500504540867
+  },
+  "first_last": {
+   "n": 11198,
+   "mean": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  }
+ },
+ "load": {},
+ "query_ms": {
+  "all": {
+   "n": 0,
+   "p50": null,
+   "p99": null,
+   "mean": null
+  }
+ },
+ "notes": {}
+}

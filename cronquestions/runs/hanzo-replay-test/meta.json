@@ -1,0 +1,19 @@
+{
+ "bench": "CronQuestions (Saxena et al., ACL 2021), data_v2",
+ "dataset_sha256": "0a2f77148977afb02a159b23cc942925b9455c98fcbe61ef164706324fd4734e",
+ "facts_sha256": "445b10489052df9e20cb94231c68f78bad25df967f3bea5db46c5f64f7576706",
+ "plan_sha256": "45d055ec5fe5a541145f6ae79a7263ed40589ae3005de066c197ae99c61817da",
+ "split": "test",
+ "row": "hanzo-replay",
+ "store": "hanzoai/cloud apps/graph, clock=replay, go1.27.1 darwin/arm64",
+ "subject": "hanzo-inc/cloud c47fd3692e9a, apps/graph clean",
+ "reader": "none",
+ "commit": "f8a63ef311ae",
+ "host": "host: Apple M1 Max \u00b7 10 cores \u00b7 arm64 \u00b7 macOS 26.6.2 \u00b7 load 13.52",
+ "load_1m": {
+  "at_start": 13.52,
+  "peak_loading": 18.92,
+  "peak_queries": 17.96
+ },
+ "when": "2026-09-19T22:35:46+00:00"
+}
