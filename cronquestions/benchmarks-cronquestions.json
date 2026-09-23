@@ -1,0 +1,286 @@
+{
+ "generated": "2026-09-23T06:19:41Z",
+ "split": "test",
+ "covered": [
+  "simple_entity",
+  "simple_time",
+  "before_after",
+  "first_last"
+ ],
+ "rows": [
+  {
+   "row": "kg",
+   "store": "dictionaries over facts.tsv, no store",
+   "subject": "",
+   "hits": {
+    "overall": {
+     "mean": 0.9988153469886885,
+     "lo": 0.9983567716294711,
+     "hi": 0.9992357077346378
+    },
+    "simple_entity": {
+     "n": 7812,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    },
+    "simple_time": {
+     "n": 5046,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    },
+    "before_after": {
+     "n": 2151,
+     "mean": 0.9855880985588099,
+     "lo": 0.9804741980474198,
+     "hi": 0.9902370990237099
+    },
+    "first_last": {
+     "n": 11159,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    }
+   },
+   "query_ms": {
+    "all": {
+     "n": 0,
+     "p50": null,
+     "p99": null,
+     "mean": null
+    }
+   },
+   "load": {},
+   "load_1m": {
+    "at_start": 71.74658203125
+   }
+  },
+  {
+   "row": "semantica",
+   "store": "semantica 0.7.0 TemporalGraphQuery, python 3.12.12",
+   "subject": "semantica-agi/semantica 3910c33bc88c",
+   "hits": {
+    "overall": {
+     "mean": 0.9988153469886885,
+     "lo": 0.9983567716294711,
+     "hi": 0.9992357077346378
+    },
+    "simple_entity": {
+     "n": 7812,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    },
+    "simple_time": {
+     "n": 5046,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    },
+    "before_after": {
+     "n": 2151,
+     "mean": 0.9855880985588099,
+     "lo": 0.9804741980474198,
+     "hi": 0.9902370990237099
+    },
+    "first_last": {
+     "n": 11159,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    }
+   },
+   "query_ms": {
+    "all": {
+     "n": 150,
+     "p50": 5356.974916998297,
+     "p99": 7530.6642500218,
+     "mean": 5663.614495280199
+    },
+    "at": {
+     "n": 50,
+     "p50": 6211.286916863173,
+     "p99": 7545.337249990553,
+     "mean": 6337.291890885681
+    },
+    "history": {
+     "n": 50,
+     "p50": 5240.101290866733,
+     "p99": 6346.998916007578,
+     "mean": 5364.198959963396
+    },
+    "touch": {
+     "n": 50,
+     "p50": 5276.236333884299,
+     "p99": 5826.374124968424,
+     "mean": 5289.352634991519
+    }
+   },
+   "load": {
+    "facts": 327983,
+    "relationships": 327983,
+    "seconds": 0.07789062499068677,
+    "facts_per_s": 4210814.845037079
+   },
+   "load_1m": {
+    "at_start": 11.00341796875,
+    "peak_queries": 28.65283203125
+   }
+  },
+  {
+   "row": "hanzo-wire",
+   "store": "hanzoai/cloud apps/graph, clock=wire, go1.27.1 darwin/arm64",
+   "subject": "hanzo-inc/cloud 1fffdf408f2e, apps/graph clean",
+   "hits": {
+    "overall": {
+     "mean": 0.9988153469886885,
+     "lo": 0.9983567716294711,
+     "hi": 0.9992357077346378
+    },
+    "simple_entity": {
+     "n": 7812,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    },
+    "simple_time": {
+     "n": 5046,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    },
+    "before_after": {
+     "n": 2151,
+     "mean": 0.9855880985588099,
+     "lo": 0.9804741980474198,
+     "hi": 0.9902370990237099
+    },
+    "first_last": {
+     "n": 11159,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    }
+   },
+   "query_ms": {
+    "all": {
+     "n": 27096,
+     "p50": 0.062917,
+     "p99": 2.385291,
+     "mean": 0.15902747471951573
+    },
+    "at": {
+     "n": 7812,
+     "p50": 0.088167,
+     "p99": 3.445459,
+     "mean": 0.2225683613671275
+    },
+    "history": {
+     "n": 18356,
+     "p50": 0.046875,
+     "p99": 2.218042,
+     "mean": 0.12834198932229263
+    },
+    "touch": {
+     "n": 928,
+     "p50": 0.044208,
+     "p99": 2.057375,
+     "mean": 0.2310979094827585
+    }
+   },
+   "load": {
+    "assertions": 655856,
+    "assertions_per_s": 5657.523537543221,
+    "bytes": 283987968,
+    "facts": 327983,
+    "facts_per_s": 2829.236207969491,
+    "refused": {
+     "timestamp is more than 5m0s ahead of the server clock": 110
+    },
+    "seconds": 115.9263405
+   },
+   "load_1m": {
+    "at_start": 18.65,
+    "peak_loading": 25.04,
+    "peak_queries": 26.52
+   }
+  },
+  {
+   "row": "hanzo-replay",
+   "store": "hanzoai/cloud apps/graph, clock=replay, go1.27.1 darwin/arm64",
+   "subject": "hanzo-inc/cloud 1fffdf408f2e, apps/graph clean",
+   "hits": {
+    "overall": {
+     "mean": 0.9988153469886885,
+     "lo": 0.9983567716294711,
+     "hi": 0.9992357077346378
+    },
+    "simple_entity": {
+     "n": 7812,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    },
+    "simple_time": {
+     "n": 5046,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    },
+    "before_after": {
+     "n": 2151,
+     "mean": 0.9855880985588099,
+     "lo": 0.9804741980474198,
+     "hi": 0.9902370990237099
+    },
+    "first_last": {
+     "n": 11159,
+     "mean": 1.0,
+     "lo": 1.0,
+     "hi": 1.0
+    }
+   },
+   "query_ms": {
+    "all": {
+     "n": 27096,
+     "p50": 0.057875,
+     "p99": 2.069833,
+     "mean": 0.14100999520224478
+    },
+    "at": {
+     "n": 7812,
+     "p50": 0.084167,
+     "p99": 3.076583,
+     "mean": 0.19626507437275925
+    },
+    "history": {
+     "n": 18356,
+     "p50": 0.044458,
+     "p99": 1.968708,
+     "mean": 0.1140283365112226
+    },
+    "touch": {
+     "n": 928,
+     "p50": 0.04225,
+     "p99": 2.04475,
+     "mean": 0.20956888362068943
+    }
+   },
+   "load": {
+    "assertions": 655966,
+    "assertions_per_s": 4535.948160694608,
+    "bytes": 283766784,
+    "facts": 327983,
+    "facts_per_s": 2267.974080347304,
+    "refused": {},
+    "seconds": 144.614968417
+   },
+   "load_1m": {
+    "at_start": 25.14,
+    "peak_loading": 41.9,
+    "peak_queries": 33.28
+   }
+  }
+ ]
+}

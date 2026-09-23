@@ -99,6 +99,7 @@ python3 cron.py exact test             # the control
   -cq.facts … -cq.plan … -cq.out … -cq.clock wire|replay
 .venv/bin/python temporal.py data/facts.tsv data/plan-test.jsonl data/results-semantica-test.jsonl
 python3 cron.py score test <row> data/results-<row>-test.jsonl
+python3 cron.py site test > benchmarks-cronquestions.json   # what hanzo.ai renders
 ```
 
 `run.sh` writes the overlay, which maps `apps/graph/cronquestions_test.go` to

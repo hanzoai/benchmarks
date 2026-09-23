@@ -242,6 +242,25 @@ def score(split, row, results, subject=""):
           + f" · p50 {metrics['query_ms']['all']['p50']} ms · p99 {metrics['query_ms']['all']['p99']} ms")
 
 
+def site(split="test"):
+    """The table the hanzo.ai benchmark page renders: every scored row of a
+    split, with its hits@1 intervals, latency and load, in one JSON document.
+    Regenerated from runs/, never written by hand."""
+    rows = []
+    for row in ("kg", "semantica", "hanzo-wire", "hanzo-replay"):
+        path = os.path.join(HERE, "runs", f"{row}-{split}")
+        with open(os.path.join(path, "metrics.json")) as f:
+            m = json.load(f)
+        with open(os.path.join(path, "meta.json")) as f:
+            meta = json.load(f)
+        rows.append({"row": row, "store": meta.get("store", ""), "subject": meta.get("subject", ""),
+                     "hits": m["hits@1"], "query_ms": m.get("query_ms", {}), "load": m.get("load", {}),
+                     "load_1m": meta.get("load_1m", {})})
+    json.dump({"generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "split": split,
+               "covered": COVERED, "rows": rows}, sys.stdout, indent=1)
+    print()
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "facts":
@@ -252,5 +271,7 @@ if __name__ == "__main__":
         exact(sys.argv[2])
     elif cmd == "score":
         score(*sys.argv[2:6])
+    elif cmd == "site":
+        site(*sys.argv[2:3])
     else:
         sys.exit(__doc__)
