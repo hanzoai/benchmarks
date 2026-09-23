@@ -58,7 +58,6 @@ type cqCall struct {
 // year and closes at the last second of its last. A question about a year asks
 // at mid-year, so a fact that opens or closes that year is in force for it.
 func cqOpen(y int) time.Time  { return time.Date(y, 1, 1, 0, 0, 0, 0, time.UTC) }
-func cqClose(y int) time.Time { return time.Date(y, 12, 31, 23, 59, 59, 0, time.UTC) }
 func cqMid(y int) time.Time   { return time.Date(y, 7, 1, 0, 0, 0, 0, time.UTC) }
 
 // cqLoad is the host's one-minute load average. A timing taken on a busy
@@ -101,38 +100,30 @@ func cqWatch() func() float64 {
 // (entity, relation), so "who held P in T" needs the fact filed about P.
 func inverse(r string) string { return "~" + r }
 
-// assertions files one KG fact as four assertions: an edge from each end at the
-// open instant, and a retraction of each at the close. A retraction is an
-// assertion (HIP-1198 §2): an empty property on the same pair, which wins from
-// its instant on. The evidence is the KG line, so an open and its close pair.
+// assertions files one KG fact as two statements, one from each end. Each is a
+// term with its own lifetime: it holds from the first instant of its start year
+// until the first instant after its end year — `until` on the statement itself,
+// so one holder's term ending ends nothing else of the pair.
 func assertions(line, s, r, o string, a, b int) []graphFact {
 	ev := "full.txt:" + line
 	at := func(t time.Time) string { return t.Format(time.RFC3339) }
 	return []graphFact{
-		{Entity: s, Relation: r, Value: o, Names: true, At: at(cqOpen(a)), Source: "wikidata", Evidence: ev},
-		{Entity: o, Relation: inverse(r), Value: s, Names: true, At: at(cqOpen(a)), Source: "wikidata", Evidence: ev},
-		{Entity: s, Relation: r, Value: "", At: at(cqClose(b)), Source: "wikidata", Evidence: ev},
-		{Entity: o, Relation: inverse(r), Value: "", At: at(cqClose(b)), Source: "wikidata", Evidence: ev},
+		{Entity: s, Relation: r, Value: o, Names: true, At: at(cqOpen(a)), Until: at(cqOpen(b + 1)), Source: "wikidata", Evidence: ev},
+		{Entity: o, Relation: inverse(r), Value: s, Names: true, At: at(cqOpen(a)), Until: at(cqOpen(b + 1)), Source: "wikidata", Evidence: ev},
 	}
 }
 
-// intervals pairs each open with its close by evidence. An open whose close the
-// store did not return is open-ended (null).
+// intervals is each edge statement as [value, start year, end year], the end
+// null when the statement is open.
 func intervals(facts []Fact) [][]any {
-	closed := map[string]int{}
-	for _, f := range facts {
-		if !f.Names {
-			closed[f.Evidence] = f.At.Year()
-		}
-	}
 	rows := [][]any{}
 	for _, f := range facts {
 		if !f.Names {
 			continue
 		}
 		var end any
-		if y, ok := closed[f.Evidence]; ok {
-			end = y
+		if !f.Until.IsZero() {
+			end = f.Until.Add(-time.Second).Year()
 		}
 		rows = append(rows, []any{f.Value, f.At.Year(), end})
 	}
@@ -230,6 +221,9 @@ func TestCronQuestions(t *testing.T) {
 	enc := json.NewEncoder(out)
 
 	truncated := 0
+	// Every question is asked as known now — after the load, as any caller of
+	// the API asks — whichever clock the load was filed under.
+	known := time.Now().UTC()
 	run := func(c cqCall) ([][]any, error) {
 		rel := c.Relation
 		if c.Dir == "in" {
@@ -237,19 +231,20 @@ func TestCronQuestions(t *testing.T) {
 		}
 		switch c.Op {
 		case "at": // what ops.resolve does, minus the tenant lookup
-			asOf := cqMid(c.T)
-			facts, err := st.read(ctx, filter{Entity: c.Entity, Relation: rel, AsOf: asOf, Newest: true})
+			w := when{valid: cqMid(c.T), known: known}
+			facts, err := st.read(ctx, filter{Entity: c.Entity, Relation: rel, Valid: w.valid, Known: w.known, Newest: true})
 			if err != nil {
 				return nil, err
 			}
 			if len(facts) == walkBound {
 				truncated++
 			}
-			win, _, _, ok := Resolve(facts, asOf)
-			if !ok || !win.Names {
-				return [][]any{}, nil
+			card, err := st.arity(ctx, []string{rel}, w.known)
+			if err != nil {
+				return nil, err
 			}
-			return [][]any{{win.Value, win.At.Year(), nil}}, nil
+			held, _ := Resolve(facts, w, card.one(facts))
+			return intervals(held), nil
 		case "history", "touch": // what ops.read does
 			fl := filter{Entity: c.Entity, Relation: rel}
 			if c.Op == "touch" {

@@ -9,71 +9,68 @@ store is driven, and why, is in [METHOD.md](METHOD.md).
 | test, Hits@1 | all | simple_entity | simple_time | before_after | first_last |
 |---|---|---|---|---|---|
 | control: the plan over dictionaries | 99.88% | 100.00% | 100.00% | 98.56% | 100.00% |
-| Semantica 0.7.0 | **99.88%** | **100.00%** | 100.00% | 98.56% | 100.00% |
-| Hanzo graph, replayed clock (`hanzo-replay`) | 95.58% | 85.59% | 100.00% | 98.56% | 100.00% |
-| Hanzo graph, the API's clock (`hanzo-wire`) | 70.03% | **0.00%** | 100.00% | 98.56% | 100.00% |
+| Semantica 0.7.0 | 99.88% | 100.00% | 100.00% | 98.56% | 100.00% |
+| Hanzo graph, the API's clock (`hanzo-wire`) | **99.88%** | **100.00%** | 100.00% | 98.56% | 100.00% |
+| Hanzo graph, replayed clock (`hanzo-replay`) | 99.88% | 100.00% | 100.00% | 98.56% | 100.00% |
 
 Questions: 7,812 · 5,046 · 2,151 · 11,159. Intervals are in each
 `runs/*/metrics.json`; `time_join` (3,832) is not covered, and METHOD.md says
-why.
+why. All three stores give the control's answer to every covered question;
+before_after at 98.56% is the plan's own ceiling.
 
 | | load, 327,983 facts | query p50 | query p99 |
 |---|---|---|---|
-| Semantica 0.7.0 | 0.1 s — a list of dicts, no index | 5.4 s | 7.5 s |
-| Hanzo graph, replayed clock (`hanzo-replay`) | 266 s — 1,311,918 assertions, 478 MB | 0.051 ms | 3.0 ms |
-| Hanzo graph, the API's clock (`hanzo-wire`) | 174 s — 1,311,666 assertions, 477 MB | 0.044 ms | 2.6 ms |
+| Semantica 0.7.0 | 0.1 s — a list of dicts, no index | 5,357 ms | 7,531 ms |
+| Hanzo graph, the API's clock (`hanzo-wire`) | 116 s — 655,856 assertions, 284 MB | 0.063 ms | 2.4 ms |
+| Hanzo graph, replayed clock (`hanzo-replay`) | 145 s — 655,966 assertions, 284 MB | 0.058 ms | 2.1 ms |
 
 Per-op figures are in `runs/*/metrics.json`. The Hanzo rows time every one of
 the 27,096 calls; the Semantica rows time 50 calls of each op, in full, and
-answer the rest from one call per distinct instant (METHOD.md). Taken at a
-one-minute load average of 11 to 19. This machine is shared: sampled every 15
-seconds for three days — 19,975 readings, median 10.4 — its load average never
-fell below 4.65, so these are numbers from a busy machine and each run records
-the load it had.
+answer the rest from one call per distinct instant (METHOD.md). The Hanzo rows
+were taken at a one-minute load average of 19 to 42 on a shared machine, and
+each run records the load it had; the Semantica row at 11 to 19.
 
 ## What it says
 
-**Semantica answers everything the plan can.** Its row is the control's,
-question for question; before_after at 98.56% is the plan's own ceiling. The
-price is the call: neither query takes an entity, so asking about one player
-reconstructs all 328k facts at that year, deep copy included.
+**Both stores answer everything the plan can.** Hanzo's rows are the control's,
+question for question, through `POST /v1/graph` and `POST /v1/graph/resolve` as
+any caller uses them — the replayed clock changes nothing, which is the point:
+when a fact became known no longer decides what the world was.
 
-**Hanzo answers every history question the same, and no point-in-time question
-about history filed today.** `as_of` bounds when the plane *knew* a fact — the
-later of `seen` and its own clock at the write — not when the fact was so.
-Through `POST /v1/graph` that is the moment of loading for every backfilled
-fact, so `resolve` at any past year holds nothing: 0 of 7,812. It is
-deliberate (HIP-1198 calls a caller-chosen as-of "backdating"), and it means
-the plane has no valid-time query: `at` is stored and returned, and no
-operation reads it.
+**The difference is the price of a question.** A point-in-time read about one
+entity costs Hanzo one indexed read of that pair, 0.06 ms at the median.
+Semantica's calls take no entity, so every question about one player
+reconstructs all 328k facts at that year, deep copy included: 5.4 s. That is
+about 85,000 times the cost for the same answer. Semantica loads faster
+because it builds nothing — the load is a list — and Hanzo's 116 s is admission,
+content addressing, two index trees and the full-text index for 655,856
+assertions.
 
-**With the clock replayed, `resolve` answers 85.6%.** Setting the write clock to
-each assertion's own instant — only code inside the package can — makes
-knowable the same as valid time. `resolve` still returns one winner per
-(entity, relation), so two facts in force at once on one pair collide, and the
-retraction of the one that ended is the newest thing about the pair. Every one
-of the 1,126 misses is that: 552 positions, 540 teams, 29 employers, 4 awards,
-1 spouse. Mark Ford in 1998: Leeds 1993–97, England U21 1996, Burnley 1997–99.
-Leeds' retraction at the end of 1997 is newer than Burnley's opening at its
-start, so nothing is in force in 1998; the answer is Burnley.
+**What changed to get here** (cloud `1fffdf408`). The first run of this lane
+answered 70.03% through the API and 0.00% on simple_entity: `as_of` bounded
+when the plane knew a fact, not when it was so, so history filed today was
+invisible to a question about its own year. And a retraction retracted the
+whole pair, so one holder's term ending erased every other holder. A read now
+takes the two instants apart — `as_of` for the world, `as_known` for what had
+been heard — a statement carries its own `until`, and a relation holds one
+value at a time or many, as the organization declares it. Two runs of the
+harness along the way found two more defects of the new code before it
+shipped: `until` stored as zero for "open" collided with 1970-01-01, the end
+of every term through 1969; and two accounts of one statement filed together
+were treated as a correction of one by the other.
 
-Filing no retraction at all — letting a later assertion supersede an earlier
-one — would answer 97.4% to 98.8% of those questions by the same rule,
-depending on how same-year ties fall. That is arithmetic over `facts.tsv`
-rather than a run, and the price of it is that every fact that ended would read
-as still in force, which is the distinction this plane exists to keep.
+**Found in the wire run:** 110 facts start in a year after today — Wikidata
+states planned terms — and admission refuses an `at` more than five minutes
+ahead of the server clock. No covered question asks about them.
 
 ## Found along the way
 
-- **Hanzo: year 1 is refused as no instant.** `admit` tests `At.IsZero()`, and
-  `0001-01-01T00:00:00Z` is Go's zero time, so an assertion dated then is
-  refused with "at is required" while its retraction is admitted, leaving a
-  close with no open. 7 facts here, 14 assertions. `…00:00:01Z` is accepted.
-- **Hanzo: a read truncates without saying so.** `GET /v1/graph` returns at most
-  10,000 assertions and `graphReadOut` has no field that says it stopped;
-  `resolve` and `neighbors` both report theirs. Not reached by these questions,
-  but one position in this KG — United States representative, 6,843 facts —
-  files 13,686 assertions on one pair.
+- **Hanzo: year 1 was refused as no instant** (fixed in `1fffdf408`). `admit`
+  tested `At.IsZero()`, and `0001-01-01T00:00:00Z` is Go's zero time. 7 facts
+  here.
+- **Hanzo: a read truncated without saying so** (fixed in `1fffdf408`).
+  `GET /v1/graph` returned at most 10,000 assertions with no field saying it
+  stopped; it now reports `truncated` as `resolve` and `neighbors` do.
 - **Semantica: one inverted interval stops every point-in-time query.**
   `GraphBuilder.build` accepts a relationship whose `valid_from` is after its
   `valid_until` (`rejected_relationships: 0`), and every later `query_at_time`

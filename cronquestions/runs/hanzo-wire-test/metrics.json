@@ -6,15 +6,15 @@
  "of": 30000,
  "hits@1": {
   "overall": {
-   "mean": 0.700282788138184,
-   "lo": 0.6946652399877713,
-   "hi": 0.7055181901559157
+   "mean": 0.9988153469886885,
+   "lo": 0.9983567716294711,
+   "hi": 0.9992357077346378
   },
   "simple_entity": {
    "n": 7812,
-   "mean": 0.0,
-   "lo": 0.0,
-   "hi": 0.0
+   "mean": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
   },
   "simple_time": {
    "n": 5046,
@@ -36,46 +36,45 @@
   }
  },
  "load": {
-  "assertions": 1311666,
-  "assertions_per_s": 7519.988208661974,
-  "bytes": 477511680,
+  "assertions": 655856,
+  "assertions_per_s": 5657.523537543221,
+  "bytes": 283987968,
   "facts": 327983,
-  "facts_per_s": 1880.3783071617167,
+  "facts_per_s": 2829.236207969491,
   "refused": {
-   "at is required: an assertion with no instant can never mature": 14,
-   "timestamp is more than 5m0s ahead of the server clock": 252
+   "timestamp is more than 5m0s ahead of the server clock": 110
   },
-  "seconds": 174.423943709
+  "seconds": 115.9263405
  },
  "query_ms": {
   "all": {
    "n": 27096,
-   "p50": 0.044167,
-   "p99": 2.58875,
-   "mean": 0.1271306258119292
+   "p50": 0.062917,
+   "p99": 2.385291,
+   "mean": 0.15902747471951573
   },
   "at": {
    "n": 7812,
-   "p50": 0.035291,
-   "p99": 0.96975,
-   "mean": 0.07127807744495647
+   "p50": 0.088167,
+   "p99": 3.445459,
+   "mean": 0.2225683613671275
   },
   "history": {
    "n": 18356,
-   "p50": 0.048417,
-   "p99": 2.880292,
-   "mean": 0.1425463216931788
+   "p50": 0.046875,
+   "p99": 2.218042,
+   "mean": 0.12834198932229263
   },
   "touch": {
    "n": 928,
-   "p50": 0.052708,
-   "p99": 2.319208,
-   "mean": 0.2923780334051723
+   "p50": 0.044208,
+   "p99": 2.057375,
+   "mean": 0.2310979094827585
   }
  },
  "notes": {
   "calls_timed": "every call",
-  "query_wall_s": 3.450925959,
+  "query_wall_s": 4.315679625,
   "truncated_reads": 0
  }
 }

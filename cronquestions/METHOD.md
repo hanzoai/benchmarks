@@ -65,35 +65,33 @@ all covered questions, with bootstrap 95% intervals. No answer scores 0.
 cloud source; nothing in the cloud tree changes. It opens the store as
 production does minus the key (`sqlite.OpenDB`, one connection,
 `openStore`), and every assertion goes through `fromWire`, the API's own
-admission. Each KG fact is four assertions:
+admission. Each KG fact is two statements, each with its own lifetime:
 
-- an edge `(s, r, o)` and its inverse `(o, ~r, s)` at the open instant;
-- a retraction of each — an empty property on the same pair — at the close.
+- an edge `(s, r, o)` and its inverse `(o, ~r, s)`, each from the first instant
+  of the start year (`at`) until the first instant after the end year (`until`).
 
-The evidence is the KG line, so an open and its close pair. The inverse exists
-because `resolve` answers one (entity, relation); "who held P in T" needs the
-fact filed about P.
+The evidence is the KG line. The inverse exists because `resolve` answers one
+(entity, relation); "who held P in T" needs the fact filed about P.
 
 | call | store |
 |---|---|
-| `at` | `read(entity, relation, as_of, newest)` then `Resolve` — what `POST /v1/graph/resolve` does |
-| `history`, `touch` | `read(entity[, relation])`, opens paired with closes by evidence — what `GET /v1/graph` does |
+| `at` | `read(entity, relation, valid ≤ T, known ≤ now, newest)` then `Resolve` at (T, now) — what `POST /v1/graph/resolve` does |
+| `history`, `touch` | `read(entity[, relation])`, each statement as `[value, start year, end year]` — what `GET /v1/graph` does |
 
-The store's `as_of` bounds **knowable** — the later of `seen` and the server
-clock at the write — not `at`. So the clock decides everything, and the lane
-runs two:
+A read takes two instants: `as_of`, when the world was so (`at`, `until`), and
+`as_known`, how much the plane had heard (`knowable`, the later of `seen` and
+the server's clock at the write). Every question here is asked at `as_known` =
+now, as any caller asks. The lane runs two write clocks to show that the
+second one no longer decides the answer:
 
-- **wire** — the clock is now, as for any caller of `POST /v1/graph`. History
-  filed today is knowable today, so `resolve` at any past year holds nothing.
+- **wire** — the clock is now, as for any caller of `POST /v1/graph`.
 - **replay** — the clock is each assertion's own instant, as if a pipeline had
-  filed each fact when it became so. Only in-package code can set this; the
-  API cannot.
+  filed each fact when it became so. Only in-package code can set this.
 
-`resolve` returns one winner per (entity, relation). A relation with two facts
-in force at once (a club and a national team) resolves to whichever is newest,
-and a retraction of one is the newest thing about the pair until something
-else is asserted. That is the store's model, not a driver choice, and the
-simple_entity row measures it.
+An undeclared edge relation holds many values at once (a club and a national
+team), and each statement holds until its own `until`, so one ending ends
+nothing else. `resolve` returns every statement holding, the most recently
+begun first; the answer rule takes the most recently begun (`cron.py answer`).
 
 Latency: every call, in-process, from before the read to the returned rows.
 
@@ -119,7 +117,7 @@ answer afterwards (`timed_calls_differing_from_shared`, 0 in every run).
 ## Load
 
 Wall time from the parsed fact list to a store ready to answer. For Hanzo
-that is admission, digest and SQLite writes of four assertions per fact
+that is admission, digest and SQLite writes of two statements per fact
 (index and full-text triggers included); for Semantica it is `build`, which
 copies the dicts and indexes nothing.
 

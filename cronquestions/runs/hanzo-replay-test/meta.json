@@ -6,14 +6,14 @@
  "split": "test",
  "row": "hanzo-replay",
  "store": "hanzoai/cloud apps/graph, clock=replay, go1.27.1 darwin/arm64",
- "subject": "hanzo-inc/cloud c47fd3692e9a, apps/graph clean",
+ "subject": "hanzo-inc/cloud 1fffdf408f2e, apps/graph clean",
  "reader": "none",
- "commit": "f8a63ef311ae",
- "host": "host: Apple M1 Max \u00b7 10 cores \u00b7 arm64 \u00b7 macOS 26.6.2 \u00b7 load 13.52",
+ "commit": "2e6d3942d32b",
+ "host": "host: Apple M1 Max \u00b7 10 cores \u00b7 arm64 \u00b7 macOS 26.6.2 \u00b7 load 25.14",
  "load_1m": {
-  "at_start": 13.52,
-  "peak_loading": 18.92,
-  "peak_queries": 17.96
+  "at_start": 25.14,
+  "peak_loading": 41.9,
+  "peak_queries": 33.28
  },
- "when": "2026-09-19T22:35:46+00:00"
+ "when": "2026-09-23T06:18:24+00:00"
 }
