@@ -199,8 +199,9 @@ def blocks(content):
 
 
 def sessions(path):
-    """Claude Code events of a JSONL file, grouped by session: [(role, blocks)] per session.
-    Sidechains (subagents) are dropped; values may arrive stringified ("True")."""
+    """Claude Code events of a JSONL file, grouped by session and agent: [(role, blocks)] per
+    transcript. A subagent (sidechain) is its own transcript, keyed by its agentId; values may
+    arrive stringified ("True")."""
     out = {}
     for line in open(path, errors="replace"):
         try:
@@ -208,8 +209,10 @@ def sessions(path):
         except ValueError:
             continue
         m = e.get("message")
-        if e.get("type") in ("user", "assistant") and isinstance(m, dict) and e.get("isSidechain") not in (True, "True"):
-            out.setdefault(e.get("sessionId"), []).append((m.get("role"), blocks(m.get("content"))))
+        if e.get("type") in ("user", "assistant") and isinstance(m, dict):
+            side = e.get("isSidechain") in (True, "True")
+            key = (e.get("sessionId"), e.get("agentId") if side else None, side)
+            out.setdefault(key, []).append((m.get("role"), blocks(m.get("content"))))
     return list(out.values())
 
 
