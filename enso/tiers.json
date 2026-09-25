@@ -2,16 +2,18 @@
   "labels": ["small", "medium", "large", "frontier"],
   "levels": ["none", "short", "medium", "deep"],
   "default": "deep",
+  "lineage": "every zen* alias on dgx:1235 and halo:1235 resolves to the two Qwen3.8-Flash-Next deployments below (upstream Qwen weights, quantized by NVIDIA and halogen), not a zenlm-trained checkpoint; the unserved slots name the weights found on disk (inventory 2026-09-25)",
   "basis": {
     "usd_per_gpu_hour": "hardware amortized over 3 years at 24/7 plus power at $0.15/kWh: GB10 $4,000 + 0.20 kW = $0.18/h; Strix Halo $2,000 + 0.12 kW = $0.09/h. An assumption, not a price list.",
     "kv": "per-token bytes from config.json: 12 full-attention layers x 2 KV heads x 256 dims x (K,V) x 2 bytes = 24,576, plus the sparse-attention indexer key cache 12 x 1 x 128 x 2 = 3,072, plus the MTP layer's KV 2 x 256 x 2 x 2 = 2,048. Fixed per-sequence state: 36 linear-attention (gated delta) layers x (48 x 128 x 128 fp32 state + (2x16x128 + 48x128) x 3 bf16 conv state) = 115,458,048 bytes. vLLM's own accounting on dgx: 19.63 GiB for 722,264 tokens = 29,183 bytes per token (spark-vllm.log, engine pid 74850).",
-    "gpu_seconds": "the integral of 1 / max(1, requests running) over a request's wall time, from the server's /metrics; exact for an idle server at concurrency 1, an upper bound under queueing"
+    "gpu_seconds": "prefill: the tier's idle prefill time for the prompt (fixed_s + prompt / tps), capped by the observed time to first token, so queueing is not counted; decode: the integral of 1 / max(1, requests running) from the first token to the last, from the server's /metrics. A tier without a prefill model counts its whole time to first token."
   },
   "tiers": [
     {
       "id": "flash-dgx",
       "label": "large",
       "served": true,
+      "primary": true,
       "endpoint": "http://10.0.0.19:18300",
       "model": "qwen3.8-flash-next",
       "weights": "nvidia/Qwen3.8-Flash-Next-NVFP4@fc694b54fb0174e0913e6adf86691ef85a4ead47 (fp8 hybrid)",
@@ -47,6 +49,7 @@
       "state_bytes": 115458048,
       "kv_source": "the dgx geometry; halogen kv dtype assumed 16-bit, indexer cache assumed present",
       "kv_capacity_tokens": 655360,
+      "prefill": {"fixed_s": 0.83, "tps": 1310, "source": "least squares over the smoke grid's 15 idle halo cells (60 to 932 prompt tokens), 2026-09-25"},
       "budgets": {
         "none": {"enable_thinking": false, "max_tokens": 2048},
         "short": {"reasoning_effort": "low", "max_tokens": 4096},
@@ -54,8 +57,11 @@
         "deep": {"reasoning_effort": "xhigh", "max_tokens": 16384}
       }
     },
-    {"id": "small", "label": "small", "served": false, "kind": "vllm", "model": null, "weights": null},
-    {"id": "medium", "label": "medium", "served": false, "kind": "vllm", "model": null, "weights": null},
-    {"id": "frontier", "label": "frontier", "served": false, "kind": "vllm", "model": null, "weights": null}
+    {"id": "nano", "label": "small", "served": false, "kind": "vllm", "model": "zen-nano-0.6b",
+     "weights": "zenlm/zen-nano-0.6b (0.6B dense, Qwen3-0.6B config), on ra and dbc; served nowhere"},
+    {"id": "dense27", "label": "medium", "served": false, "kind": "vllm", "model": "qwen3.8-27b",
+     "weights": "RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead@009632fef96dd349150baa780c984e62e70e91fe (27B dense, hybrid attention), on dgx; served nowhere"},
+    {"id": "frontier", "label": "frontier", "served": false, "kind": "vllm", "model": null,
+     "weights": "none local: zen-5-pro (284B-A37B) and the zen5 GGUF ladder are metadata stubs on every host"}
   ]
 }
