@@ -131,8 +131,13 @@ class Integrals(unittest.TestCase):
              "samples": [(0.0, 2, 0, 0.5)], "waiting": 0}
         m = S.measure(r, tier)
         self.assertEqual((m["prompt_tokens"], m["decode_tokens"], m["reasoning_tokens"], m["reasoning_estimated"]), (100, 20, 10, True))
-        self.assertAlmostEqual(m["gpu_s"], 1.5)
-        self.assertAlmostEqual(m["usd"], 1.5 * 3.6 / 3600)
+        self.assertAlmostEqual(m["gpu_s"], 1.0 + 2.0 * 0.5)  # prefill whole, decode shared with one other
+        self.assertAlmostEqual(m["usd"], 2.0 * 3.6 / 3600)
+        q = S.measure(dict(r, ttft=2.0), dict(tier, prefill={"fixed_s": 0.5, "tps": 200}))
+        self.assertAlmostEqual(q["queue_s"], 2.0 - (0.5 + 100 / 200))  # waited 1s before prefill
+        self.assertAlmostEqual(q["gpu_s"], 1.0 + 1.0 * 0.5)
+        r2 = dict(r, ttft=2.0)  # memory is held from prefill start (t=1), not from the send (t=0)
+        self.assertAlmostEqual(q["kv_gb_s"], (1e9 * 2.0 + 1e6 * S.area(S.timeline(r2, 100, 20, 1.0))) / 1e9)
         self.assertAlmostEqual(m["kv_gb_s"], (1e9 * 3 + 1e6 * S.area(S.timeline(r, 100, 20))) / 1e9)
         self.assertAlmostEqual(m["kv_server_gb_s"], 0.5 * 2e9 * 3 / 1e9)
 

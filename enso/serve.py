@@ -168,13 +168,16 @@ def chat(tier, messages, budget, cap, timeout=900):
         out["end"] = time.time()
         out["samples"] = sampler.stop()
     out["content"], out["reasoning"] = "".join(content), "".join(reasoning)
+    if out["error"] is None and out["finish"] is None:
+        out["error"] = "the stream ended without a finish reason"
     return out
 
 
-def timeline(r, prompt, completion):
-    """[(t, live tokens)]: prompt tokens ramp over prefill, then decode grows with the streamed
-    characters (completion tokens spread over them in proportion)."""
-    t0, t1, end = r["t0"], r["ttft"] or r["end"], r["end"]
+def timeline(r, prompt, completion, start=None):
+    """[(t, live tokens)]: prompt tokens ramp over prefill (from `start`, default the send
+    time), then decode grows with the streamed characters (completion tokens spread over them
+    in proportion)."""
+    t0, t1, end = r["t0"] if start is None else start, r["ttft"] or r["end"], r["end"]
     pts = [(t0, 0.0), (t1, float(prompt))]
     total = r["times"][-1][1] if r["times"] else 0
     for t, c in r["times"]:
@@ -189,11 +192,14 @@ def area(pts):
 
 
 def steps(samples, t0, end, f):
-    """Integral over [t0, end] of f(sample) held from each sample to the next."""
-    s = [x for x in samples if t0 <= x[0] <= end]
-    if not s:
+    """Integral over [t0, end] of f(sample), each sample held until the next; the value at t0
+    is the last sample at or before it, else the first after."""
+    if not samples or end <= t0:
         return 0.0
-    s = [(t0,) + s[0][1:]] + s + [(end,) + s[-1][1:]]
+    before = [x for x in samples if x[0] <= t0]
+    inside = [x for x in samples if t0 < x[0] < end]
+    start = before[-1] if before else (inside[0] if inside else min(samples, key=lambda x: abs(x[0] - t0)))
+    s = [(t0,) + start[1:]] + inside + [(end,) + (inside[-1] if inside else start)[1:]]
     return sum((b[0] - a[0]) * f(a) for a, b in zip(s, s[1:]))
 
 
@@ -211,16 +217,20 @@ def measure(r, tier):
     t0, end = r["t0"], r["end"]
     ttft = r["ttft"] or end
     wall = end - t0
-    live = area(timeline(r, prompt, completion))
-    kv = tier.get("state_bytes", 0) * wall + tier.get("kv_bytes_per_token", 0) * live
-    peak = tier.get("state_bytes", 0) + tier.get("kv_bytes_per_token", 0) * (prompt + completion)
     samples = r.get("samples") or []
-    gpu = steps(samples, t0, end, lambda s: 1.0 / max(1.0, s[1])) if samples else wall
-    gpu *= tier.get("gpus", 1)
+    pre = tier.get("prefill")
+    prefill = min(ttft - t0, pre["fixed_s"] + prompt / pre["tps"]) if pre else ttft - t0
+    decode = steps(samples, ttft, end, lambda s: 1.0 / max(1.0, s[1])) if samples else end - ttft
+    gpu = (prefill + decode) * tier.get("gpus", 1)
+    start = ttft - prefill  # the sequence holds memory from its prefill on, not while queued
+    live = area(timeline(r, prompt, completion, start))
+    kv = tier.get("state_bytes", 0) * (end - start) + tier.get("kv_bytes_per_token", 0) * live
+    peak = tier.get("state_bytes", 0) + tier.get("kv_bytes_per_token", 0) * (prompt + completion)
     cap = tier.get("kv_capacity_bytes") or tier.get("kv_bytes_per_token", 0) * tier.get("kv_capacity_tokens", 0)
     return {
         "prompt_tokens": prompt, "decode_tokens": completion, "reasoning_tokens": int(reasoning),
         "reasoning_estimated": estimated, "prefill_s": ttft - t0, "decode_s": end - ttft, "latency_s": wall,
+        "queue_s": ttft - t0 - prefill,
         "gpu_s": gpu, "kv_gb_s": kv / 1e9, "kv_peak_gb": peak / 1e9,
         "kv_server_gb_s": steps(samples, t0, end, lambda s: s[3] * cap) / 1e9 if samples else None,
         "kv_server_peak": max((s[3] for s in samples), default=None),

@@ -14,9 +14,11 @@ METRICS = ("gpu_s", "kv_gb_s", "prompt_tokens", "decode_tokens", "reasoning_toke
 
 
 def cells(rows, variant="full"):
+    """Rows by task and cell; a row whose request failed (server down, cut stream) is not a
+    cell: the model was never measured there."""
     g = {}
     for r in rows:
-        if r.get("variant", "full") == variant:
+        if r.get("variant", "full") == variant and not r.get("error"):
             g.setdefault(r["task"], {})[(r["tier"], r["level"])] = r
     return g
 

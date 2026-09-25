@@ -247,6 +247,7 @@ def estimate(g, tiers, full, routed=()):
                 continue
             parts[f"{t['id']}/{lv}"] = m * n / 3600
             total += m * n
+    routed = [r for r in routed if not r.get("error")]
     router = statistics.fmean([r["gpu_s"] for r in routed]) if routed else 0.0
     online = 1.0 + 1.0 + 1.5  # K3, K4, K5 runs per task at about a grid cell each (K5: 1.5 attempts)
     cell = total / (len(tiers.served) * len(tiers.levels) * n) if n else 0
