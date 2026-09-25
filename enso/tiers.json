@@ -1,0 +1,61 @@
+{
+  "labels": ["small", "medium", "large", "frontier"],
+  "levels": ["none", "short", "medium", "deep"],
+  "default": "deep",
+  "basis": {
+    "usd_per_gpu_hour": "hardware amortized over 3 years at 24/7 plus power at $0.15/kWh: GB10 $4,000 + 0.20 kW = $0.18/h; Strix Halo $2,000 + 0.12 kW = $0.09/h. An assumption, not a price list.",
+    "kv": "per-token bytes from config.json: 12 full-attention layers x 2 KV heads x 256 dims x (K,V) x 2 bytes = 24,576, plus the sparse-attention indexer key cache 12 x 1 x 128 x 2 = 3,072, plus the MTP layer's KV 2 x 256 x 2 x 2 = 2,048. Fixed per-sequence state: 36 linear-attention (gated delta) layers x (48 x 128 x 128 fp32 state + (2x16x128 + 48x128) x 3 bf16 conv state) = 115,458,048 bytes. vLLM's own accounting on dgx: 19.63 GiB for 722,264 tokens = 29,183 bytes per token (spark-vllm.log, engine pid 74850).",
+    "gpu_seconds": "the integral of 1 / max(1, requests running) over a request's wall time, from the server's /metrics; exact for an idle server at concurrency 1, an upper bound under queueing"
+  },
+  "tiers": [
+    {
+      "id": "flash-dgx",
+      "label": "large",
+      "served": true,
+      "endpoint": "http://10.0.0.19:18300",
+      "model": "qwen3.8-flash-next",
+      "weights": "nvidia/Qwen3.8-Flash-Next-NVFP4@fc694b54fb0174e0913e6adf86691ef85a4ead47 (fp8 hybrid)",
+      "kind": "vllm",
+      "hardware": "dgx: NVIDIA GB10, vLLM 0.29.0, MTP speculative decoding (4 tokens), prefix caching, max 8 sequences",
+      "live": true,
+      "gpus": 1,
+      "usd_per_gpu_hour": 0.18,
+      "kv_bytes_per_token": 29696,
+      "state_bytes": 115458048,
+      "kv_capacity_bytes": 21077552005,
+      "kv_capacity_tokens": 722264,
+      "budgets": {
+        "none": {"chat_template_kwargs": {"enable_thinking": false}, "max_tokens": 2048},
+        "short": {"chat_template_kwargs": {"reasoning_effort": "low"}, "max_tokens": 4096},
+        "medium": {"chat_template_kwargs": {"reasoning_effort": "medium"}, "max_tokens": 8192},
+        "deep": {"chat_template_kwargs": {"reasoning_effort": "xhigh"}, "max_tokens": 16384}
+      }
+    },
+    {
+      "id": "flash-halo",
+      "label": "large",
+      "served": true,
+      "endpoint": "http://10.0.0.57:8731",
+      "model": "halogen-qwen3.8-flash-next",
+      "weights": "qwen38-flash-next-w4b.hgn (halogen 0.12.3, 4-bit weights)",
+      "kind": "halogen",
+      "hardware": "halo: AMD Strix Halo APU, halogen flash_serve, 8 slots, MTP drafter",
+      "live": false,
+      "gpus": 1,
+      "usd_per_gpu_hour": 0.09,
+      "kv_bytes_per_token": 29696,
+      "state_bytes": 115458048,
+      "kv_source": "the dgx geometry; halogen kv dtype assumed 16-bit, indexer cache assumed present",
+      "kv_capacity_tokens": 655360,
+      "budgets": {
+        "none": {"enable_thinking": false, "max_tokens": 2048},
+        "short": {"reasoning_effort": "low", "max_tokens": 4096},
+        "medium": {"reasoning_effort": "medium", "max_tokens": 8192},
+        "deep": {"reasoning_effort": "xhigh", "max_tokens": 16384}
+      }
+    },
+    {"id": "small", "label": "small", "served": false, "kind": "vllm", "model": null, "weights": null},
+    {"id": "medium", "label": "medium", "served": false, "kind": "vllm", "model": null, "weights": null},
+    {"id": "frontier", "label": "frontier", "served": false, "kind": "vllm", "model": null, "weights": null}
+  ]
+}
