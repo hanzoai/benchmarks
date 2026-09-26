@@ -1,0 +1,827 @@
+{
+ "checkpoint": "dbc:scratch/decision/runs/a",
+ "weights": "6c77ab57873d303faa2191175047c7f53e5df228ac49209f6f84e6ec36425b98",
+ "label": "Kai stage A, 1 epoch, mmBERT-base; retrieval uncentered",
+ "init": {
+  "repo": "hanzoai/kai-1-multilingual",
+  "revision": "3119843b5261e34903f93d03813467524c57982e"
+ },
+ "data": {
+  "manifest": "a-189e99d2fd11f7be/manifest.json",
+  "dir": "/Users/a/scratch/decision/license/out"
+ },
+ "spec": {
+  "stage": "a",
+  "init": {
+   "repo": "hanzoai/kai-1-multilingual",
+   "revision": "3119843b5261e34903f93d03813467524c57982e"
+  },
+  "sources": [
+   "ag_news",
+   "emotion",
+   "banking77",
+   "support_triage",
+   "email_spam",
+   "phishing",
+   "toxic_chat",
+   "rag_relevance",
+   "model_routing_domain",
+   "typed_decisions",
+   "massive",
+   "agent",
+   "function",
+   "swe",
+   "nemotron",
+   "clinc150",
+   "xnli",
+   "sst5",
+   "robust",
+   "codeswitch",
+   "boolq",
+   "mnli",
+   "code",
+   "control",
+   "skills",
+   "graph_typed",
+   "turbofan",
+   "rig",
+   "sysml",
+   "readiness",
+   "trade",
+   "testplan",
+   "arch"
+  ],
+  "manifest": "a-189e99d2fd11f7be/manifest.json",
+  "licenses": [
+   "GREEN",
+   "YELLOW",
+   "RED"
+  ],
+  "lang": null,
+  "share": 1.0,
+  "frozen": [
+   "encoder.embeddings.tok_embeddings."
+  ],
+  "evidence": null,
+  "shared": false,
+  "diffuse": 0,
+  "mixed": 0.05,
+  "epochs": 1,
+  "lr_encoder": 3e-05,
+  "lr_head": 0.0001,
+  "weight_decay": 0.01,
+  "warmup": 0.03,
+  "cool": 0.2,
+  "decay": 1.0,
+  "budget": {
+   "ctx": 4096,
+   "options": 4096,
+   "head": 8192,
+   "keys": 16384,
+   "rows": 128,
+   "evidence": 16384
+  },
+  "wide": 64,
+  "max_len": 1024,
+  "clip": 1.0,
+  "seed": 1,
+  "eval_every": 12000,
+  "eval_rows": 400,
+  "max_steps": 0,
+  "outer": 0.7,
+  "momentum": 0.9,
+  "round": 300.0
+ },
+ "mixture": [
+  {
+   "suite": "ag_news",
+   "rows": 20000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "emotion",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "banking77",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "support_triage",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "email_spam",
+   "rows": 12000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "phishing",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "guardrails_jailbreak",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "moderation_toxicity",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "rag_relevance",
+   "rows": 24000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "model_routing_domain",
+   "rows": 9000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "typed_decisions",
+   "rows": null,
+   "times": 4,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "massive",
+   "rows": 204000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": true
+  },
+  {
+   "suite": "xnli",
+   "rows": 60000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": true
+  },
+  {
+   "suite": "codeswitch",
+   "rows": 20000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": true
+  },
+  {
+   "suite": "clinc150",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "sst5",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "function",
+   "rows": 20000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "resolve",
+   "rows": 30000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "action",
+   "rows": 30000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "nemotron",
+   "rows": 8000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "tool",
+   "rows": 10000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "risk",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "done",
+   "rows": 4000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "repo",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "shuffle",
+   "rows": 8000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "alias",
+   "rows": 4000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "swap",
+   "rows": 4000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "subset",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "near",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "boolq",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "mnli",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.file.gold",
+   "rows": 30000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.symbol.gold",
+   "rows": 8000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.test.silver",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.suspect.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.affected.gold",
+   "rows": 10000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.context.gold",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.commit.gold",
+   "rows": null,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.continue.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.done.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.repeat.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.retry.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.rollback.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.strategy.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.user.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.user.silver",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.failure.gold",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.failure.silver",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "skills.select.silver",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "graph_typed",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "turbofan",
+   "rows": 2000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "rig",
+   "rows": 2000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "sysml",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "readiness",
+   "rows": 5000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "trade",
+   "rows": 4000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "testplan",
+   "rows": 4000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "arch",
+   "rows": 12000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  }
+ ],
+ "epochs_done": 1,
+ "steps": 91899,
+ "hours": 6.22,
+ "cluster": {
+  "round": 71,
+  "merged": 91899,
+  "total": 91899,
+  "limit": 91899,
+  "corpus": "11d62241e28ba84eedd1c58ccf5c620a01202516ec3d9bd2c11f4d0fba920025",
+  "params": "c79013fd3aacaf20e3d5f55a38b1b1ef7847a7c64d62a904793734ac3bfea2f7"
+ },
+ "workers": [
+  {
+   "name": "dbc",
+   "device": "Metal",
+   "dtype": "bf16"
+  },
+  {
+   "name": "evo",
+   "device": "ROCm",
+   "dtype": "bf16"
+  },
+  {
+   "name": "dgx",
+   "device": "CUDA",
+   "dtype": "bf16",
+   "left": "round 59 of 71"
+  }
+ ],
+ "val": {
+  "action": {
+   "rows": 400,
+   "accuracy": 0.3375,
+   "nll": 1.7590467350184917
+  },
+  "ag_news": {
+   "rows": 400,
+   "accuracy": 0.845,
+   "nll": 0.4590298318040004
+  },
+  "arch": {
+   "rows": 400,
+   "accuracy": 0.6725,
+   "nll": 0.8388479368109256
+  },
+  "banking77": {
+   "rows": 352,
+   "accuracy": 0.4289772727272727,
+   "nll": 2.0413731120682894
+  },
+  "boolq": {
+   "rows": 367,
+   "accuracy": 0.6294277929155313,
+   "nll": 0.6664042934085108
+  },
+  "clinc150": {
+   "rows": 400,
+   "accuracy": 0.41,
+   "nll": 2.0970815353188663
+  },
+  "code.affected.gold": {
+   "rows": 400,
+   "accuracy": 0.535,
+   "nll": 0.693414108902216
+  },
+  "code.failure.silver": {
+   "rows": 19,
+   "accuracy": 0.15789473684210525,
+   "nll": 1.6966860043375116
+  },
+  "code.file.gold": {
+   "rows": 400,
+   "accuracy": 0.07,
+   "nll": 4.387556329689366
+  },
+  "code.suspect.gold": {
+   "rows": 21,
+   "accuracy": 0.0,
+   "nll": 5.023978801598539
+  },
+  "code.symbol.gold": {
+   "rows": 281,
+   "accuracy": 0.09252669039145907,
+   "nll": 4.2758130599003845
+  },
+  "code.test.silver": {
+   "rows": 400,
+   "accuracy": 0.04,
+   "nll": 3.6485352389737398
+  },
+  "control.commit.gold": {
+   "rows": 21,
+   "accuracy": 0.38095238095238093,
+   "nll": 0.679657981509254
+  },
+  "control.context.gold": {
+   "rows": 36,
+   "accuracy": 0.8055555555555556,
+   "nll": 0.7382884446738495
+  },
+  "control.continue.gold": {
+   "rows": 21,
+   "accuracy": 0.9523809523809523,
+   "nll": 0.3857498708225432
+  },
+  "control.done.gold": {
+   "rows": 11,
+   "accuracy": 0.09090909090909091,
+   "nll": 0.7285686731338501
+  },
+  "control.repeat.gold": {
+   "rows": 3,
+   "accuracy": 1.0,
+   "nll": 0.5676159262657166
+  },
+  "control.retry.gold": {
+   "rows": 1,
+   "accuracy": 0.0,
+   "nll": 0.8259393572807312
+  },
+  "control.rollback.gold": {
+   "rows": 7,
+   "accuracy": 0.5714285714285714,
+   "nll": 0.6944019964763096
+  },
+  "control.strategy.gold": {
+   "rows": 4,
+   "accuracy": 0.75,
+   "nll": 0.6208554580807686
+  },
+  "control.user.silver": {
+   "rows": 8,
+   "accuracy": 0.875,
+   "nll": 0.35813345573842525
+  },
+  "done": {
+   "rows": 237,
+   "accuracy": 0.9789029535864979,
+   "nll": 0.34075390852453336
+  },
+  "email_spam": {
+   "rows": 400,
+   "accuracy": 0.9825,
+   "nll": 0.05094746626462438
+  },
+  "emotion": {
+   "rows": 343,
+   "accuracy": 0.6793002915451894,
+   "nll": 0.9170947559225392
+  },
+  "function": {
+   "rows": 400,
+   "accuracy": 0.5725,
+   "nll": 1.554570533776948
+  },
+  "graph_typed": {
+   "rows": 135,
+   "accuracy": 0.5333333333333333,
+   "nll": 1.1350882615209013
+  },
+  "guardrails_jailbreak": {
+   "rows": 287,
+   "accuracy": 0.7073170731707317,
+   "nll": 0.5113080191606079
+  },
+  "massive": {
+   "rows": 400,
+   "accuracy": 0.73,
+   "nll": 0.8820906865469805
+  },
+  "mnli": {
+   "rows": 400,
+   "accuracy": 0.5925,
+   "nll": 0.8984323929063975
+  },
+  "model_routing_domain": {
+   "rows": 400,
+   "accuracy": 0.9875,
+   "nll": 0.037976181477199875
+  },
+  "moderation_toxicity": {
+   "rows": 287,
+   "accuracy": 0.9094076655052264,
+   "nll": 0.23626544727264004
+  },
+  "nemotron": {
+   "rows": 400,
+   "accuracy": 0.4,
+   "nll": 2.2199113917921496
+  },
+  "phishing": {
+   "rows": 359,
+   "accuracy": 0.9442896935933147,
+   "nll": 0.24966761565540113
+  },
+  "rag_relevance": {
+   "rows": 400,
+   "accuracy": 0.5025,
+   "nll": 0.6974880001693964
+  },
+  "readiness": {
+   "rows": 400,
+   "accuracy": 0.4525,
+   "nll": 1.0979308848828078
+  },
+  "resolve": {
+   "rows": 400,
+   "accuracy": 0.9075,
+   "nll": 0.5037648996710777
+  },
+  "rig": {
+   "rows": 400,
+   "accuracy": 0.46,
+   "nll": 1.130037250802312
+  },
+  "risk": {
+   "rows": 400,
+   "accuracy": 0.0,
+   "nll": 2.501388232409954
+  },
+  "skills.select.silver": {
+   "rows": 174,
+   "accuracy": 0.0,
+   "nll": 7.131206147287084
+  },
+  "sst5": {
+   "rows": 305,
+   "accuracy": 0.21639344262295082,
+   "nll": 1.5501772767207662
+  },
+  "support_triage": {
+   "rows": 400,
+   "accuracy": 0.3625,
+   "nll": 1.7648118422964034
+  },
+  "sysml": {
+   "rows": 400,
+   "accuracy": 0.6075,
+   "nll": 0.7134178573917598
+  },
+  "testplan": {
+   "rows": 400,
+   "accuracy": 0.6075,
+   "nll": 0.9511696222424507
+  },
+  "tool": {
+   "rows": 400,
+   "accuracy": 0.09,
+   "nll": 2.4031215788424016
+  },
+  "trade": {
+   "rows": 400,
+   "accuracy": 0.615,
+   "nll": 0.7984760004188866
+  },
+  "turbofan": {
+   "rows": 400,
+   "accuracy": 0.5125,
+   "nll": 1.0146021759137511
+  },
+  "typed_decisions": {
+   "rows": 175,
+   "accuracy": 0.52,
+   "nll": 1.1044530317726327
+  },
+  "xnli": {
+   "rows": 400,
+   "accuracy": 0.63,
+   "nll": 0.9068103139661252
+  }
+ },
+ "calibration": {
+  "split": "val (carved from train)",
+  "buckets": {
+   "choice:11-30": {
+    "rows": 4767,
+    "temperature": 0.9634516996996272,
+    "nll_at_1": 1.5814593792806286,
+    "nll": 1.5806456983841188
+   },
+   "choice:3-5": {
+    "rows": 8307,
+    "temperature": 1.2897719668963727,
+    "nll_at_1": 1.208942499062061,
+    "nll": 1.2011145052531391
+   },
+   "choice:31+": {
+    "rows": 2469,
+    "temperature": 1.0880809414305082,
+    "nll_at_1": 3.28552118307726,
+    "nll": 3.2813987448968733
+   },
+   "choice:6-10": {
+    "rows": 4857,
+    "temperature": 1.2788496745758369,
+    "nll_at_1": 1.5894509228332674,
+    "nll": 1.5714672726295194
+   },
+   "noul:2": {
+    "rows": 21856,
+    "temperature": 1.0722838902560639,
+    "nll_at_1": 0.5854424042079086,
+    "nll": 0.5850781155601171
+   },
+   "score:*": {
+    "rows": 4825,
+    "temperature": 1.9176137398013469,
+    "nll_at_1": 1.629256325183017,
+    "nll": 1.4715500842857712
+   }
+  }
+ },
+ "temperature": {
+  "choice:11-30": 0.9634516996996272,
+  "choice:3-5": 1.2897719668963727,
+  "choice:31+": 1.0880809414305082,
+  "choice:6-10": 1.2788496745758369,
+  "noul:2": 1.0722838902560639,
+  "score:*": 1.9176137398013469
+ },
+ "encoder": {
+  "hidden_size": 768,
+  "num_hidden_layers": 22,
+  "vocab_size": 256000,
+  "from": "mmBERT-base, as carried by hanzoai/kai-1-multilingual"
+ },
+ "head_layers": 2,
+ "retrieval_dim": 256,
+ "max_len": 1024,
+ "option_len": 48,
+ "top_k": 32
+}
