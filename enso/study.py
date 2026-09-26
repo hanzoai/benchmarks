@@ -34,9 +34,9 @@ import work as W  # noqa: E402
 from serve import Cap, Spent  # noqa: E402
 
 STUDIES = {
-    # <= 50 requests to live endpoints, split so the K run on another host fits beside it.
+    # <= 50 requests, on halo alone: dgx's vLLM serves live traffic and is not a smoke target.
     "smoke": {"n": {"synthetic": 3, "gsm8k": 1}, "families": ["arith", "needle", "tool", "gsm8k"],
-              "tiers": {"flash-halo": ["none", "short", "medium", "deep"], "flash-dgx": ["none", "deep"]},
+              "tiers": {"flash-halo": ["none", "short", "medium", "deep"]},
               "max_tokens": {"none": 1024, "short": 2048, "medium": 4096, "deep": 8192},
               "primary": "flash-halo", "cap": 50, "concurrency": 1, "k": 2, "attempts": 3},
     "full": {"n": {"synthetic": 200, "gsm8k": 200, "mbpp": 100, "bfcl": 100, "trace": 200}, "families": None,
@@ -56,6 +56,9 @@ def spec(cfg):
     s = json.load(open(os.path.join(HERE, "tiers.json")))
     s = copy.deepcopy(s)
     for t in s["tiers"]:
+        # A study that names its tiers routes, escalates and falls back within them alone.
+        if cfg["tiers"] is not None and t["id"] not in cfg["tiers"]:
+            t["served"] = False
         for lv, b in (t.get("budgets") or {}).items():
             if cfg["max_tokens"]:
                 b["max_tokens"] = min(b["max_tokens"], cfg["max_tokens"][lv])
@@ -263,7 +266,7 @@ def main(argv):
     ap = argparse.ArgumentParser()
     ap.add_argument("study", choices=list(STUDIES) + ["estimate"])
     ap.add_argument("--kai", help="path to libcontrol (.so/.dylib); without it K1..K5 are skipped")
-    ap.add_argument("--models", default="kai-1-agent")
+    ap.add_argument("--models", default="laya-agent")
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--data", default=os.path.join(HERE, "data"))
     ap.add_argument("--traces", nargs="*", default=[])

@@ -1,7 +1,7 @@
 """Kai in process: libcontrol (hanzoai/decision, crate `control`) through ctypes, and the
 states its programs read, built exactly as Enso builds them.
 
-    k = Kai("/path/libcontrol.dylib", ["kai-1-agent"], "metal")
+    k = Kai("/path/libcontrol.dylib", ["laya-agent"], "metal")
     r = k.decide("router.model@1", [route(messages, tools, 812)], mode="enforced")
     r["results"][0]["signals"]["tier"]   # {"answer": "small", "certainty": 0.61, "accepted": true}
 
