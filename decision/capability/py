@@ -1,0 +1,5 @@
+#!/bin/zsh
+# python in the harness environment: Laya 0.3.20 ($LAYA_SRC) and what the suites read with
+export PATH=/opt/homebrew/bin:$PATH LAYA_SRC=${LAYA_SRC:-$HOME/scratch/capability/laya}
+cd ${0:A:h} && exec uv run -q --python 3.11 --with torch --with pandas --with pyarrow --with datasets \
+  --with scipy --with nltk --with "$LAYA_SRC" python "$@"
