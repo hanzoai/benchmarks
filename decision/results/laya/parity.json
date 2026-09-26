@@ -1,0 +1,45 @@
+{
+  "states": 21,
+  "languages": [
+    "ar",
+    "zh",
+    "ja",
+    "ko",
+    "hi",
+    "he",
+    "th",
+    "km",
+    "fr",
+    "es",
+    "de",
+    "en"
+  ],
+  "checkpoints": [
+    {
+      "id": "laya",
+      "repo": "hanzoai/kai-1",
+      "revision": "b50502c28537df49a3621f6fa543f9e8521e8a9c",
+      "sha256": "891102d372688fc2a094dac56a384bc537b87c63f21f9f3dac0be2b7cbc8d86c",
+      "calibration": "cal_ad93eae1cf0e34a6"
+    },
+    {
+      "id": "laya-multilingual",
+      "repo": "hanzoai/kai-1-multilingual",
+      "revision": "3119843b5261e34903f93d03813467524c57982e",
+      "sha256": "9d628fd971b700382ac6f65920a86f149777b2e748e0c955fb3b19695aa8f204",
+      "calibration": "cal_6ceaa0b335b599b1"
+    },
+    {
+      "id": "laya-agent",
+      "repo": "hanzoai/kai-1-agent",
+      "revision": "e3e416499b8a983d2aa0bcc684d5457ad6bfd6a1",
+      "sha256": "4fa56de72383a9d3efa9cfa78955733c81b9fc8067a587ca4beb82c78107a24e",
+      "calibration": "cal_6dbb072f8109a222"
+    }
+  ],
+  "labels": 108,
+  "labels_equal": 108,
+  "max_logit": 0.0000286102294921875,
+  "max_prob": 6.198883056640625e-6,
+  "bound": 0.0001
+}
