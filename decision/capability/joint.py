@@ -13,9 +13,12 @@ marginals that breaks no rule, programs.project, the same for every backend):
     unanswered  questions without an answer (the state then counts as not exact)
 
 Laya runs its typed-decisions checkpoint (the one it ships for these workflows) and, as en., the
-English one its router would pick. Kai runs bench refine at 1, 2 and 3 passes: pass<k>.acc as
-refined, pass<k>.own.acc after its own projection, and after 3 passes the metrics above from its
-refined vectors plus own.acc, own.exact and own.violate from its own projected answers.
+English one its router would pick. Kai runs bench refine (hanzoai/decision) at tau 0.9 over 1, 2
+and 3 passes, each pass re-asking the unfrozen answers with their parents' answers as facts, then
+Kai's own selection and projection onto the rules: pass<k>.acc (argmax), pass<k>.proj.acc and
+pass<k>.proj.exact (Kai's selection and projection, not programs.project), pass<k>.violate (states
+whose argmax answers break a rule), and the third pass also under acc, proj.acc, proj.exact and
+violate. A checkpoint with a joint decoder reports it as is and one question at a time as alone.
 
     python joint.py [--who laya,jev,kai] [--kai CHECKPOINT]
 """
@@ -62,30 +65,36 @@ def measure(rows, p):
     return out
 
 
-def kai(K, rows, passes="1,2,3"):
-    """bench refine's report, and after the most passes each state's refined vectors as preds
-    and its own projected answers."""
-    out = os.path.join(cap.SCRATCH, "joint.kai.states.json")
+def kai(K, passes="1,2,3", tau="0.9"):
+    """bench refine's report: per pass, by program, the argmax and joint (Kai's own selection
+    and projection) accuracy, the share of states wholly right after it (exact) and of states
+    whose argmax answers break a rule (broken)."""
     r = K.run("refine", "--states", CASES, "--suite", "joint", "--graphs", GRAPHS, "--model", K.model,
-              "--passes", passes, "--out", out)
-    p, own = {}, {}
-    for ci, s in enumerate(cap.load(out)):
-        for q, v, j in zip(s["ids"], s["p"], s["joint"]):
-            p["%d/%s" % (ci, q)], own["%d/%s" % (ci, q)] = v, j
-    return json.loads(r.stdout), p, own
+              "--passes", passes, "--tau", tau)
+    return json.loads(r.stdout)[tau]
 
 
-def owned(rows, own):
-    """Kai's own projection: per-variable accuracy, exact and violations."""
-    right, exact, bad = [], 0, 0
-    for ci, (_, qs, g) in enumerate(rows):
-        ok = [own["%d/%s" % (ci, q)] == g[q]["idx"] for q in qs]
-        right += ok
-        exact += all(ok)
-        a = {q: programs.order(qs[q])[own["%d/%s" % (ci, q)]] for q in qs}
-        bad += bool(programs.broken(g["_wf"], a))
-    n = len(rows)
-    return {"own.acc": sum(right) / len(right), "own.exact": exact / n, "own.violate": bad / n}
+def kai_keys(keys, rep):
+    """Keys from a refine report; the deepest pass also under the baselines' names."""
+    for mode, runs in rep.items():
+        pre = "" if mode in ("facts", "joint") else mode + "."
+        for r in runs:
+            for fam, m in r["by"].items():
+                at = "pass%d.%s%s" % (r["passes"], pre, "" if fam == "all" else fam + ".")
+                keys.put("kai", at + "acc", m["argmax"])
+                keys.put("kai", at + "proj.acc", m["joint"])
+                keys.put("kai", at + "proj.exact", m["exact"])
+                keys.put("kai", at + "violate", m["broken"])
+                keys.put("kai", at + "frozen", m["frozen"])
+            keys.put("kai", "pass%d.%sasked" % (r["passes"], pre), r["asked"])
+            keys.put("kai", "pass%d.%sseconds" % (r["passes"], pre), r["seconds"])
+        last = max(runs, key=lambda r: r["passes"])
+        for fam, m in last["by"].items():
+            at = pre + ("" if fam == "all" else fam + ".")
+            keys.put("kai", at + "acc", m["argmax"])
+            keys.put("kai", at + "proj.acc", m["joint"])
+            keys.put("kai", at + "proj.exact", m["exact"])
+            keys.put("kai", at + "violate", m["broken"])
 
 
 def main(who, kai_model):
@@ -103,17 +112,13 @@ def main(who, kai_model):
             runs[""] = b.preds(rows, "joint")
         else:
             try:
-                rep, p, own = kai(b, rows)
+                rep = kai(b)
             except cap.Pending as e:
                 pending[w] = str(e)
                 continue
-            detail["kai.passes"] = rep
-            for r in rep:
-                keys.put(w, "pass%d.acc" % r["passes"], r["by"]["all"]["argmax"])
-                keys.put(w, "pass%d.own.acc" % r["passes"], r["by"]["all"]["joint"])
-            for k, x in owned(rows, own).items():
-                keys.put(w, k, x)
-            runs[""] = {"p": p}
+            detail["kai"] = rep
+            kai_keys(keys, rep)
+            continue
         for v, r in runs.items():
             m = measure(rows, r["p"])
             for fam in programs.GRAPHS:

@@ -17,10 +17,18 @@ Variants, each scored against all K:
     sl.     every backend answers the top 20 of laya.shortlist over the English checkpoint's own
             mean-pooled encoder (embed_fn_from_agent), its README's other recipe; the answer maps
             back to all K and a gold label outside the shortlist is a miss.
-Jev takes at most 255 options (Laya's README); at K >= 10,000 it is sent 10 cases, and once all 10
-are refused alike the rest are recorded as refused by the same rule, unsent.
+    bi.     the same with the dedicated bi-encoder Laya's README recommends in its place:
+            sentence-transformers/all-MiniLM-L6-v2 @1110a243 (Apache-2.0), normalized.
+Jev refuses more than 255 choices (HTTP 400 "Too many choices"); at K >= 10,000 it is sent 10
+cases, and once all 10 are refused alike the rest are recorded as refused by the same rule, unsent.
 
-    python cardinality.py [--who laya,jev,kai] [--kai CHECKPOINT] [--k 4,16,...]
+Each run is kept as results/cardinality/<who>.<variant><k>.sums.json.gz: per question its top
+option and probability, gold's probability and rank, and the sum of squares (cap.summary), with
+the run's fit, cost and latency; keys are computed from every such file (cap.measure), so a run of
+one backend rescored leaves the others as kept. Full vectors are kept too up to K = 150
+(<who>.<variant><k>.preds.json.gz). recall@k counts a tie with gold against it (cap.rank).
+
+    python cardinality.py [--who laya,jev,kai] [--kai CHECKPOINT] [--k 4,16,...] [--variants ,sl.,bi.]
 """
 import argparse
 import os
@@ -34,6 +42,7 @@ import cap
 
 KS = [4, 16, 77, 150, 1000, 10000, 100000]
 SL, SEED = 20, 13
+WORDNET = "cbda5ea6eef7f36a97a43d4a75f85e07fccbb4f23657d27b4ccbc93e2646ab59"  # nltk's wordnet.zip, WordNet 3.0
 INS = {"banking": "Which banking intent does `message` express?",
        "clinc": "Which intent does `message` express?",
        "wordnet": "Which concept does `definition` define?"}
@@ -77,10 +86,15 @@ def clinc():
 def wordnet():
     """(label list of 100,000, targets): the label list's first K entries are the space at K."""
     import nltk
-    nltk.data.path.insert(0, os.path.join(cap.SCRATCH, "nltk"))
+    d = os.path.join(cap.SCRATCH, "nltk")
+    z = os.path.join(d, "corpora", "wordnet.zip")
+    if not os.path.exists(z):
+        nltk.download("wordnet", download_dir=d, quiet=True)
+    assert cap.sha(z) == WORDNET, "wordnet.zip differs from the pinned corpus"
+    nltk.data.path.insert(0, d)
     from nltk.corpus import wordnet as wn
     assert wn.get_version() == "3.0"
-    syn = list(wn.all_synsets())
+    syn = sorted(wn.all_synsets(), key=lambda s: s.name())  # all_synsets' order follows the string hash
     base = {s: ", ".join(l.replace("_", " ") for l in s.lemma_names()) for s in syn}
     once = tally(base.values())
 
@@ -148,20 +162,33 @@ def cases(ks):
 
 
 # ------------------------------------------------------------------ shortlist
-def shortlists(L, S):
-    """Per suite, per case: the top-SL labels by laya.shortlist over the English encoder, the
-    seconds to embed the label list once (cached by text) and each case's own seconds."""
-    from laya.shortlist import embed_fn_from_agent, shortlist_choice
+BI = ("sentence-transformers/all-MiniLM-L6-v2", "1110a243fdf4706b3f48f1d95db1a4f5529b4d41")
+
+
+def encoder(L, how):
+    """The embed_fn a shortlist ranks by: Laya's English encoder (sl.) or the bi-encoder (bi.)."""
+    if how == "sl.":
+        from laya.shortlist import embed_fn_from_agent
+        return embed_fn_from_agent(L.agent("english"), batch_size=128)
+    from sentence_transformers import SentenceTransformer
+    m = SentenceTransformer(BI[0], revision=BI[1], device="cpu")
+    return lambda texts: m.encode(list(texts), batch_size=256, normalize_embeddings=True)
+
+
+def shortlists(L, S, how):
+    """Per suite, per case: the top-SL labels by laya.shortlist over `how`'s encoder, the seconds
+    to embed the label list once (cached by text) and each case's own seconds. Kept in cases/."""
+    from laya.shortlist import shortlist_choice
     memo, raw = {}, []
 
     def embed(texts):
-        raw or raw.append(embed_fn_from_agent(L.agent("english"), batch_size=128))
+        raw or raw.append(encoder(L, how))
         miss = [t for t in dict.fromkeys(texts) if t not in memo]
         for i in range(0, len(miss), 4096):
             memo.update(zip(miss[i:i + 4096], raw[0](miss[i:i + 4096])))
         return np.stack([memo[t] for t in texts])
 
-    path = os.path.join(cap.CASES, "cardinality.shortlists.json.gz")
+    path = os.path.join(cap.CASES, "cardinality.%sshortlists.json.gz" % how)
     kept = cap.load(path) if os.path.exists(path) else {}
     out = {}
     for name, rows in S.items():
@@ -232,91 +259,119 @@ def jev_run(J, rows, suite):
     return head
 
 
-def main(who, kai, ks):
+KEEP = ("fit", "dropped", "n_errors", "error_kinds", "errors", "served", "cost_usd", "input_tokens", "unsent",
+        "note", "latency_ms", "seconds")
+
+
+def sums(rows, p):
+    """cap.summary per question of `rows` under preds `p`, None where unanswered."""
+    return [None if p.get("%d/%s" % (ci, qid)) is None else cap.summary(p["%d/%s" % (ci, qid)], g[qid]["idx"])
+            for ci, (_, qs, g) in enumerate(rows) for qid in qs]
+
+
+def keep(w, v, n, rows, r):
+    """Write one run: its summaries with what else it measured, and up to K = 150 its vectors."""
+    d = os.path.join(cap.RESULTS, "cardinality")
+    cap.dump(dict({x: r[x] for x in KEEP if x in r}, sums=sums(rows, r["p"])),
+             os.path.join(d, "%s.%s%s.sums.json.gz" % (w, v, n)))
+    if int(n[1:]) <= 150:
+        cap.dump(r["p"], os.path.join(d, "%s.%s%s.preds.json.gz" % (w, v, n)))
+
+
+def keys_from_disk(keys):
+    """Every kept run's keys, from its summaries."""
+    d = os.path.join(cap.RESULTS, "cardinality")
+    detail = {}
+    for f in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if not f.endswith(".sums.json.gz"):
+            continue
+        w, rest = f[:-len(".sums.json.gz")].split(".", 1)
+        v, n = (rest.rsplit(".", 1) + [""])[:2] if "." in rest else ("", rest)
+        v = v + "." if v else ""
+        r = cap.load(os.path.join(d, f))
+        m = r.get("metrics") or cap.measure(r["sums"], len(r["sums"]))
+        keys.metrics(w, n + "." + v, m, ("accuracy", "accall", "ece", "brier", "nll", "unanswered", "recall1",
+                                         "recall5", "recall20"))
+        nq = m["questions"]
+        if r.get("seconds") and m.get("n"):
+            keys.put(w, n + "." + v + "msperq", 1e3 * r["seconds"] / m["n"])
+        if "fit" in r:
+            keys.put(w, n + "." + v + "rejected", r["fit"]["rejected"] / nq)
+            keys.put(w, n + "." + v + "optionscut", r["fit"]["options_cut"] / nq)
+            keys.put(w, n + "." + v + "statecut", r["fit"]["state_cut"] / nq)
+        if w == "jev":
+            keys.put(w, n + "." + v + "rejected", r.get("n_errors", 0) / nq)
+            keys.put(w, n + "." + v + "p50ms", cap.pct(r.get("latency_ms") or [], 50))
+            keys.put(w, n + "." + v + "p95ms", cap.pct(r.get("latency_ms") or [], 95))
+            keys.put(w, n + "." + v + "usd", r.get("cost_usd"))
+        detail.setdefault(n, {})[w + ("." + v.rstrip(".") if v else "")] = dict(
+            {x: r[x] for x in KEEP if x in r and x != "latency_ms"}, metrics=m)
+    return detail
+
+
+def main(who, kai, ks, variants=("", "wide.", "sl.", "bi.")):
     S = cap.trim(cases(ks))
     for name, rows in S.items():
         if name != "k77" and int(name[1:]) <= 1000:
             cap.dump(S[name], os.path.join(cap.CASES, "cardinality.%s.json.gz" % name))
     B = cap.backends(who, kai)
-    keys, detail, pending = cap.Keys("cardinality"), {}, {}
-    L = B.get("laya") or cap.Laya()
-    sl = shortlists(L, S) if L else {}  # kept in cases/, so a Kai-only run reuses the baselines' shortlists
-    R = {n: reduce(S[n], sl[n]["picks"]) for n in sl}
-    for n in sl if "laya" in B else ():
-        keys.put("laya", n + ".sl.hit", float(np.mean([g[next(iter(g))]["in"] for _, _, g in R[n][0]])))
-        keys.put("laya", n + ".sl.indexs", sl[n]["index_s"])
-        keys.put("laya", n + ".sl.casems", float(np.median(sl[n]["case_ms"])))
-    runs = {}
+    keys, pending = cap.Keys("cardinality"), {}
+    L = B.get("laya") or (cap.Laya() if any(v in ("sl.", "bi.") for v in variants) else None)
+    R = {}
+    for how in [v for v in variants if v in ("sl.", "bi.")]:
+        sl = shortlists(L, S, how)
+        for n in sl:
+            R[(how, n)] = reduce(S[n], sl[n]["picks"])
+            keys.put("all", n + "." + how + "hit", float(np.mean([g[next(iter(g))]["in"] for _, _, g in R[(how, n)][0]])))
+            keys.put("all", n + "." + how + "indexs", sl[n]["index_s"])
+            keys.put("all", n + "." + how + "casems", float(np.median(sl[n]["case_ms"])))
     for w, b in B.items():
         for n, rows in S.items():
-            nq = len(rows)
-            if w == "laya":
-                runs[(w, n, "")] = r = b.preds(rows, tag="laya " + n)
-                d = r["fit"] = b.fit(rows)
-                keys.put(w, n + ".rejected", d["rejected"] / nq)
-                keys.put(w, n + ".optionscut", d["options_cut"] / nq)
-                keys.put(w, n + ".statecut", d["state_cut"] / nq)
-                if int(n[1:]) >= 77 and int(n[1:]) <= 1000:
-                    ag = b.agent("english")
-                    was = dict(ag.cfg)
-                    ag.cfg.update(max_len=8192, head_max_len=7680)
-                    runs[(w, n, "wide.")] = r = b.preds(rows, model="english", tag="laya wide " + n)
-                    d = r["fit"] = b.fit(rows, model="english")
-                    ag.cfg.clear()
-                    ag.cfg.update(was)
-                    keys.put(w, n + ".wide.rejected", d["rejected"] / nq)
-                    keys.put(w, n + ".wide.optionscut", d["options_cut"] / nq)
-            elif w == "jev":
-                runs[(w, n, "")] = r = jev_run(b, rows, "cardinality." + n)
-                keys.put(w, n + ".rejected", r["n_errors"] / nq)
-                keys.put(w, n + ".p50ms", cap.pct(r["latency_ms"], 50))
-                keys.put(w, n + ".p95ms", cap.pct(r["latency_ms"], 95))
-                keys.put(w, n + ".usd", r["cost_usd"])
-            else:
-                path = os.path.join(cap.SCRATCH, "cardinality.%s.json.gz" % n)
-                cap.dump({n: rows}, path)
+            k = int(n[1:])
+            for v in variants:
+                if v == "wide." and (w != "laya" or not 77 <= k <= 1000):
+                    continue
+                if v in ("sl.", "bi.") and (v, n) not in R:
+                    continue
+                sub, maps = R[(v, n)] if v in ("sl.", "bi.") else (rows, None)
                 try:
-                    runs[(w, n, "")] = b.preds(path, path + ".kai.json.gz")[n]
+                    r = answer(w, b, v, n, sub)
                 except cap.Pending as e:
                     pending[w] = str(e)
                     break
-            if n in R:
-                sub, maps = R[n]
-                if w == "laya":
-                    r = b.preds(sub, tag="laya sl " + n)
-                elif w == "jev":
-                    r = b.preds(sub, "cardinality.sl." + n)
-                else:
-                    path = os.path.join(cap.SCRATCH, "cardinality.sl.%s.json.gz" % n)
-                    cap.dump({n: sub}, path)
-                    try:
-                        r = b.preds(path, path + ".kai.json.gz")[n]
-                    except cap.Pending:
-                        continue
-                r["p"] = expand(r["p"], maps, rows)
-                runs[(w, n, "sl.")] = r
-    for (w, n, v), r in runs.items():
-        rows = S[n]
-        m = cap.score(rows, r["p"])
-        m.update(cap.ranks(rows, r["p"]))
-        right = sum(1 for ci, (_, qs, g) in enumerate(rows) for qid in qs
-                    if r["p"].get("%d/%s" % (ci, qid)) is not None
-                    and int(np.argmax(r["p"]["%d/%s" % (ci, qid)])) == g[qid]["idx"])
-        m["accall"] = round(right / len(rows), 4)
-        keys.metrics(w, n + "." + v, m, ("accuracy", "accall", "ece", "brier", "unanswered", "recall1", "recall5", "recall20"))
-        secs = r.get("seconds")
-        if secs and m.get("n"):
-            keys.put(w, n + "." + v + "msperq", 1e3 * secs / m["n"])
-        detail.setdefault(n, {})[w + ("." + v.rstrip(".") if v else "")] = {
-            "metrics": m, **{x: r[x] for x in ("fit", "dropped", "n_errors", "error_kinds", "errors", "served",
-                                                "cost_usd", "input_tokens", "unsent", "note", "latency_ms") if x in r}}
+                if maps:
+                    r["p"] = expand(r["p"], maps, rows)
+                keep(w, v, n, rows, r)
+    detail = keys_from_disk(keys)
     meta = {w: b.meta for w, b in B.items()}
-    meta["pending"] = pending
-    meta["cases"] = {n: {"n": len(r), "k": len(next(iter(r[0][1].values()))["criteria"])} for n, r in S.items()}
-    for (w, n, v), r in runs.items():
-        if "p" in r and int(n[1:]) <= 150:
-            cap.dump(r["p"], os.path.join(cap.RESULTS, "cardinality", "%s.%s%s.preds.json.gz" % (w, v, n)))
+    meta.update(pending=pending, bi=BI, cases={n: {"n": len(r), "k": len(next(iter(r[0][1].values()))["criteria"])}
+                                               for n, r in S.items()})
     return cap.save("cardinality", keys, detail, meta)
+
+
+def answer(w, b, v, n, rows):
+    """One backend's run of one variant: preds, and what else it measured."""
+    if w == "laya":
+        if v == "wide.":
+            ag = b.agent("english")
+            was = dict(ag.cfg)
+            ag.cfg.update(max_len=8192, head_max_len=7680)
+            try:
+                r = b.preds(rows, model="english", tag="laya wide " + n)
+                r["fit"] = b.fit(rows, model="english")
+            finally:
+                ag.cfg.clear()
+                ag.cfg.update(was)
+            return r
+        r = b.preds(rows, tag="laya %s%s" % (v, n))
+        if not v:
+            r["fit"] = b.fit(rows)
+        return r
+    if w == "jev":
+        return jev_run(b, rows, "cardinality.%s%s" % (v, n))
+    path = os.path.join(cap.SCRATCH, "cardinality.%s%s.json.gz" % (v, n))
+    cap.dump({n: rows}, path)
+    return b.preds(path, path + ".kai.json.gz")[n]
 
 
 if __name__ == "__main__":
@@ -324,5 +379,6 @@ if __name__ == "__main__":
     a.add_argument("--who", default="laya,jev")
     a.add_argument("--kai")
     a.add_argument("--k", default=",".join(map(str, KS)))
+    a.add_argument("--variants", default=",wide.,sl.,bi.")
     x = a.parse_args()
-    main(x.who.split(","), x.kai, [int(k) for k in x.k.split(",")])
+    main(x.who.split(","), x.kai, [int(k) for k in x.k.split(",")], x.variants.split(","))

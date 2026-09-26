@@ -4,12 +4,12 @@ What a decision model can do beyond the frozen 62 suites, measured on Kai, Laya 
 
 | suite | measures |
 |---|---|
-| `cardinality` | choice over K = 4 … 100,000: accuracy, recall@k, rejection, truncation, time; Laya's own recipes (`wide.`, `sl.`) |
+| `cardinality` | choice over K = 4 … 100,000: accuracy, recall@k, rejection, truncation, time; Laya's own recipes (`wide.`, `sl.`) and a bi-encoder shortlist (`bi.`) for every backend |
 | `questions` | 1 … 1,000 typed questions on one state: latency p50/p95, questions/s, Jev cost |
 | `joint` | five dependent questions with known rules: per-variable accuracy, exact match, rule violations |
-| `sensors` | HAR, bearing, turbofan remaining life, machine sound: text renderings for the baselines |
+| `media` | HAR, turbofan remaining life, machine sound: text renderings for the baselines, the signals as evidence for Kai |
 | `invariance` | option order, noul side swap, label aliases |
-| `calibration` | ECE, Brier, risk–coverage, split conformal coverage at 90/95% over every answer on disk |
+| `conformal` | ECE, Brier, risk–coverage, split conformal coverage at 90/95% over every answer on disk |
 | `refresh` | a program re-run after one evidence change: nodes run, time against a cold re-run |
 | `deploy` | offline in a no-network sandbox, data leaving the machine, self-hosting, fee, pinning |
 | `orig` | the 62 frozen suites through `harness/merge.py` |

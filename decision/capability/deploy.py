@@ -66,8 +66,14 @@ def main(who, kai_model):
                 continue
             tiny = os.path.join(cap.SCRATCH, "deploy.cases.json.gz")
             cap.dump({"deploy": [[STATE, QUESTIONS, {"intent": {"idx": 0}}]]}, tiny)
-            off = sandboxed([k.bin, "preds", "--model", kai_model, "--states", tiny, "--out", tiny + ".out"])
-            d.update(offline=off, checkpoint=kai_model, weights=k.meta.get("weights"))
+            args = [k.bin, "preds", "--model", kai_model, "--states", tiny, "--out", tiny + ".out"]
+            on = subprocess.run(args, capture_output=True, text=True, timeout=900)
+            if on.returncode:  # it does not answer at all: no offline fact to record
+                d["pending"] = (on.stderr.strip().splitlines() or ["exit %d" % on.returncode])[-1][:300]
+                continue
+            off = sandboxed(args)
+            w8 = os.path.join(kai_model, "model.safetensors")
+            d.update(offline=off, checkpoint=kai_model, weights=cap.sha(w8) if os.path.exists(w8) else None)
             ok = off["exit"] == 0
         else:
             off = sandboxed(py(w))
@@ -102,7 +108,8 @@ def main(who, kai_model):
             d["hf_models_by_typesafe"] = n
             keys.put(w, "selfhosted", "no" if n == 0 else "check")
             keys.put(w, "pinned", "model name")
-    return cap.save("deploy", keys, detail)
+    pending = {w: d["pending"] for w, d in detail.items() if isinstance(d, dict) and d.get("pending")}
+    return cap.save("deploy", keys, detail, {"pending": pending})
 
 
 if __name__ == "__main__":

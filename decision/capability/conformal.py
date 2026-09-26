@@ -1,20 +1,24 @@
 """Calibration and abstention over every answer already on disk; no model is called.
 
 Populations, each pooled over its questions:
-    orig       the 62 frozen suites (results/{laya,jev,kai}/preds.json.gz; Laya is the router's
-               checkpoint per case, typed_decisions on laya:typed-decisions, merge.OWN)
+    orig       the 62 frozen suites (results/{laya,jev}/preds.json.gz, and the Kai checkpoint's
+               capability/results/orig/kai.preds.json.gz; Laya is the router's checkpoint per case,
+               typed_decisions on laya:typed-decisions, merge.OWN)
     apps       the 10 suites that are neither typed decisions nor MASSIVE
     td         typed decisions
     massive    MASSIVE, 51 languages
-    joint      joint coherence (results/joint), as answered
+    joint      joint coherence (results/joint), as answered (the baselines; Kai's refine report
+               keeps no vectors)
     choice     cardinality K = 4, 16, 77, 150 (results/cardinality)
 Metrics: merge.metrics' ECE (15 bins, top-label confidence), Brier, log loss, and merge's AURC and
 risk at coverage (the error rate of the most confident answers when the rest defer), and split
 conformal prediction sets (LAC: a label is in the set when 1 - p(label) is at most the
 calibration half's conformal quantile) at 90% and 95%: coverage and mean set size on the other
-half, averaged over 20 seeded splits. Unanswered questions are counted and left out.
+half, averaged over 20 seeded splits. Unanswered questions are counted and left out. Keys are
+<population>.<metric>; the orig population's coverage and set size are also cov90, size90, cov95,
+size95, with its ece and aurc.
 
-    python calibration.py
+    python conformal.py
 """
 import os
 
@@ -59,8 +63,9 @@ def sources():
     """{who: {population: [(gold, vector)]}}, and unanswered counts."""
     S = cap.load(os.path.join(FROZEN, "states.json.gz"))
     gold = {n: [[st, qs, g] for st, qs, g in rows] for n, rows in S.items()}
-    raw = {w: cap.load(os.path.join(FROZEN, w, "preds.json.gz")) for w in ("laya", "jev", "kai")
-           if os.path.exists(os.path.join(FROZEN, w, "preds.json.gz"))}
+    where = {"laya": os.path.join(FROZEN, "laya", "preds.json.gz"), "jev": os.path.join(FROZEN, "jev", "preds.json.gz"),
+             "kai": os.path.join(cap.RESULTS, "orig", "kai.preds.json.gz")}
+    raw = {w: cap.load(p) for w, p in where.items() if os.path.exists(p)}
     out, un = {}, {}
     for w, d in raw.items():
         for name, rows in gold.items():
@@ -100,7 +105,7 @@ def sources():
 
 def main():
     src, un = sources()
-    keys, detail = cap.Keys("calibration"), {}
+    keys, detail = cap.Keys("conformal"), {}
     for w, pops in src.items():
         for pop, items in pops.items():
             m = cap.merge.metrics(items)
@@ -117,7 +122,13 @@ def main():
                 keys.put(w, "%s.%s" % (pop, f), m.get(f))
             for c in ("0.5", "0.75", "0.9"):
                 keys.put(w, "%s.risk%d" % (pop, round(100 * float(c))), m["risk_at_coverage"].get(c))
-    return cap.save("calibration", keys, detail, {"splits": SPLITS})
+            if pop == "orig":  # the headline: every answer of the 62 frozen suites
+                for c in ("90", "95"):
+                    keys.put(w, "cov" + c, m.get("conf%s.cover" % c))
+                    keys.put(w, "size" + c, m.get("conf%s.size" % c))
+                keys.put(w, "ece", m.get("ece"))
+                keys.put(w, "aurc", m.get("aurc"))
+    return cap.save("conformal", keys, detail, {"splits": SPLITS})
 
 
 if __name__ == "__main__":

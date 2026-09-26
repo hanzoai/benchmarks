@@ -1,10 +1,13 @@
-"""Sensors and media: decisions over signals, not prose.
+"""Media: decisions over sensor signals and sound, not prose.
 
 Laya and Jev read text only, so each signal reaches them as its best text rendering, a JSON state:
 per-channel summary statistics with units (mean, std, min, max, RMS and the domain's standard
 ones), then a downsampled series; statistics come first, so a state cut at the checkpoint's
-max_len loses series before statistics. Kai's Evidence encoders would read the signals
-themselves; until they land, a Kai checkpoint answers the same text (`bench preds`).
+max_len loses series before statistics. Kai reads the same state and, beside it, the signals
+themselves as evidence parts (a row's fourth element in `bench preds`): the nine inertial
+channels at 50 Hz in g and rad/s (series), the engine's 14 sensors per cycle (telemetry), the
+recording as 16-bit WAV (audio). A checkpoint without evidence adapters refuses evidence; it then
+answers the text alone, and cap/media/kai/input says which it read.
 
 har     UCI HAR (Anguita et al. 2013), CC BY 4.0, archive.ics.uci.edu/static/public/240,
         sha256 c00b8030..1031. Test split (subjects unseen in training), 300 windows by seed 13:
@@ -32,11 +35,13 @@ cwru    dropped: the CWRU Bearing Data Center (engineering.case.edu/bearingdatac
 Laya runs as its router sends these states (English checkpoint, max_len 512) and, as long., on
 the multilingual checkpoint with max_len 8192, its README's recipe for long documents.
 
-Keys cap/sensors/<who>/[long.]<dataset>.<metric>: accuracy, macrof1, ece, brier, unanswered,
+Keys cap/media/<who>/[long.]<dataset>.<metric>: accuracy, macrof1, ece, brier, unanswered,
 zeroprob; auc for mimii (p(abnormal) against the label); laya statecut (share of states cut at
-max_len) and rejected; jev p50ms, usd and errors.
+max_len) and rejected; jev p50ms, usd and errors. By modality: sensor.accuracy (HAR and C-MAPSS
+questions pooled; unanswered count as wrong) and audio.accuracy (MIMII); Laya and Jev read text
+only, so image.input and video.input say so, and no image or video task is built here.
 
-    python sensors.py [--who laya,jev,kai] [--kai CHECKPOINT]
+    python media.py [--who laya,jev,kai] [--kai CHECKPOINT]
 """
 import argparse
 import concurrent.futures as cf
@@ -57,7 +62,8 @@ import numpy as np
 import cap
 
 RAW = os.path.join(cap.SCRATCH, "data")
-CASES = os.path.join(cap.CASES, "sensors.json.gz")
+KEPT = "cec140270a8eb25b7e9d6fe253923efd9e817f62f3286f2f516e2fe287166992"  # the recordings of the 2026-09-25 run
+CASES = os.path.join(cap.CASES, "media.json.gz")
 SEED = 13
 SOURCES = {
     "har": ("https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip",
@@ -107,7 +113,7 @@ def har(n=300):
     idx = sorted(random.Random(SEED).sample(range(len(y)), n))
     q = {"type": "choice", "instructions": "Which activity was the person doing during this window of motion data "
          "from a smartphone worn at the waist?", "criteria": ACTS}
-    rows = []
+    rows, parts = [], []
     for i in idx:
         stats, series = {}, {}
         for c, unit in CHANNELS:
@@ -118,7 +124,10 @@ def har(n=300):
               "stat_columns": ["unit", "mean", "std", "min", "max", "rms"], "channels": stats,
               "series_every_4th_sample": series}
         rows.append([st, {"activity": q}, {"activity": {"idx": int(y[i]) - 1}}])
-    return rows
+        parts.append([{"id": "imu", "modality": "series", "sensor": "smartphone at the waist",
+                       "channels": [{"name": c, "unit": "rad/s" if "gyro" in c else "g"} for c, _ in CHANNELS],
+                       "payload": {"rate": 50, "values": [[r6(v) for v in sig[c][i]] for c, _ in CHANNELS]}}])
+    return rows, parts
 
 
 # ------------------------------------------------------------------ C-MAPSS FD001
@@ -149,7 +158,7 @@ def cmapss():
     end = {s: float(np.mean([train[train[:, 0] == u][-1, col(s)] for u in units])) for s in SENSORS}
     q = {"type": "score", "instructions": "How many operating cycles remain before this engine fails?",
          "criteria": ["25 cycles or fewer", "26 to 50 cycles", "51 to 100 cycles", "more than 100 cycles"]}
-    rows = []
+    rows, parts = [], []
     for k, u in enumerate(np.unique(test[:, 0])):
         h = test[test[:, 0] == u]
         stats = {}
@@ -167,7 +176,11 @@ def cmapss():
               "sensors": stats, "series_24_points_over_history": series}
         band = next(i for i, (lo, hi) in enumerate(BANDS) if lo <= rul[k] <= hi)
         rows.append([st, {"remaining_life": q}, {"remaining_life": {"idx": band}}])
-    return rows
+        parts.append([{"id": "engine", "modality": "telemetry", "sensor": "turbofan engine %d, one sample per "
+                       "operating cycle" % int(u),
+                       "channels": [{"name": nm, "unit": unit} for nm, _, unit in SENSORS.values()],
+                       "payload": {"rate": 1, "values": [[r6(v) for v in h[:, col(s)]] for s in SENSORS]}}])
+    return rows, parts
 
 
 # ------------------------------------------------------------------ MIMII valve, 6 dB
@@ -262,7 +275,7 @@ def wav(name):
         elif tag == b"data":
             data = b[i + 8:i + 8 + n]
         i += 8 + n + (n & 1)
-    assert bits in (16, 32) and data is not None, (path, bits)
+    assert bits in (16, 32) and data is not None, (name, bits)
     x = np.frombuffer(data, dtype=np.int16 if bits == 16 else np.int32).reshape(-1, ch)[:, 0]
     return x / float(2 ** (bits - 1)), rate
 
@@ -296,7 +309,7 @@ def mimii():
     q = {"type": "noul", "instructions": "This valve recording is abnormal: the valve is malfunctioning, judged "
          "against the same valve's normal reference.",
          "criteria": {"true": "the valve is malfunctioning", "false": "the valve is operating normally"}}
-    rows, digest = [], hashlib.sha256()
+    rows, parts, digest = [], [], hashlib.sha256()
     for n, bad in test:
         x, rate = wav(n)
         digest.update(n.encode() + hashlib.sha256(x.tobytes()).digest())
@@ -310,15 +323,28 @@ def mimii():
               "recording": "10 s at %d Hz, microphone channel 0 of 8" % rate, "features": feats,
               "normal_reference_10_recordings": refs, "loudness_envelope_dbfs_250ms_frames": env}
         rows.append([st, {"abnormal": q}, {"abnormal": {"idx": int(bad)}}])
-    return rows, digest.hexdigest()
+        parts.append([{"id": "mic", "modality": "audio", "sensor": "microphone channel 0 of 8",
+                       "payload": {"data": pcm(x, rate)}}])
+    return rows, digest.hexdigest(), parts
+
+
+def pcm(x, rate):
+    """x in [-1, 1] as a mono 16-bit WAV, base64."""
+    import base64
+    d = (np.clip(x, -1, 1 - 2 ** -15) * 32768).astype("<i2").tobytes()
+    head = b"RIFF" + struct.pack("<I", 36 + len(d)) + b"WAVEfmt " + struct.pack("<IHHIIHH", 16, 1, 1, rate, 2 * rate, 2, 16) + \
+        b"data" + struct.pack("<I", len(d))
+    return base64.b64encode(head + d).decode()
 
 
 # ------------------------------------------------------------------ run
 def cases():
     if os.path.exists(CASES):
         return cap.load(CASES)
-    rows, digest = mimii()
-    S = {"har": har(), "cmapss": cmapss(), "mimii": rows, "_mimii_members_sha256": digest}
+    rows, digest, sound = mimii()
+    (hr, hp), (cr, cp) = har(), cmapss()
+    S = {"har": hr, "cmapss": cr, "mimii": rows, "_mimii_members_sha256": digest,
+         "_evidence": {"har": hp, "cmapss": cp, "mimii": sound}}
     cap.dump(S, CASES)
     return S
 
@@ -334,13 +360,30 @@ def auc(rows, p):
     return float(np.mean([(a > b) + 0.5 * (a == b) for a in pos for b in neg]))
 
 
+def modality(keys, detail):
+    """By modality, for every backend kept in results/media.json or in `detail`: sensor (HAR and
+    C-MAPSS pooled) and audio (MIMII) accuracy over all questions; Laya and Jev read text only."""
+    path = os.path.join(cap.RESULTS, "media.json")
+    detail = cap.merged(cap.load(path)["detail"] if os.path.exists(path) else {}, detail)
+    for w in {w for n in ("har", "cmapss", "mimii") for w in detail.get(n, {})}:
+        for mod, names in (("sensor.", ("har", "cmapss")), ("audio.", ("mimii",))):
+            got = [detail.get(n, {}).get(w) for n in names]
+            if all(got):
+                right = sum(g["metrics"].get("accuracy", 0) * g["metrics"].get("n", 0) for g in got)
+                keys.put(w, mod + "accuracy", right / sum(g["metrics"]["questions"] for g in got))
+        if w in ("laya", "jev"):
+            keys.put(w, "image.input", "text only")
+            keys.put(w, "video.input", "text only")
+
+
 def main(who, kai_model):
     C = cases()
+    if C["_mimii_members_sha256"] != KEPT:
+        raise RuntimeError("the mimii recordings differ from the ones the kept baselines answered")
     S = cap.trim({k: v for k, v in C.items() if not k.startswith("_")})
     B = cap.backends(who, kai_model)
-    keys, detail, spent = cap.Keys("sensors"), {"dropped": DROPPED}, 0.0
-    pending = {"kai": "Evidence encoders not landed (hanzoai/decision origin/main %s); a checkpoint given here "
-                      "answers the text rendering" % os.environ.get("DECISION_MAIN", "20742d5, 2026-09-25")}
+    keys, detail, spent = cap.Keys("media"), {"dropped": DROPPED}, 0.0
+    pending = {}
     for w, b in B.items():
         runs = {}
         if w == "laya":
@@ -356,15 +399,24 @@ def main(who, kai_model):
             ag.cfg.clear()
             ag.cfg.update(was)
         elif w == "jev":
-            runs = {n: b.preds(rows, "sensors." + n) for n, rows in S.items()}
+            runs = {n: b.preds(rows, "media." + n) for n, rows in S.items()}
         else:
-            path = os.path.join(cap.SCRATCH, "sensors.json.gz")
-            cap.dump(S, path)
+            path = os.path.join(cap.SCRATCH, "media.json.gz")
+            ev = C["_evidence"]
+            cap.dump({n: [r + [e] for r, e in zip(rows, ev[n])] for n, rows in S.items()}, path)
             try:
-                runs = b.preds(path, path + ".kai.json.gz")
+                runs, seen = b.preds(path, path + ".kai.json.gz"), "text and evidence"
             except cap.Pending as e:
-                pending["kai"] += "; " + str(e)
-                continue
+                if "reads no evidence" not in str(e):
+                    pending["kai"] = str(e)
+                    continue
+                cap.dump(S, path)  # a checkpoint without evidence adapters reads the text alone
+                try:
+                    runs, seen = b.preds(path, path + ".kai.json.gz"), "text only"
+                except cap.Pending as e:
+                    pending["kai"] = str(e)
+                    continue
+            keys.put(w, "input", seen)
         for n, r in runs.items():
             rows = S[n.split(".")[-1]]
             m = cap.score(rows, r["p"])
@@ -383,13 +435,14 @@ def main(who, kai_model):
                 keys.put(w, n + ".msperq", 1e3 * r["seconds"] / m["n"])
             detail.setdefault(n, {})[w] = {"metrics": m, **{x: r[x] for x in ("fit", "dropped", "route", "n_errors",
                                            "error_kinds", "errors", "served", "cost_usd", "input_tokens") if x in r}}
-            cap.dump(r["p"], os.path.join(cap.RESULTS, "sensors", "%s.%s.preds.json.gz" % (w, n)))
+            cap.dump(r["p"], os.path.join(cap.RESULTS, "media", "%s.%s.preds.json.gz" % (w, n)))
+    modality(keys, detail)
     meta = {w: b.meta for w, b in B.items()}
     meta.update(pending=pending, jev_usd=round(spent, 6), mimii_members_sha256=C["_mimii_members_sha256"],
                 sources={k: {"url": u, "digest": d, "licence": l} for k, (u, d, l) in SOURCES.items()},
                 cases={n: len(r) for n, r in S.items()},
                 chars={n: int(np.median([len(json.dumps(r[0], ensure_ascii=False)) for r in rows])) for n, rows in S.items()})
-    return cap.save("sensors", keys, detail, meta)
+    return cap.save("media", keys, detail, meta)
 
 
 if __name__ == "__main__":
