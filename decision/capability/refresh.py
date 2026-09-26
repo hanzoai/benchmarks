@@ -7,12 +7,14 @@ evidence it needs), plus one fleet node over every vehicle's readiness: 101 node
 evidence items and the policy. The change is one new reading on one vehicle.
 
     kai   bench refresh (hanzoai/decision): the program executor runs cold, then refreshes the
-          change on its cache, then recomputes it cold; nodes run and wall time of each, and
-          whether the refresh's outputs equal the recompute's node for node.
-    laya, jev  no program model, so no refresh: after any change every question is asked
-          again. Recorded as unsupported, with what that full re-ask costs them: each vehicle's
-          five questions over its evidence (Laya each question its own sequence on its
-          typed-decisions checkpoint; Jev one call per vehicle, 8 in flight).
+          change on its cache, then recomputes it cold. asked: nodes the refresh ran; full: the
+          program's nodes; refreshms, recomputems and speedup (median over fleets); same: fleets
+          whose refreshed outputs equal the recompute's, node for node.
+    laya, jev  no program model, so no refresh (support: none): after any change every question
+          is asked again, asked = full = the fleet's 100 vehicle questions (the fleet node has no
+          single-state form). reask.ms, and for Jev reask.usd, is that re-ask: Laya each question
+          its own sequence on its typed-decisions checkpoint, Jev one call per vehicle, 8 in
+          flight.
 
     python refresh.py [--who laya,jev,kai] [--kai CHECKPOINT]
 """
@@ -82,7 +84,7 @@ def reask(b, w, flat):
 
 
 def main(who, kai_model):
-    items, flats = zip(*[fleet(f) for f in range(FLEETS)])
+    items, flats = zip(*[fleet(f) for f in range(int(os.environ.get("CAP_N") or FLEETS))])
     cap.dump(list(items), ITEMS)
     B = cap.backends(who, kai_model)
     keys, detail, pending = cap.Keys("refresh"), {}, {}
@@ -95,8 +97,8 @@ def main(who, kai_model):
                 pending[w] = str(e)
                 continue
             detail[w] = r
-            keys.put(w, "nodes", float(np.mean([x["nodes"] for x in r])))
-            keys.put(w, "ran", float(np.mean([x["ran"] for x in r])))
+            keys.put(w, "full", float(np.mean([x["nodes"] for x in r])))
+            keys.put(w, "asked", float(np.mean([x["ran"] for x in r])))
             for f in ("cold_ms", "refresh_ms", "recompute_ms"):
                 keys.put(w, f.replace("_", ""), float(np.median([x[f] for x in r])))
             keys.put(w, "speedup", float(np.median([x["recompute_ms"] / x["refresh_ms"] for x in r])))
@@ -106,7 +108,8 @@ def main(who, kai_model):
         secs, usd = zip(*[reask(b, w, flat) for flat in flats])
         detail[w] = {"reask_s": secs, "reask_usd": usd}
         keys.put(w, "support", "none")
-        keys.put(w, "reask.questions", VEHICLES * 5)
+        keys.put(w, "asked", VEHICLES * 5)
+        keys.put(w, "full", VEHICLES * 5)
         keys.put(w, "reask.ms", 1e3 * float(np.median(secs)))
         if w == "jev":
             keys.put(w, "reask.usd", float(np.mean(usd)))

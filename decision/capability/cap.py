@@ -98,20 +98,39 @@ def score(rows, p):
     return merge.score([[g, qs] for _, qs, g in rows], p, typed=False)
 
 
-def ranks(rows, p, ks=(1, 5, 20)):
-    """recall@k of the gold option in each answered vector's ranking, over all questions."""
-    hit, n = {k: 0 for k in ks}, 0
-    for ci, (_, qs, g) in enumerate(rows):
-        for qid in qs:
-            n += 1
-            v = p.get("%d/%s" % (ci, qid))
-            if v is None:
-                continue
-            v = np.asarray(v, float)
-            r = int((v > v[g[qid]["idx"]]).sum())  # options strictly above gold; ties favour gold
-            for k in ks:
-                hit[k] += r < k
-    return {"recall%d" % k: round(hit[k] / n, 4) for k in ks} if n else {}
+def rank(v, gold):
+    """Options ranked at or above gold, gold excluded: a tie with gold counts against it, so an
+    answer that gives gold the same probability as others (zero, or a shared residual) does not
+    rank it first among them."""
+    v = np.asarray(v, float)
+    return int((v >= v[gold]).sum()) - 1
+
+
+def summary(v, gold):
+    """What every metric here reads from an answer: its top option and probability, gold's
+    probability and rank, and the sum of squares (Brier = sq - 2 g + 1)."""
+    v = np.asarray(v, float)
+    t = int(np.argmax(v))
+    return {"top": t, "ok": t == gold, "pt": float(v[t]), "g": float(v[gold]), "r": rank(v, gold),
+            "sq": float((v ** 2).sum())}
+
+
+def measure(sums, questions, ks=(1, 5, 20)):
+    """merge.metrics' accuracy (first argmax, as np.argmax), ECE, Brier and log loss, and
+    recall@k (rank above), from summaries (None for an unanswered question); recall and accall
+    are over every question, the rest over answered."""
+    got = [s for s in sums if s is not None]
+    m = {"questions": questions, "unanswered": questions - len(got)}
+    if not got:
+        return m
+    corr = [float(s["ok"]) for s in got]
+    m.update(n=len(got), accuracy=round(float(np.mean(corr)), 4),
+             ece=round(merge.ece_score([s["pt"] for s in got], corr), 4),
+             brier=round(float(np.mean([s["sq"] - 2 * s["g"] + 1 for s in got])), 4),
+             nll=round(float(np.mean([-np.log(max(s["g"], 1e-12)) for s in got])), 4),
+             accall=round(sum(corr) / questions, 4))
+    m.update({"recall%d" % k: round(sum(s["r"] < k for s in got) / questions, 4) for k in ks})
+    return m
 
 
 class Keys(dict):
@@ -178,6 +197,9 @@ class Laya:
         self.bl = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.bl)
         self.laya, self.torch = laya, torch
+        if os.environ.get("OMP_NUM_THREADS"):  # a shared machine's thread budget, torch's pools included
+            torch.set_num_threads(int(os.environ["OMP_NUM_THREADS"]))
+            torch.set_num_interop_threads(1)
         self.device = device or os.environ.get("LAYA_DEVICE") or ("mps" if torch.backends.mps.is_available() else "cpu")
         self.local = snapshot_download(BUNDLE, revision=REV)
         self.router, self.agents = Router(), {}

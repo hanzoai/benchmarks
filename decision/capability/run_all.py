@@ -19,7 +19,7 @@ import traceback
 
 import cap
 
-SUITES = ["orig", "cardinality", "questions", "joint", "sensors", "invariance", "refresh", "deploy", "calibration"]
+SUITES = ["orig", "cardinality", "questions", "joint", "media", "invariance", "refresh", "deploy", "conformal"]
 
 
 def resolve(model):
@@ -37,9 +37,11 @@ def collect(started, kai, pending):
         if os.path.exists(f):
             d = cap.load(f)
             keys.update(d["keys"])
-            for run in d["meta"].values():
-                if isinstance(run, dict) and run.get("pending"):
-                    pending.setdefault(s, {}).update(run["pending"])
+            runs = sorted((k, v) for k, v in d["meta"].items() if k.startswith("run ") and isinstance(v, dict))
+            for who in {w for _, v in runs for w in v.get("pending", {})}:
+                last = [v for _, v in runs if who in v.get("pending", {}) or who in v][-1]  # its latest run
+                if who in last.get("pending", {}):
+                    pending.setdefault(s, {})[who] = last["pending"][who]
     meta.update(started=started, finished=time.strftime("%Y-%m-%d %H:%M:%S %z"), checkpoint=kai,
                 jev=cap.load(cap.LEDGER) if os.path.exists(cap.LEDGER) else None, pending=pending)
     out = {"meta": meta, "keys": dict(sorted(keys.items()))}
@@ -58,7 +60,7 @@ def main(kai, who, only):
             m = __import__(s)
             if s == "orig":
                 m.main(local)
-            elif s == "calibration":
+            elif s == "conformal":
                 m.main()
             else:
                 m.main(who, local)
