@@ -1,0 +1,6 @@
+data/
+cases/*.json.gz
+!cases/*.keep.json.gz
+__pycache__/
+results/*.lock
+results/*.tmp
