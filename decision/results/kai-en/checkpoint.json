@@ -1,0 +1,237 @@
+{
+ "checkpoint": "dbc:scratch/kai/runs/en",
+ "weights": "b7977f40c29713491b6e41439b9b61c1579b9a21e2a300342cc50230f3833a4d",
+ "init": {
+  "repo": "hanzoai/kai-1-agent",
+  "revision": "e3e416499b8a983d2aa0bcc684d5457ad6bfd6a1"
+ },
+ "spec": {
+  "mix": "english",
+  "epochs": 2,
+  "lr_encoder": 3e-05,
+  "lr_head": 0.0001,
+  "weight_decay": 0.01,
+  "warmup": 0.03,
+  "budget": {
+   "ctx": 2048,
+   "options": 2048,
+   "head": 4096,
+   "rows": 64
+  },
+  "max_len": 512,
+  "clip": 1.0,
+  "seed": 1,
+  "eval_every": 2000,
+  "eval_rows": 400,
+  "max_steps": 0
+ },
+ "mixture": [
+  {
+   "suite": "ag_news",
+   "rows": 20000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "emotion",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "banking77",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "support_triage",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "email_spam",
+   "rows": 12000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "phishing",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "guardrails_jailbreak",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "moderation_toxicity",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "rag_relevance",
+   "rows": 24000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "model_routing_domain",
+   "rows": 9000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "typed_decisions",
+   "rows": null,
+   "times": 4,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "massive",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  }
+ ],
+ "epochs_done": 2,
+ "steps": 53322,
+ "hours": 7.91,
+ "val": {
+  "ag_news": {
+   "rows": 400,
+   "accuracy": 0.9425,
+   "nll": 0.20935271984708378
+  },
+  "banking77": {
+   "rows": 400,
+   "accuracy": 0.91,
+   "nll": 0.6102416840833333
+  },
+  "email_spam": {
+   "rows": 400,
+   "accuracy": 0.995,
+   "nll": 0.023797675176497536
+  },
+  "emotion": {
+   "rows": 400,
+   "accuracy": 0.94,
+   "nll": 0.15702971286068632
+  },
+  "guardrails_jailbreak": {
+   "rows": 400,
+   "accuracy": 0.9875,
+   "nll": 0.07262598620867777
+  },
+  "massive": {
+   "rows": 227,
+   "accuracy": 0.8854625550660793,
+   "nll": 0.585102307267307
+  },
+  "model_routing_domain": {
+   "rows": 400,
+   "accuracy": 1.0,
+   "nll": 6.995780243642003e-05
+  },
+  "moderation_toxicity": {
+   "rows": 400,
+   "accuracy": 0.955,
+   "nll": 0.2539388457675898
+  },
+  "phishing": {
+   "rows": 400,
+   "accuracy": 0.9875,
+   "nll": 0.045784066022651615
+  },
+  "rag_relevance": {
+   "rows": 400,
+   "accuracy": 0.6625,
+   "nll": 0.612345276097767
+  },
+  "support_triage": {
+   "rows": 400,
+   "accuracy": 0.48,
+   "nll": 1.4620185652428643
+  },
+  "typed_decisions": {
+   "rows": 400,
+   "accuracy": 0.57,
+   "nll": 8.763276016840353
+  }
+ },
+ "calibration": {
+  "split": "val (carved from train)",
+  "buckets": {
+   "choice:11-30": {
+    "rows": 227,
+    "temperature": 2.019406376182197,
+    "nll_at_1": 0.5847213264839038,
+    "nll": 0.4269859470215014
+   },
+   "choice:3-5": {
+    "rows": 3718,
+    "temperature": 1.2305527825110407,
+    "nll_at_1": 0.2276958545282095,
+    "nll": 0.21904765392722492
+   },
+   "choice:31+": {
+    "rows": 488,
+    "temperature": 1.8932942471449785,
+    "nll_at_1": 0.5747307071325327,
+    "nll": 0.44512446161278607
+   },
+   "choice:6-10": {
+    "rows": 1939,
+    "temperature": 1.0544408417112336,
+    "nll_at_1": 0.5804580144952802,
+    "nll": 0.5800172321421013
+   },
+   "noul:2": {
+    "rows": 5418,
+    "temperature": 1.5237013545699567,
+    "nll_at_1": 0.39658475619305467,
+    "nll": 0.38557802874518976
+   },
+   "score:*": {
+    "rows": 176,
+    "temperature": 7.999999939417125,
+    "nll_at_1": 20.93070880759527,
+    "nll": 17.847354977593387
+   }
+  }
+ },
+ "temperature": {
+  "choice:11-30": 2.019406376182197,
+  "choice:3-5": 1.2305527825110407,
+  "choice:31+": 1.8932942471449785,
+  "choice:6-10": 1.0544408417112336,
+  "noul:2": 1.5237013545699567,
+  "score:*": 7.999999939417125
+ },
+ "encoder": {
+  "hidden_size": 1024,
+  "num_hidden_layers": 28,
+  "from": "ModernBERT-large, as carried by hanzoai/kai-1-agent"
+ },
+ "head_layers": 2,
+ "max_len": 512,
+ "option_len": 48,
+ "top_k": 32
+}

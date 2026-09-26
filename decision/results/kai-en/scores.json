@@ -1,0 +1,9387 @@
+{
+ "sources": {
+  "kai": {
+   "model": "/Users/a/scratch/kai/runs/en",
+   "weights": "b7977f40c29713491b6e41439b9b61c1579b9a21e2a300342cc50230f3833a4d",
+   "device": "metal",
+   "dtype": "bf16"
+  },
+  "laya": {
+   "bundle": "hanzoai/kai-1",
+   "revision": "b50502c28537df49a3621f6fa543f9e8521e8a9c",
+   "runtime": "laya 0.3.20",
+   "device": "cpu",
+   "dtype": "f32"
+  },
+  "jev": {
+   "model": "typesafe/jev-1.13",
+   "served": [
+    "typesafe/jev-1.13-20260917"
+   ]
+  }
+ },
+ "suites": {
+  "jev.ag_news": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.94,
+    "macro_f1": 0.9343,
+    "ece": 0.0252,
+    "brier": 0.0913,
+    "nll": 0.1801,
+    "mean_confidence": 0.9365,
+    "acc_at_50_coverage": 0.995,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0088,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.005,
+     "0.75": 0.01,
+     "0.9": 0.025,
+     "1.0": 0.06
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.95,
+    "macro_f1": 0.9439,
+    "ece": 0.0315,
+    "brier": 0.0808,
+    "nll": 0.1636,
+    "mean_confidence": 0.9221,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0067,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0067,
+     "0.9": 0.025,
+     "1.0": 0.05
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.95,
+    "macro_f1": 0.9439,
+    "ece": 0.0316,
+    "brier": 0.0808,
+    "nll": 0.1637,
+    "mean_confidence": 0.922,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0067,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0067,
+     "0.9": 0.025,
+     "1.0": 0.05
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.935,
+    "macro_f1": 0.9289,
+    "ece": 0.038,
+    "brier": 0.0978,
+    "nll": 0.2395,
+    "mean_confidence": 0.973,
+    "acc_at_50_coverage": 0.985,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0192,
+    "risk_at_coverage": {
+     "0.1": 0.025,
+     "0.25": 0.01,
+     "0.5": 0.015,
+     "0.75": 0.0167,
+     "0.9": 0.025,
+     "1.0": 0.065
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.9525,
+    "macro_f1": 0.9468,
+    "ece": 0.155,
+    "brier": 0.1137,
+    "nll": 0.2801,
+    "mean_confidence": 0.7975,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.006,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0033,
+     "0.9": 0.025,
+     "1.0": 0.0475
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.86,
+    "macro_f1": 0.8485,
+    "ece": 0.1023,
+    "brier": 0.2323,
+    "nll": 1.805,
+    "mean_confidence": 0.9569,
+    "acc_at_50_coverage": 0.925,
+    "unanswered": 0,
+    "zero_prob": 0.0575,
+    "questions": 400,
+    "aurc": 0.0832,
+    "risk_at_coverage": {
+     "0.1": 0.0772,
+     "0.25": 0.0772,
+     "0.5": 0.0772,
+     "0.75": 0.0783,
+     "0.9": 0.1028,
+     "1.0": 0.14
+    },
+    "latency_p50_ms": 232.8,
+    "latency_p95_ms": 811.9,
+    "cost_usd": 0.00685,
+    "input_tokens": 163075,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.9375,
+    "kai~jev": 0.8775,
+    "laya~jev": 0.8525
+   }
+  },
+  "jev.emotion": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.9325,
+    "macro_f1": 0.8809,
+    "ece": 0.0258,
+    "brier": 0.091,
+    "nll": 0.1694,
+    "mean_confidence": 0.9573,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0049,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0222,
+     "1.0": 0.0675
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.595,
+    "macro_f1": 0.4752,
+    "ece": 0.3063,
+    "brier": 0.6963,
+    "nll": 2.0194,
+    "mean_confidence": 0.9013,
+    "acc_at_50_coverage": 0.715,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2655,
+    "risk_at_coverage": {
+     "0.1": 0.15,
+     "0.25": 0.2,
+     "0.5": 0.285,
+     "0.75": 0.3533,
+     "0.9": 0.3833,
+     "1.0": 0.405
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.595,
+    "macro_f1": 0.4752,
+    "ece": 0.3063,
+    "brier": 0.6963,
+    "nll": 2.0194,
+    "mean_confidence": 0.9013,
+    "acc_at_50_coverage": 0.715,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2655,
+    "risk_at_coverage": {
+     "0.1": 0.15,
+     "0.25": 0.2,
+     "0.5": 0.285,
+     "0.75": 0.3533,
+     "0.9": 0.3833,
+     "1.0": 0.405
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.5375,
+    "macro_f1": 0.4342,
+    "ece": 0.3323,
+    "brier": 0.7802,
+    "nll": 2.2149,
+    "mean_confidence": 0.8681,
+    "acc_at_50_coverage": 0.64,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.3246,
+    "risk_at_coverage": {
+     "0.1": 0.15,
+     "0.25": 0.24,
+     "0.5": 0.36,
+     "0.75": 0.4267,
+     "0.9": 0.4389,
+     "1.0": 0.4625
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.6,
+    "macro_f1": 0.4741,
+    "ece": 0.2005,
+    "brier": 0.6113,
+    "nll": 1.3242,
+    "mean_confidence": 0.7928,
+    "acc_at_50_coverage": 0.71,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2631,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.17,
+     "0.5": 0.29,
+     "0.75": 0.3433,
+     "0.9": 0.3778,
+     "1.0": 0.4
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.6025,
+    "macro_f1": 0.5155,
+    "ece": 0.2795,
+    "brier": 0.6464,
+    "nll": 4.6832,
+    "mean_confidence": 0.8687,
+    "acc_at_50_coverage": 0.785,
+    "unanswered": 0,
+    "zero_prob": 0.1425,
+    "questions": 400,
+    "aurc": 0.2311,
+    "risk_at_coverage": {
+     "0.1": 0.1269,
+     "0.25": 0.1269,
+     "0.5": 0.2175,
+     "0.75": 0.3308,
+     "0.9": 0.375,
+     "1.0": 0.3975
+    },
+    "latency_p50_ms": 231.1,
+    "latency_p95_ms": 449.7,
+    "cost_usd": 0.00652,
+    "input_tokens": 155266,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.585,
+    "kai~jev": 0.6025,
+    "laya~jev": 0.68
+   }
+  },
+  "jev.banking77_full": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.9175,
+    "macro_f1": 0.3373,
+    "ece": 0.0303,
+    "brier": 0.1277,
+    "nll": 0.4687,
+    "mean_confidence": 0.9129,
+    "acc_at_50_coverage": 0.99,
+    "unanswered": 0,
+    "zero_prob": 0.005,
+    "questions": 400,
+    "aurc": 0.0232,
+    "risk_at_coverage": {
+     "0.1": 0.025,
+     "0.25": 0.01,
+     "0.5": 0.01,
+     "0.75": 0.0167,
+     "0.9": 0.0278,
+     "1.0": 0.0825
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.425,
+    "macro_f1": 0.1121,
+    "ece": 0.3809,
+    "brier": 0.9246,
+    "nll": 4.7967,
+    "mean_confidence": 0.8005,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.0975,
+    "questions": 400,
+    "aurc": 0.3559,
+    "risk_at_coverage": {
+     "0.1": 0.075,
+     "0.25": 0.24,
+     "0.5": 0.4,
+     "0.75": 0.4967,
+     "0.9": 0.5417,
+     "1.0": 0.575
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.425,
+    "macro_f1": 0.1121,
+    "ece": 0.3809,
+    "brier": 0.9246,
+    "nll": 4.7967,
+    "mean_confidence": 0.8005,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.0975,
+    "questions": 400,
+    "aurc": 0.3559,
+    "risk_at_coverage": {
+     "0.1": 0.075,
+     "0.25": 0.24,
+     "0.5": 0.4,
+     "0.75": 0.4967,
+     "0.9": 0.5417,
+     "1.0": 0.575
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.47,
+    "macro_f1": 0.1138,
+    "ece": 0.3851,
+    "brier": 0.8859,
+    "nll": 4.251,
+    "mean_confidence": 0.8524,
+    "acc_at_50_coverage": 0.65,
+    "unanswered": 0,
+    "zero_prob": 0.07,
+    "questions": 400,
+    "aurc": 0.3111,
+    "risk_at_coverage": {
+     "0.1": 0.05,
+     "0.25": 0.12,
+     "0.5": 0.35,
+     "0.75": 0.46,
+     "0.9": 0.5056,
+     "1.0": 0.53
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.4925,
+    "macro_f1": 0.1307,
+    "ece": 0.0946,
+    "brier": 0.6744,
+    "nll": 2.0952,
+    "mean_confidence": 0.4518,
+    "acc_at_50_coverage": 0.64,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2984,
+    "risk_at_coverage": {
+     "0.1": 0.025,
+     "0.25": 0.17,
+     "0.5": 0.36,
+     "0.75": 0.43,
+     "0.9": 0.4778,
+     "1.0": 0.5075
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.835,
+    "macro_f1": 0.3137,
+    "ece": 0.0729,
+    "brier": 0.257,
+    "nll": 1.3471,
+    "mean_confidence": 0.881,
+    "acc_at_50_coverage": 0.965,
+    "unanswered": 0,
+    "zero_prob": 0.035,
+    "questions": 400,
+    "aurc": 0.0579,
+    "risk_at_coverage": {
+     "0.1": 0.0253,
+     "0.25": 0.0253,
+     "0.5": 0.0321,
+     "0.75": 0.0967,
+     "0.9": 0.1157,
+     "1.0": 0.165
+    },
+    "latency_p50_ms": 235.7,
+    "latency_p95_ms": 534.8,
+    "cost_usd": 0.02723,
+    "input_tokens": 648436,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.425,
+    "kai~jev": 0.84,
+    "laya~jev": 0.4675
+   }
+  },
+  "app.support_triage": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.44,
+    "macro_f1": 0.339,
+    "ece": 0.0889,
+    "brier": 0.6864,
+    "nll": 1.544,
+    "mean_confidence": 0.4985,
+    "acc_at_50_coverage": 0.59,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.3669,
+    "risk_at_coverage": {
+     "0.1": 0.05,
+     "0.25": 0.25,
+     "0.5": 0.41,
+     "0.75": 0.5167,
+     "0.9": 0.5444,
+     "1.0": 0.56
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.5025,
+    "macro_f1": 0.4802,
+    "ece": 0.0907,
+    "brier": 0.6438,
+    "nll": 1.4237,
+    "mean_confidence": 0.5065,
+    "acc_at_50_coverage": 0.595,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.3208,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.19,
+     "0.5": 0.405,
+     "0.75": 0.4567,
+     "0.9": 0.4806,
+     "1.0": 0.4975
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.5025,
+    "macro_f1": 0.4802,
+    "ece": 0.0907,
+    "brier": 0.6438,
+    "nll": 1.4237,
+    "mean_confidence": 0.5065,
+    "acc_at_50_coverage": 0.595,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.3208,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.19,
+     "0.5": 0.405,
+     "0.75": 0.4567,
+     "0.9": 0.4806,
+     "1.0": 0.4975
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.54,
+    "macro_f1": 0.5418,
+    "ece": 0.0862,
+    "brier": 0.5721,
+    "nll": 1.2147,
+    "mean_confidence": 0.611,
+    "acc_at_50_coverage": 0.745,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2401,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.1,
+     "0.5": 0.255,
+     "0.75": 0.3933,
+     "0.9": 0.4333,
+     "1.0": 0.46
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.505,
+    "macro_f1": 0.4699,
+    "ece": 0.1149,
+    "brier": 0.6603,
+    "nll": 1.4739,
+    "mean_confidence": 0.4165,
+    "acc_at_50_coverage": 0.595,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.3274,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.22,
+     "0.5": 0.405,
+     "0.75": 0.4467,
+     "0.9": 0.4694,
+     "1.0": 0.495
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.365,
+    "macro_f1": 0.3682,
+    "ece": 0.4827,
+    "brier": 1.0557,
+    "nll": 10.1202,
+    "mean_confidence": 0.8392,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.335,
+    "questions": 400,
+    "aurc": 0.4868,
+    "risk_at_coverage": {
+     "0.1": 0.2632,
+     "0.25": 0.3714,
+     "0.5": 0.5217,
+     "0.75": 0.61,
+     "0.9": 0.6392,
+     "1.0": 0.635
+    },
+    "latency_p50_ms": 235.7,
+    "latency_p95_ms": 684.4,
+    "cost_usd": 0.01011,
+    "input_tokens": 240700,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.7325,
+    "kai~jev": 0.505,
+    "laya~jev": 0.6125
+   }
+  },
+  "app.email_spam": {
+   "kai": {
+    "n": 400,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "ece": 0.0039,
+    "brier": 0.0003,
+    "nll": 0.004,
+    "mean_confidence": 0.9961,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.9975,
+    "macro_f1": 0.9975,
+    "ece": 0.0108,
+    "brier": 0.0052,
+    "nll": 0.0126,
+    "mean_confidence": 0.9892,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0025
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.9975,
+    "macro_f1": 0.9975,
+    "ece": 0.0109,
+    "brier": 0.0052,
+    "nll": 0.0127,
+    "mean_confidence": 0.9892,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0025
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.9975,
+    "macro_f1": 0.9975,
+    "ece": 0.0026,
+    "brier": 0.0049,
+    "nll": 0.0116,
+    "mean_confidence": 0.9996,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0025
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.9675,
+    "macro_f1": 0.9675,
+    "ece": 0.1144,
+    "brier": 0.0888,
+    "nll": 0.1819,
+    "mean_confidence": 0.8531,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0017,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0056,
+     "1.0": 0.0325
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.9775,
+    "macro_f1": 0.9774,
+    "ece": 0.0604,
+    "brier": 0.0379,
+    "nll": 0.0967,
+    "mean_confidence": 0.9247,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0007,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0225
+    },
+    "latency_p50_ms": 230.2,
+    "latency_p95_ms": 343.4,
+    "cost_usd": 0.00999,
+    "input_tokens": 237809,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.9975,
+    "kai~jev": 0.9775,
+    "laya~jev": 0.98
+   }
+  },
+  "app.phishing": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.9825,
+    "macro_f1": 0.9815,
+    "ece": 0.0149,
+    "brier": 0.0312,
+    "nll": 0.0639,
+    "mean_confidence": 0.9935,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0007,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0175
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.9825,
+    "macro_f1": 0.9815,
+    "ece": 0.0101,
+    "brier": 0.026,
+    "nll": 0.0439,
+    "mean_confidence": 0.9743,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0005,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0175
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.98,
+    "macro_f1": 0.9789,
+    "ece": 0.0121,
+    "brier": 0.0292,
+    "nll": 0.048,
+    "mean_confidence": 0.9738,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0007,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.02
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.9925,
+    "macro_f1": 0.9921,
+    "ece": 0.0063,
+    "brier": 0.0138,
+    "nll": 0.0243,
+    "mean_confidence": 0.9981,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0002,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0075
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.94,
+    "macro_f1": 0.9353,
+    "ece": 0.0762,
+    "brier": 0.1062,
+    "nll": 0.2039,
+    "mean_confidence": 0.865,
+    "acc_at_50_coverage": 0.99,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0146,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.02,
+     "0.5": 0.01,
+     "0.75": 0.0067,
+     "0.9": 0.0265,
+     "1.0": 0.06
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.9,
+    "macro_f1": 0.8874,
+    "ece": 0.0388,
+    "brier": 0.1523,
+    "nll": 0.2495,
+    "mean_confidence": 0.887,
+    "acc_at_50_coverage": 0.995,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0208,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.005,
+     "0.75": 0.05,
+     "0.9": 0.075,
+     "1.0": 0.1
+    },
+    "latency_p50_ms": 232.8,
+    "latency_p95_ms": 390.9,
+    "cost_usd": 0.01065,
+    "input_tokens": 253672,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.985,
+    "kai~jev": 0.8825,
+    "laya~jev": 0.8925
+   }
+  },
+  "app.guardrails_jailbreak": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.9175,
+    "macro_f1": 0.8705,
+    "ece": 0.0735,
+    "brier": 0.1534,
+    "nll": 0.3519,
+    "mean_confidence": 0.9886,
+    "acc_at_50_coverage": 0.985,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0207,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.01,
+     "0.5": 0.015,
+     "0.75": 0.0267,
+     "0.9": 0.0472,
+     "1.0": 0.0825
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.705,
+    "macro_f1": 0.6818,
+    "ece": 0.2617,
+    "brier": 0.5427,
+    "nll": 1.9121,
+    "mean_confidence": 0.9658,
+    "acc_at_50_coverage": 0.82,
+    "unanswered": 0,
+    "zero_prob": 0.0025,
+    "questions": 400,
+    "aurc": 0.2304,
+    "risk_at_coverage": {
+     "0.1": 0.225,
+     "0.25": 0.18,
+     "0.5": 0.18,
+     "0.75": 0.2533,
+     "0.9": 0.275,
+     "1.0": 0.295
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.7075,
+    "macro_f1": 0.684,
+    "ece": 0.2591,
+    "brier": 0.5389,
+    "nll": 1.8576,
+    "mean_confidence": 0.9657,
+    "acc_at_50_coverage": 0.83,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.225,
+    "risk_at_coverage": {
+     "0.1": 0.225,
+     "0.25": 0.18,
+     "0.5": 0.17,
+     "0.75": 0.2467,
+     "0.9": 0.275,
+     "1.0": 0.2925
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.805,
+    "macro_f1": 0.7667,
+    "ece": 0.1528,
+    "brier": 0.3347,
+    "nll": 1.0979,
+    "mean_confidence": 0.9578,
+    "acc_at_50_coverage": 0.845,
+    "unanswered": 0,
+    "zero_prob": 0.0025,
+    "questions": 400,
+    "aurc": 0.1372,
+    "risk_at_coverage": {
+     "0.1": 0.025,
+     "0.25": 0.17,
+     "0.5": 0.155,
+     "0.75": 0.1367,
+     "0.9": 0.1639,
+     "1.0": 0.195
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.7625,
+    "macro_f1": 0.733,
+    "ece": 0.0869,
+    "brier": 0.3365,
+    "nll": 0.5061,
+    "mean_confidence": 0.841,
+    "acc_at_50_coverage": 0.885,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.1134,
+    "risk_at_coverage": {
+     "0.1": 0.025,
+     "0.25": 0.04,
+     "0.5": 0.115,
+     "0.75": 0.18,
+     "0.9": 0.2083,
+     "1.0": 0.2375
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.94,
+    "macro_f1": 0.9183,
+    "ece": 0.0469,
+    "brier": 0.1044,
+    "nll": 0.1891,
+    "mean_confidence": 0.8963,
+    "acc_at_50_coverage": 0.995,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.012,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0037,
+     "0.75": 0.021,
+     "0.9": 0.0375,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 235.1,
+    "latency_p95_ms": 375.8,
+    "cost_usd": 0.00615,
+    "input_tokens": 146325,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.6675,
+    "kai~jev": 0.9125,
+    "laya~jev": 0.74
+   }
+  },
+  "app.moderation_toxicity": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.84,
+    "macro_f1": 0.8388,
+    "ece": 0.1299,
+    "brier": 0.2831,
+    "nll": 0.6322,
+    "mean_confidence": 0.969,
+    "acc_at_50_coverage": 0.925,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0795,
+    "risk_at_coverage": {
+     "0.1": 0.025,
+     "0.25": 0.0633,
+     "0.5": 0.075,
+     "0.75": 0.1,
+     "0.9": 0.1278,
+     "1.0": 0.16
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.53,
+    "macro_f1": 0.4003,
+    "ece": 0.2967,
+    "brier": 0.6015,
+    "nll": 0.8856,
+    "mean_confidence": 0.8248,
+    "acc_at_50_coverage": 0.735,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2811,
+    "risk_at_coverage": {
+     "0.1": 0.125,
+     "0.25": 0.16,
+     "0.5": 0.265,
+     "0.75": 0.3833,
+     "0.9": 0.4417,
+     "1.0": 0.47
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.53,
+    "macro_f1": 0.4003,
+    "ece": 0.2961,
+    "brier": 0.6015,
+    "nll": 0.8862,
+    "mean_confidence": 0.8242,
+    "acc_at_50_coverage": 0.735,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2811,
+    "risk_at_coverage": {
+     "0.1": 0.15,
+     "0.25": 0.18,
+     "0.5": 0.265,
+     "0.75": 0.3833,
+     "0.9": 0.4417,
+     "1.0": 0.47
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.535,
+    "macro_f1": 0.4136,
+    "ece": 0.3729,
+    "brier": 0.7377,
+    "nll": 1.2217,
+    "mean_confidence": 0.9079,
+    "acc_at_50_coverage": 0.71,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2516,
+    "risk_at_coverage": {
+     "0.1": 0.05,
+     "0.25": 0.09,
+     "0.5": 0.29,
+     "0.75": 0.39,
+     "0.9": 0.4472,
+     "1.0": 0.465
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.53,
+    "macro_f1": 0.3967,
+    "ece": 0.244,
+    "brier": 0.5315,
+    "nll": 0.7305,
+    "mean_confidence": 0.7553,
+    "acc_at_50_coverage": 0.72,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2713,
+    "risk_at_coverage": {
+     "0.1": 0.125,
+     "0.25": 0.15,
+     "0.5": 0.28,
+     "0.75": 0.3667,
+     "0.9": 0.4472,
+     "1.0": 0.47
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.6625,
+    "macro_f1": 0.6285,
+    "ece": 0.1768,
+    "brier": 0.4316,
+    "nll": 0.6192,
+    "mean_confidence": 0.8393,
+    "acc_at_50_coverage": 0.86,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.1382,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.005,
+     "0.5": 0.1422,
+     "0.75": 0.2393,
+     "0.9": 0.3111,
+     "1.0": 0.3375
+    },
+    "latency_p50_ms": 232.3,
+    "latency_p95_ms": 886.7,
+    "cost_usd": 0.00597,
+    "input_tokens": 142041,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.605,
+    "kai~jev": 0.6825,
+    "laya~jev": 0.8125
+   }
+  },
+  "app.rag_relevance": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.6825,
+    "macro_f1": 0.6816,
+    "ece": 0.0641,
+    "brier": 0.4031,
+    "nll": 0.5892,
+    "mean_confidence": 0.6614,
+    "acc_at_50_coverage": 0.79,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.204,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.1245,
+     "0.5": 0.2083,
+     "0.75": 0.2588,
+     "0.9": 0.3089,
+     "1.0": 0.3175
+    }
+   },
+   "laya": {
+    "n": 400,
+    "accuracy": 0.625,
+    "macro_f1": 0.6234,
+    "ece": 0.1175,
+    "brier": 0.4656,
+    "nll": 0.671,
+    "mean_confidence": 0.7425,
+    "acc_at_50_coverage": 0.72,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2795,
+    "risk_at_coverage": {
+     "0.1": 0.175,
+     "0.25": 0.2,
+     "0.5": 0.28,
+     "0.75": 0.32,
+     "0.9": 0.35,
+     "1.0": 0.375
+    }
+   },
+   "laya:english": {
+    "n": 400,
+    "accuracy": 0.625,
+    "macro_f1": 0.6234,
+    "ece": 0.1175,
+    "brier": 0.4656,
+    "nll": 0.671,
+    "mean_confidence": 0.7425,
+    "acc_at_50_coverage": 0.72,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2795,
+    "risk_at_coverage": {
+     "0.1": 0.175,
+     "0.25": 0.2,
+     "0.5": 0.28,
+     "0.75": 0.32,
+     "0.9": 0.35,
+     "1.0": 0.375
+    }
+   },
+   "laya:multilingual": {
+    "n": 400,
+    "accuracy": 0.6725,
+    "macro_f1": 0.6712,
+    "ece": 0.1689,
+    "brier": 0.4859,
+    "nll": 0.7745,
+    "mean_confidence": 0.8376,
+    "acc_at_50_coverage": 0.76,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2619,
+    "risk_at_coverage": {
+     "0.1": 0.175,
+     "0.25": 0.22,
+     "0.5": 0.24,
+     "0.75": 0.2933,
+     "0.9": 0.3111,
+     "1.0": 0.3275
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 400,
+    "accuracy": 0.625,
+    "macro_f1": 0.6239,
+    "ece": 0.0419,
+    "brier": 0.4458,
+    "nll": 0.6367,
+    "mean_confidence": 0.6433,
+    "acc_at_50_coverage": 0.73,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2798,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.24,
+     "0.5": 0.27,
+     "0.75": 0.33,
+     "0.9": 0.3556,
+     "1.0": 0.375
+    }
+   },
+   "jev": {
+    "n": 400,
+    "accuracy": 0.62,
+    "macro_f1": 0.5924,
+    "ece": 0.2788,
+    "brier": 0.6282,
+    "nll": 1.1129,
+    "mean_confidence": 0.881,
+    "acc_at_50_coverage": 0.67,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.3309,
+    "risk_at_coverage": {
+     "0.1": 0.2824,
+     "0.25": 0.2963,
+     "0.5": 0.3237,
+     "0.75": 0.3667,
+     "0.9": 0.3847,
+     "1.0": 0.38
+    },
+    "latency_p50_ms": 234.6,
+    "latency_p95_ms": 528.5,
+    "cost_usd": 0.00669,
+    "input_tokens": 159206,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.7625,
+    "kai~jev": 0.6825,
+    "laya~jev": 0.67
+   }
+  },
+  "app.model_routing_domain": {
+   "kai": {
+    "n": 399,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "ece": 0.0008,
+    "brier": 0.0004,
+    "nll": 0.001,
+    "mean_confidence": 0.9992,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 399,
+    "aurc": 0.0,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0
+    }
+   },
+   "laya": {
+    "n": 399,
+    "accuracy": 0.6391,
+    "macro_f1": 0.3199,
+    "ece": 0.0889,
+    "brier": 0.4938,
+    "nll": 1.089,
+    "mean_confidence": 0.7121,
+    "acc_at_50_coverage": 0.8744,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 399,
+    "aurc": 0.1758,
+    "risk_at_coverage": {
+     "0.1": 0.1026,
+     "0.25": 0.0505,
+     "0.5": 0.1256,
+     "0.75": 0.2642,
+     "0.9": 0.3287,
+     "1.0": 0.3609
+    }
+   },
+   "laya:english": {
+    "n": 399,
+    "accuracy": 0.6391,
+    "macro_f1": 0.3199,
+    "ece": 0.0889,
+    "brier": 0.4938,
+    "nll": 1.089,
+    "mean_confidence": 0.7121,
+    "acc_at_50_coverage": 0.8744,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 399,
+    "aurc": 0.1758,
+    "risk_at_coverage": {
+     "0.1": 0.1026,
+     "0.25": 0.0505,
+     "0.5": 0.1256,
+     "0.75": 0.2642,
+     "0.9": 0.3287,
+     "1.0": 0.3609
+    }
+   },
+   "laya:multilingual": {
+    "n": 399,
+    "accuracy": 0.4411,
+    "macro_f1": 0.2362,
+    "ece": 0.1957,
+    "brier": 0.7607,
+    "nll": 1.7542,
+    "mean_confidence": 0.6316,
+    "acc_at_50_coverage": 0.593,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 399,
+    "aurc": 0.4835,
+    "risk_at_coverage": {
+     "0.1": 0.5641,
+     "0.25": 0.4141,
+     "0.5": 0.407,
+     "0.75": 0.4783,
+     "0.9": 0.532,
+     "1.0": 0.5589
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 399,
+    "accuracy": 0.6591,
+    "macro_f1": 0.3426,
+    "ece": 0.1058,
+    "brier": 0.503,
+    "nll": 1.0623,
+    "mean_confidence": 0.5909,
+    "acc_at_50_coverage": 0.8342,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 399,
+    "aurc": 0.2484,
+    "risk_at_coverage": {
+     "0.1": 0.2308,
+     "0.25": 0.2121,
+     "0.5": 0.1658,
+     "0.75": 0.2709,
+     "0.9": 0.3092,
+     "1.0": 0.3409
+    }
+   },
+   "jev": {
+    "n": 399,
+    "accuracy": 0.9774,
+    "macro_f1": 0.5915,
+    "ece": 0.0138,
+    "brier": 0.04,
+    "nll": 0.0847,
+    "mean_confidence": 0.9685,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 399,
+    "aurc": 0.0028,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0061,
+     "0.9": 0.0084,
+     "1.0": 0.0226
+    },
+    "latency_p50_ms": 252.3,
+    "latency_p95_ms": 390.3,
+    "cost_usd": 0.00786,
+    "input_tokens": 187084,
+    "served": {
+     "typesafe/jev-1.13-20260917": 399
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.6391,
+    "kai~jev": 0.9774,
+    "laya~jev": 0.6516
+   }
+  },
+  "typed_decisions": {
+   "kai": {
+    "n": 2000,
+    "accuracy": 0.5735,
+    "macro_f1": 0.5338,
+    "ece": 0.3919,
+    "brier": 0.8101,
+    "nll": 7.4257,
+    "mean_confidence": 0.766,
+    "acc_at_50_coverage": 0.403,
+    "unanswered": 0,
+    "zero_prob": 0.292,
+    "questions": 2000,
+    "aurc": 0.5905,
+    "risk_at_coverage": {
+     "0.1": 0.7331,
+     "0.25": 0.7331,
+     "0.5": 0.597,
+     "0.75": 0.4411,
+     "0.9": 0.42,
+     "1.0": 0.4265
+    },
+    "soft_accuracy": 0.4117,
+    "brier_vs_soft": 0.4351,
+    "score_mae": 1.366,
+    "within_1_level": 0.3837,
+    "by_workflow": {
+     "agent_trace_observability": 0.52,
+     "customer_service": 0.59,
+     "invoice_processing": 0.604,
+     "security_incidents": 0.58
+    },
+    "by_question_type": {
+     "choice": 0.715,
+     "noul": 0.8383,
+     "score": 0.2687
+    }
+   },
+   "laya": {
+    "n": 2000,
+    "accuracy": 0.3615,
+    "macro_f1": 0.3266,
+    "ece": 0.1747,
+    "brier": 0.7497,
+    "nll": 1.3227,
+    "mean_confidence": 0.5362,
+    "acc_at_50_coverage": 0.428,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 2000,
+    "aurc": 0.5929,
+    "risk_at_coverage": {
+     "0.1": 0.605,
+     "0.25": 0.604,
+     "0.5": 0.572,
+     "0.75": 0.6033,
+     "0.9": 0.6239,
+     "1.0": 0.6385
+    },
+    "soft_accuracy": 0.3315,
+    "brier_vs_soft": 0.3155,
+    "score_mae": 0.6937,
+    "within_1_level": 0.7525,
+    "by_workflow": {
+     "agent_trace_observability": 0.388,
+     "customer_service": 0.382,
+     "invoice_processing": 0.36,
+     "security_incidents": 0.316
+    },
+    "by_question_type": {
+     "choice": 0.2883,
+     "noul": 0.4867,
+     "score": 0.3225
+    }
+   },
+   "laya:english": {
+    "n": 2000,
+    "accuracy": 0.3615,
+    "macro_f1": 0.3266,
+    "ece": 0.1747,
+    "brier": 0.7497,
+    "nll": 1.3227,
+    "mean_confidence": 0.5362,
+    "acc_at_50_coverage": 0.428,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 2000,
+    "aurc": 0.5929,
+    "risk_at_coverage": {
+     "0.1": 0.605,
+     "0.25": 0.604,
+     "0.5": 0.572,
+     "0.75": 0.6033,
+     "0.9": 0.6239,
+     "1.0": 0.6385
+    },
+    "soft_accuracy": 0.3315,
+    "brier_vs_soft": 0.3155,
+    "score_mae": 0.6937,
+    "within_1_level": 0.7525,
+    "by_workflow": {
+     "agent_trace_observability": 0.388,
+     "customer_service": 0.382,
+     "invoice_processing": 0.36,
+     "security_incidents": 0.316
+    },
+    "by_question_type": {
+     "choice": 0.2883,
+     "noul": 0.4867,
+     "score": 0.3225
+    }
+   },
+   "laya:multilingual": {
+    "n": 2000,
+    "accuracy": 0.352,
+    "macro_f1": 0.3503,
+    "ece": 0.3139,
+    "brier": 0.8904,
+    "nll": 1.8243,
+    "mean_confidence": 0.6629,
+    "acc_at_50_coverage": 0.414,
+    "unanswered": 0,
+    "zero_prob": 0.0005,
+    "questions": 2000,
+    "aurc": 0.5563,
+    "risk_at_coverage": {
+     "0.1": 0.45,
+     "0.25": 0.5,
+     "0.5": 0.586,
+     "0.75": 0.6353,
+     "0.9": 0.645,
+     "1.0": 0.648
+    },
+    "soft_accuracy": 0.328,
+    "brier_vs_soft": 0.4626,
+    "score_mae": 0.7604,
+    "within_1_level": 0.7,
+    "by_workflow": {
+     "agent_trace_observability": 0.286,
+     "customer_service": 0.42,
+     "invoice_processing": 0.308,
+     "security_incidents": 0.394
+    },
+    "by_question_type": {
+     "choice": 0.295,
+     "noul": 0.4967,
+     "score": 0.2863
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 2000,
+    "accuracy": 0.766,
+    "macro_f1": 0.7503,
+    "ece": 0.2132,
+    "brier": 0.3996,
+    "nll": 0.7069,
+    "mean_confidence": 0.5528,
+    "acc_at_50_coverage": 0.903,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 2000,
+    "aurc": 0.0988,
+    "risk_at_coverage": {
+     "0.1": 0.005,
+     "0.25": 0.028,
+     "0.5": 0.097,
+     "0.75": 0.1647,
+     "0.9": 0.2044,
+     "1.0": 0.234
+    },
+    "soft_accuracy": 0.4707,
+    "brier_vs_soft": 0.0615,
+    "score_mae": 0.2424,
+    "within_1_level": 0.995,
+    "by_workflow": {
+     "agent_trace_observability": 0.73,
+     "customer_service": 0.764,
+     "invoice_processing": 0.804,
+     "security_incidents": 0.766
+    },
+    "by_question_type": {
+     "choice": 0.7333,
+     "noul": 0.8567,
+     "score": 0.7225
+    }
+   },
+   "jev": {
+    "n": 2000,
+    "accuracy": 0.7355,
+    "macro_f1": 0.7381,
+    "ece": 0.0472,
+    "brier": 0.3658,
+    "nll": 0.7067,
+    "mean_confidence": 0.7567,
+    "acc_at_50_coverage": 0.885,
+    "unanswered": 0,
+    "zero_prob": 0.003,
+    "questions": 2000,
+    "aurc": 0.1277,
+    "risk_at_coverage": {
+     "0.1": 0.025,
+     "0.25": 0.0769,
+     "0.5": 0.1142,
+     "0.75": 0.1859,
+     "0.9": 0.2314,
+     "1.0": 0.2645
+    },
+    "soft_accuracy": 0.5383,
+    "brier_vs_soft": 0.1483,
+    "score_mae": 0.3912,
+    "within_1_level": 0.9463,
+    "by_workflow": {
+     "agent_trace_observability": 0.634,
+     "customer_service": 0.79,
+     "invoice_processing": 0.778,
+     "security_incidents": 0.74
+    },
+    "by_question_type": {
+     "choice": 0.7317,
+     "noul": 0.785,
+     "score": 0.7013
+    },
+    "latency_p50_ms": 255.4,
+    "latency_p95_ms": 340.5,
+    "cost_usd": 0.01587,
+    "input_tokens": 377758,
+    "served": {
+     "typesafe/jev-1.13-20260917": 400
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.2195,
+    "kai~jev": 0.575,
+    "laya~jev": 0.335
+   }
+  },
+  "massive.af": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.21,
+    "macro_f1": 0.1985,
+    "ece": 0.1979,
+    "brier": 0.9573,
+    "nll": 2.9457,
+    "mean_confidence": 0.3949,
+    "acc_at_50_coverage": 0.28,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6946,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.56,
+     "0.5": 0.72,
+     "0.75": 0.76,
+     "0.9": 0.7667,
+     "1.0": 0.79
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.34,
+    "macro_f1": 0.3367,
+    "ece": 0.4845,
+    "brier": 1.0683,
+    "nll": 5.0409,
+    "mean_confidence": 0.8245,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.09,
+    "questions": 100,
+    "aurc": 0.4721,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.4,
+     "0.5": 0.52,
+     "0.75": 0.6,
+     "0.9": 0.6333,
+     "1.0": 0.66
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.29,
+    "macro_f1": 0.2874,
+    "ece": 0.5588,
+    "brier": 1.1918,
+    "nll": 5.9153,
+    "mean_confidence": 0.8488,
+    "acc_at_50_coverage": 0.42,
+    "unanswered": 0,
+    "zero_prob": 0.11,
+    "questions": 100,
+    "aurc": 0.5205,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.48,
+     "0.5": 0.58,
+     "0.75": 0.6667,
+     "0.9": 0.6778,
+     "1.0": 0.71
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.35,
+    "macro_f1": 0.3411,
+    "ece": 0.4394,
+    "brier": 0.9812,
+    "nll": 3.2326,
+    "mean_confidence": 0.7894,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4303,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.32,
+     "0.5": 0.42,
+     "0.75": 0.56,
+     "0.9": 0.6111,
+     "1.0": 0.65
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.32,
+    "macro_f1": 0.2902,
+    "ece": 0.4265,
+    "brier": 1.0065,
+    "nll": 3.4483,
+    "mean_confidence": 0.7344,
+    "acc_at_50_coverage": 0.52,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5088,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.4,
+     "0.5": 0.48,
+     "0.75": 0.6,
+     "0.9": 0.6444,
+     "1.0": 0.68
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.87,
+    "macro_f1": 0.8625,
+    "ece": 0.0873,
+    "brier": 0.2058,
+    "nll": 0.934,
+    "mean_confidence": 0.8823,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0259,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.04,
+     "0.9": 0.0667,
+     "1.0": 0.13
+    },
+    "latency_p50_ms": 249.9,
+    "latency_p95_ms": 342.1,
+    "cost_usd": 0.00262,
+    "input_tokens": 62358,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.22,
+    "kai~jev": 0.22,
+    "laya~jev": 0.33
+   }
+  },
+  "massive.am": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.05,
+    "macro_f1": 0.038,
+    "ece": 0.1421,
+    "brier": 0.9775,
+    "nll": 3.1724,
+    "mean_confidence": 0.1914,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.899,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.88,
+     "0.5": 0.94,
+     "0.75": 0.9467,
+     "0.9": 0.9556,
+     "1.0": 0.95
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.15,
+    "macro_f1": 0.1307,
+    "ece": 0.4839,
+    "brier": 1.2188,
+    "nll": 4.266,
+    "mean_confidence": 0.6339,
+    "acc_at_50_coverage": 0.26,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.8162,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.76,
+     "0.5": 0.74,
+     "0.75": 0.8267,
+     "0.9": 0.8444,
+     "1.0": 0.85
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.1122,
+    "ece": 0.6804,
+    "brier": 1.461,
+    "nll": 8.0305,
+    "mean_confidence": 0.7873,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.07,
+    "questions": 100,
+    "aurc": 0.8853,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.88,
+     "0.5": 0.88,
+     "0.75": 0.8533,
+     "0.9": 0.8778,
+     "1.0": 0.88
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.15,
+    "macro_f1": 0.1307,
+    "ece": 0.4839,
+    "brier": 1.2188,
+    "nll": 4.266,
+    "mean_confidence": 0.6339,
+    "acc_at_50_coverage": 0.26,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.8162,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.76,
+     "0.5": 0.74,
+     "0.75": 0.8267,
+     "0.9": 0.8444,
+     "1.0": 0.85
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1328,
+    "ece": 0.4891,
+    "brier": 1.2868,
+    "nll": 4.7541,
+    "mean_confidence": 0.6439,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8667,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.88,
+     "0.5": 0.88,
+     "0.75": 0.8267,
+     "0.9": 0.8333,
+     "1.0": 0.84
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.85,
+    "macro_f1": 0.8632,
+    "ece": 0.096,
+    "brier": 0.2195,
+    "nll": 1.0045,
+    "mean_confidence": 0.8305,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0284,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.04,
+     "0.9": 0.0778,
+     "1.0": 0.15
+    },
+    "latency_p50_ms": 220.4,
+    "latency_p95_ms": 321.1,
+    "cost_usd": 0.00273,
+    "input_tokens": 64888,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.09,
+    "kai~jev": 0.08,
+    "laya~jev": 0.19
+   }
+  },
+  "massive.ar": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.0764,
+    "ece": 0.1531,
+    "brier": 0.9825,
+    "nll": 3.187,
+    "mean_confidence": 0.2462,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8286,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.84,
+     "0.5": 0.88,
+     "0.75": 0.88,
+     "0.9": 0.8889,
+     "1.0": 0.9
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.46,
+    "macro_f1": 0.4325,
+    "ece": 0.315,
+    "brier": 0.8464,
+    "nll": 2.7141,
+    "mean_confidence": 0.775,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3768,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.24,
+     "0.5": 0.4,
+     "0.75": 0.4533,
+     "0.9": 0.5,
+     "1.0": 0.54
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.093,
+    "ece": 0.5795,
+    "brier": 1.3826,
+    "nll": 6.5867,
+    "mean_confidence": 0.6833,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.8012,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.8,
+     "0.5": 0.88,
+     "0.75": 0.88,
+     "0.9": 0.9,
+     "1.0": 0.89
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.46,
+    "macro_f1": 0.4325,
+    "ece": 0.315,
+    "brier": 0.8464,
+    "nll": 2.7141,
+    "mean_confidence": 0.775,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3901,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.24,
+     "0.5": 0.4,
+     "0.75": 0.4533,
+     "0.9": 0.5,
+     "1.0": 0.54
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.08,
+    "macro_f1": 0.0617,
+    "ece": 0.4425,
+    "brier": 1.1943,
+    "nll": 4.4448,
+    "mean_confidence": 0.5225,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8303,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.8,
+     "0.5": 0.86,
+     "0.75": 0.8933,
+     "0.9": 0.9111,
+     "1.0": 0.92
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.87,
+    "macro_f1": 0.8675,
+    "ece": 0.0756,
+    "brier": 0.1962,
+    "nll": 0.9165,
+    "mean_confidence": 0.8494,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0202,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0778,
+     "1.0": 0.13
+    },
+    "latency_p50_ms": 240.2,
+    "latency_p95_ms": 353.2,
+    "cost_usd": 0.00264,
+    "input_tokens": 62814,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.06,
+    "kai~jev": 0.08,
+    "laya~jev": 0.44
+   }
+  },
+  "massive.az": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.15,
+    "macro_f1": 0.1329,
+    "ece": 0.1492,
+    "brier": 0.9889,
+    "nll": 3.1909,
+    "mean_confidence": 0.2344,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8388,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.92,
+     "0.5": 0.88,
+     "0.75": 0.8533,
+     "0.9": 0.8444,
+     "1.0": 0.85
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.36,
+    "macro_f1": 0.3361,
+    "ece": 0.3929,
+    "brier": 0.9729,
+    "nll": 3.3402,
+    "mean_confidence": 0.733,
+    "acc_at_50_coverage": 0.52,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.4833,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.4,
+     "0.5": 0.48,
+     "0.75": 0.6,
+     "0.9": 0.6222,
+     "1.0": 0.64
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.0629,
+    "ece": 0.5983,
+    "brier": 1.4097,
+    "nll": 6.6948,
+    "mean_confidence": 0.6983,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.05,
+    "questions": 100,
+    "aurc": 0.7809,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.72,
+     "0.5": 0.86,
+     "0.75": 0.8933,
+     "0.9": 0.9,
+     "1.0": 0.9
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.36,
+    "macro_f1": 0.3361,
+    "ece": 0.381,
+    "brier": 0.9578,
+    "nll": 3.1981,
+    "mean_confidence": 0.7211,
+    "acc_at_50_coverage": 0.54,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.4695,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.36,
+     "0.5": 0.46,
+     "0.75": 0.5867,
+     "0.9": 0.6222,
+     "1.0": 0.64
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0464,
+    "ece": 0.4652,
+    "brier": 1.2345,
+    "nll": 4.9386,
+    "mean_confidence": 0.5352,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8464,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.8,
+     "0.5": 0.9,
+     "0.75": 0.9067,
+     "0.9": 0.9222,
+     "1.0": 0.93
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.88,
+    "macro_f1": 0.8743,
+    "ece": 0.0482,
+    "brier": 0.1693,
+    "nll": 1.1198,
+    "mean_confidence": 0.8946,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.0135,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0556,
+     "1.0": 0.12
+    },
+    "latency_p50_ms": 245.1,
+    "latency_p95_ms": 383.1,
+    "cost_usd": 0.00264,
+    "input_tokens": 62750,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.09,
+    "kai~jev": 0.15,
+    "laya~jev": 0.38
+   }
+  },
+  "massive.bn": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.0869,
+    "ece": 0.0994,
+    "brier": 0.9527,
+    "nll": 3.0478,
+    "mean_confidence": 0.2065,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.781,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.8,
+     "0.5": 0.88,
+     "0.75": 0.88,
+     "0.9": 0.8778,
+     "1.0": 0.89
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.45,
+    "macro_f1": 0.44,
+    "ece": 0.354,
+    "brier": 0.8976,
+    "nll": 2.868,
+    "mean_confidence": 0.7788,
+    "acc_at_50_coverage": 0.54,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4341,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.4,
+     "0.5": 0.46,
+     "0.75": 0.5067,
+     "0.9": 0.5222,
+     "1.0": 0.55
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.08,
+    "macro_f1": 0.056,
+    "ece": 0.6267,
+    "brier": 1.4117,
+    "nll": 6.4245,
+    "mean_confidence": 0.7067,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.8268,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.84,
+     "0.5": 0.88,
+     "0.75": 0.8933,
+     "0.9": 0.9111,
+     "1.0": 0.92
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.45,
+    "macro_f1": 0.44,
+    "ece": 0.354,
+    "brier": 0.8976,
+    "nll": 2.868,
+    "mean_confidence": 0.7788,
+    "acc_at_50_coverage": 0.54,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4341,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.4,
+     "0.5": 0.46,
+     "0.75": 0.5067,
+     "0.9": 0.5222,
+     "1.0": 0.55
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.1157,
+    "ece": 0.4204,
+    "brier": 1.2058,
+    "nll": 4.4151,
+    "mean_confidence": 0.5404,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8005,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.8,
+     "0.5": 0.88,
+     "0.75": 0.88,
+     "0.9": 0.8889,
+     "1.0": 0.88
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.86,
+    "macro_f1": 0.8345,
+    "ece": 0.0672,
+    "brier": 0.1895,
+    "nll": 0.6325,
+    "mean_confidence": 0.8897,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0265,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0944,
+     "1.0": 0.14
+    },
+    "latency_p50_ms": 249.0,
+    "latency_p95_ms": 349.8,
+    "cost_usd": 0.00267,
+    "input_tokens": 63492,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.13,
+    "kai~jev": 0.13,
+    "laya~jev": 0.48
+   }
+  },
+  "massive.cy": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.17,
+    "macro_f1": 0.1601,
+    "ece": 0.1881,
+    "brier": 0.9675,
+    "nll": 3.1963,
+    "mean_confidence": 0.3098,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.7393,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.68,
+     "0.5": 0.78,
+     "0.75": 0.84,
+     "0.9": 0.8444,
+     "1.0": 0.83
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1371,
+    "ece": 0.6107,
+    "brier": 1.3894,
+    "nll": 6.9922,
+    "mean_confidence": 0.7707,
+    "acc_at_50_coverage": 0.2,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.7641,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.8,
+     "0.5": 0.8,
+     "0.75": 0.8267,
+     "0.9": 0.8222,
+     "1.0": 0.84
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.0906,
+    "ece": 0.6452,
+    "brier": 1.4675,
+    "nll": 7.4227,
+    "mean_confidence": 0.7652,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.8194,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.84,
+     "0.5": 0.86,
+     "0.75": 0.8667,
+     "0.9": 0.8667,
+     "1.0": 0.88
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.13,
+    "macro_f1": 0.1217,
+    "ece": 0.5873,
+    "brier": 1.3123,
+    "nll": 4.9721,
+    "mean_confidence": 0.7173,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.7637,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.72,
+     "0.5": 0.78,
+     "0.75": 0.8267,
+     "0.9": 0.8556,
+     "1.0": 0.87
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.17,
+    "macro_f1": 0.1322,
+    "ece": 0.4455,
+    "brier": 1.2037,
+    "nll": 4.8677,
+    "mean_confidence": 0.6155,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6951,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.68,
+     "0.5": 0.78,
+     "0.75": 0.8,
+     "0.9": 0.8222,
+     "1.0": 0.83
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.76,
+    "macro_f1": 0.7637,
+    "ece": 0.0878,
+    "brier": 0.3358,
+    "nll": 1.7761,
+    "mean_confidence": 0.7714,
+    "acc_at_50_coverage": 0.96,
+    "unanswered": 0,
+    "zero_prob": 0.04,
+    "questions": 100,
+    "aurc": 0.0565,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.04,
+     "0.75": 0.0667,
+     "0.9": 0.1556,
+     "1.0": 0.24
+    },
+    "latency_p50_ms": 255.3,
+    "latency_p95_ms": 329.0,
+    "cost_usd": 0.00263,
+    "input_tokens": 62589,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.19,
+    "kai~jev": 0.2,
+    "laya~jev": 0.18
+   }
+  },
+  "massive.da": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.24,
+    "macro_f1": 0.2106,
+    "ece": 0.2102,
+    "brier": 0.8174,
+    "nll": 2.6174,
+    "mean_confidence": 0.4064,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4473,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.12,
+     "0.5": 0.54,
+     "0.75": 0.68,
+     "0.9": 0.7333,
+     "1.0": 0.76
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.46,
+    "macro_f1": 0.4167,
+    "ece": 0.4518,
+    "brier": 0.934,
+    "nll": 4.4891,
+    "mean_confidence": 0.8924,
+    "acc_at_50_coverage": 0.62,
+    "unanswered": 0,
+    "zero_prob": 0.05,
+    "questions": 100,
+    "aurc": 0.3267,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.24,
+     "0.5": 0.38,
+     "0.75": 0.4533,
+     "0.9": 0.5111,
+     "1.0": 0.54
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.35,
+    "macro_f1": 0.3082,
+    "ece": 0.526,
+    "brier": 1.1294,
+    "nll": 6.2405,
+    "mean_confidence": 0.876,
+    "acc_at_50_coverage": 0.52,
+    "unanswered": 0,
+    "zero_prob": 0.07,
+    "questions": 100,
+    "aurc": 0.3864,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.2,
+     "0.5": 0.48,
+     "0.75": 0.5733,
+     "0.9": 0.6222,
+     "1.0": 0.65
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.52,
+    "macro_f1": 0.4956,
+    "ece": 0.315,
+    "brier": 0.7303,
+    "nll": 2.1047,
+    "mean_confidence": 0.8062,
+    "acc_at_50_coverage": 0.7,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.269,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.12,
+     "0.5": 0.3,
+     "0.75": 0.3867,
+     "0.9": 0.4444,
+     "1.0": 0.48
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.34,
+    "macro_f1": 0.3197,
+    "ece": 0.3517,
+    "brier": 0.9178,
+    "nll": 3.487,
+    "mean_confidence": 0.6917,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3578,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.08,
+     "0.5": 0.4,
+     "0.75": 0.5467,
+     "0.9": 0.6222,
+     "1.0": 0.66
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.88,
+    "macro_f1": 0.8633,
+    "ece": 0.0439,
+    "brier": 0.1538,
+    "nll": 0.8107,
+    "mean_confidence": 0.8905,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0153,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0556,
+     "1.0": 0.12
+    },
+    "latency_p50_ms": 243.2,
+    "latency_p95_ms": 371.7,
+    "cost_usd": 0.00262,
+    "input_tokens": 62279,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.21,
+    "kai~jev": 0.28,
+    "laya~jev": 0.47
+   }
+  },
+  "massive.de": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.21,
+    "macro_f1": 0.1811,
+    "ece": 0.2121,
+    "brier": 0.9341,
+    "nll": 2.8871,
+    "mean_confidence": 0.4056,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.617,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.52,
+     "0.5": 0.7,
+     "0.75": 0.7467,
+     "0.9": 0.7667,
+     "1.0": 0.79
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.53,
+    "macro_f1": 0.5045,
+    "ece": 0.3037,
+    "brier": 0.7303,
+    "nll": 2.8055,
+    "mean_confidence": 0.831,
+    "acc_at_50_coverage": 0.76,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.2334,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.08,
+     "0.5": 0.24,
+     "0.75": 0.36,
+     "0.9": 0.4333,
+     "1.0": 0.47
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.42,
+    "macro_f1": 0.387,
+    "ece": 0.452,
+    "brier": 1.0025,
+    "nll": 5.0184,
+    "mean_confidence": 0.872,
+    "acc_at_50_coverage": 0.68,
+    "unanswered": 0,
+    "zero_prob": 0.08,
+    "questions": 100,
+    "aurc": 0.3333,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.12,
+     "0.5": 0.32,
+     "0.75": 0.5067,
+     "0.9": 0.5667,
+     "1.0": 0.58
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.5,
+    "macro_f1": 0.4768,
+    "ece": 0.3358,
+    "brier": 0.7588,
+    "nll": 2.3681,
+    "mean_confidence": 0.8131,
+    "acc_at_50_coverage": 0.76,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.2531,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.08,
+     "0.5": 0.24,
+     "0.75": 0.3867,
+     "0.9": 0.4667,
+     "1.0": 0.5
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.39,
+    "macro_f1": 0.3745,
+    "ece": 0.3393,
+    "brier": 0.8496,
+    "nll": 2.6918,
+    "mean_confidence": 0.7293,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.362,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.24,
+     "0.5": 0.4,
+     "0.75": 0.52,
+     "0.9": 0.5667,
+     "1.0": 0.61
+    }
+   },
+   "jev": {
+    "n": 99,
+    "accuracy": 0.9394,
+    "macro_f1": 0.9387,
+    "ece": 0.057,
+    "brier": 0.087,
+    "nll": 0.4212,
+    "mean_confidence": 0.935,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 1,
+    "zero_prob": 0.0101,
+    "questions": 100,
+    "aurc": 0.0073,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0135,
+     "0.9": 0.0225,
+     "1.0": 0.0606
+    },
+    "latency_p50_ms": 255.2,
+    "latency_p95_ms": 340.8,
+    "cost_usd": 0.00259,
+    "input_tokens": 61688,
+    "served": {
+     "typesafe/jev-1.13-20260917": 99
+    },
+    "n_errors": 1
+   },
+   "agreement": {
+    "kai~laya": 0.19,
+    "kai~jev": 0.2323,
+    "laya~jev": 0.5051
+   }
+  },
+  "massive.el": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0792,
+    "ece": 0.2117,
+    "brier": 1.0216,
+    "nll": 3.2379,
+    "mean_confidence": 0.2744,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8813,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.88,
+     "0.5": 0.94,
+     "0.75": 0.9467,
+     "0.9": 0.9222,
+     "1.0": 0.93
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.44,
+    "macro_f1": 0.4148,
+    "ece": 0.4297,
+    "brier": 0.9225,
+    "nll": 3.2259,
+    "mean_confidence": 0.801,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.4247,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.4,
+     "0.5": 0.42,
+     "0.75": 0.52,
+     "0.9": 0.5444,
+     "1.0": 0.56
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.13,
+    "macro_f1": 0.1,
+    "ece": 0.6789,
+    "brier": 1.4564,
+    "nll": 8.1375,
+    "mean_confidence": 0.8089,
+    "acc_at_50_coverage": 0.2,
+    "unanswered": 0,
+    "zero_prob": 0.13,
+    "questions": 100,
+    "aurc": 0.7909,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.76,
+     "0.5": 0.8,
+     "0.75": 0.84,
+     "0.9": 0.8556,
+     "1.0": 0.87
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.44,
+    "macro_f1": 0.4148,
+    "ece": 0.4297,
+    "brier": 0.9225,
+    "nll": 3.2259,
+    "mean_confidence": 0.801,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.4247,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.4,
+     "0.5": 0.42,
+     "0.75": 0.52,
+     "0.9": 0.5444,
+     "1.0": 0.56
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.13,
+    "macro_f1": 0.0946,
+    "ece": 0.4772,
+    "brier": 1.2128,
+    "nll": 5.069,
+    "mean_confidence": 0.6072,
+    "acc_at_50_coverage": 0.2,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.7676,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.68,
+     "0.5": 0.8,
+     "0.75": 0.84,
+     "0.9": 0.8667,
+     "1.0": 0.87
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9413,
+    "ece": 0.0571,
+    "brier": 0.094,
+    "nll": 0.4307,
+    "mean_confidence": 0.9197,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0085,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0222,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 244.2,
+    "latency_p95_ms": 337.1,
+    "cost_usd": 0.00267,
+    "input_tokens": 63560,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.11,
+    "kai~jev": 0.09,
+    "laya~jev": 0.45
+   }
+  },
+  "massive.en": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8839,
+    "ece": 0.0789,
+    "brier": 0.1704,
+    "nll": 0.4686,
+    "mean_confidence": 0.8546,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0134,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0667,
+     "1.0": 0.11
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.82,
+    "macro_f1": 0.7876,
+    "ece": 0.1382,
+    "brier": 0.2882,
+    "nll": 1.2282,
+    "mean_confidence": 0.9582,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0386,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0533,
+     "0.9": 0.1111,
+     "1.0": 0.18
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.82,
+    "macro_f1": 0.7876,
+    "ece": 0.1382,
+    "brier": 0.2882,
+    "nll": 1.2282,
+    "mean_confidence": 0.9582,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0386,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0533,
+     "0.9": 0.1111,
+     "1.0": 0.18
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.71,
+    "macro_f1": 0.6689,
+    "ece": 0.2333,
+    "brier": 0.5062,
+    "nll": 1.639,
+    "mean_confidence": 0.8876,
+    "acc_at_50_coverage": 0.92,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.1252,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.08,
+     "0.5": 0.08,
+     "0.75": 0.2,
+     "0.9": 0.2556,
+     "1.0": 0.29
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.82,
+    "macro_f1": 0.7839,
+    "ece": 0.0932,
+    "brier": 0.2756,
+    "nll": 0.7103,
+    "mean_confidence": 0.9006,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0405,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0533,
+     "0.9": 0.1222,
+     "1.0": 0.18
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9093,
+    "ece": 0.0253,
+    "brier": 0.108,
+    "nll": 0.6887,
+    "mean_confidence": 0.9413,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.008,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0117,
+     "0.9": 0.0222,
+     "1.0": 0.08
+    },
+    "latency_p50_ms": 255.6,
+    "latency_p95_ms": 344.2,
+    "cost_usd": 0.00261,
+    "input_tokens": 62052,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.77,
+    "kai~jev": 0.86,
+    "laya~jev": 0.81
+   }
+  },
+  "massive.es": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.35,
+    "macro_f1": 0.3154,
+    "ece": 0.1286,
+    "brier": 0.8083,
+    "nll": 2.6029,
+    "mean_confidence": 0.4399,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4112,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.2,
+     "0.5": 0.52,
+     "0.75": 0.5733,
+     "0.9": 0.6222,
+     "1.0": 0.65
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.53,
+    "macro_f1": 0.5044,
+    "ece": 0.3476,
+    "brier": 0.8103,
+    "nll": 3.748,
+    "mean_confidence": 0.8509,
+    "acc_at_50_coverage": 0.62,
+    "unanswered": 0,
+    "zero_prob": 0.09,
+    "questions": 100,
+    "aurc": 0.3585,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.36,
+     "0.5": 0.38,
+     "0.75": 0.4267,
+     "0.9": 0.4556,
+     "1.0": 0.47
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.51,
+    "macro_f1": 0.4767,
+    "ece": 0.4225,
+    "brier": 0.8845,
+    "nll": 5.0115,
+    "mean_confidence": 0.9245,
+    "acc_at_50_coverage": 0.62,
+    "unanswered": 0,
+    "zero_prob": 0.16,
+    "questions": 100,
+    "aurc": 0.3235,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.24,
+     "0.5": 0.38,
+     "0.75": 0.4133,
+     "0.9": 0.4556,
+     "1.0": 0.49
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.58,
+    "macro_f1": 0.5213,
+    "ece": 0.2577,
+    "brier": 0.6722,
+    "nll": 1.9703,
+    "mean_confidence": 0.796,
+    "acc_at_50_coverage": 0.7,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.2623,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.2,
+     "0.5": 0.3,
+     "0.75": 0.36,
+     "0.9": 0.4,
+     "1.0": 0.42
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.45,
+    "macro_f1": 0.4176,
+    "ece": 0.2835,
+    "brier": 0.7533,
+    "nll": 2.5014,
+    "mean_confidence": 0.723,
+    "acc_at_50_coverage": 0.7,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.2888,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.12,
+     "0.5": 0.3,
+     "0.75": 0.48,
+     "0.9": 0.5222,
+     "1.0": 0.55
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.93,
+    "macro_f1": 0.9326,
+    "ece": 0.0628,
+    "brier": 0.1223,
+    "nll": 0.4934,
+    "mean_confidence": 0.9297,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0132,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0444,
+     "1.0": 0.07
+    },
+    "latency_p50_ms": 240.1,
+    "latency_p95_ms": 361.0,
+    "cost_usd": 0.00261,
+    "input_tokens": 62204,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.26,
+    "kai~jev": 0.35,
+    "laya~jev": 0.52
+   }
+  },
+  "massive.fa": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0728,
+    "ece": 0.1489,
+    "brier": 1.0075,
+    "nll": 3.2239,
+    "mean_confidence": 0.2304,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8983,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.88,
+     "0.75": 0.8933,
+     "0.9": 0.9,
+     "1.0": 0.91
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.51,
+    "macro_f1": 0.4728,
+    "ece": 0.2985,
+    "brier": 0.7935,
+    "nll": 2.6907,
+    "mean_confidence": 0.7957,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3877,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.28,
+     "0.5": 0.4,
+     "0.75": 0.4267,
+     "0.9": 0.4333,
+     "1.0": 0.49
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.14,
+    "macro_f1": 0.1197,
+    "ece": 0.6331,
+    "brier": 1.453,
+    "nll": 7.3943,
+    "mean_confidence": 0.7731,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.09,
+    "questions": 100,
+    "aurc": 0.8445,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.84,
+     "0.5": 0.84,
+     "0.75": 0.8533,
+     "0.9": 0.8444,
+     "1.0": 0.86
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.51,
+    "macro_f1": 0.4728,
+    "ece": 0.2985,
+    "brier": 0.7935,
+    "nll": 2.6907,
+    "mean_confidence": 0.7957,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3877,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.28,
+     "0.5": 0.4,
+     "0.75": 0.4267,
+     "0.9": 0.4333,
+     "1.0": 0.49
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0856,
+    "ece": 0.4465,
+    "brier": 1.2247,
+    "nll": 4.5383,
+    "mean_confidence": 0.5365,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9094,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.88,
+     "0.75": 0.9067,
+     "0.9": 0.9,
+     "1.0": 0.91
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.95,
+    "macro_f1": 0.9524,
+    "ece": 0.0535,
+    "brier": 0.0779,
+    "nll": 0.4136,
+    "mean_confidence": 0.9294,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0059,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0111,
+     "1.0": 0.05
+    },
+    "latency_p50_ms": 227.3,
+    "latency_p95_ms": 330.3,
+    "cost_usd": 0.00265,
+    "input_tokens": 63079,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.07,
+    "kai~jev": 0.1,
+    "laya~jev": 0.5
+   }
+  },
+  "massive.fi": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.15,
+    "macro_f1": 0.1348,
+    "ece": 0.1728,
+    "brier": 0.9893,
+    "nll": 3.2129,
+    "mean_confidence": 0.3002,
+    "acc_at_50_coverage": 0.18,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.768,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.72,
+     "0.5": 0.82,
+     "0.75": 0.84,
+     "0.9": 0.8333,
+     "1.0": 0.85
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.3,
+    "macro_f1": 0.2993,
+    "ece": 0.4618,
+    "brier": 1.1197,
+    "nll": 4.6211,
+    "mean_confidence": 0.7592,
+    "acc_at_50_coverage": 0.38,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.5732,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.48,
+     "0.5": 0.62,
+     "0.75": 0.6667,
+     "0.9": 0.6778,
+     "1.0": 0.7
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.13,
+    "macro_f1": 0.1213,
+    "ece": 0.7189,
+    "brier": 1.5179,
+    "nll": 8.0296,
+    "mean_confidence": 0.8489,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.13,
+    "questions": 100,
+    "aurc": 0.7984,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.72,
+     "0.5": 0.84,
+     "0.75": 0.84,
+     "0.9": 0.8556,
+     "1.0": 0.87
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.34,
+    "macro_f1": 0.3282,
+    "ece": 0.3918,
+    "brier": 1.0128,
+    "nll": 3.3753,
+    "mean_confidence": 0.7316,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.5655,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.48,
+     "0.5": 0.54,
+     "0.75": 0.6267,
+     "0.9": 0.6333,
+     "1.0": 0.66
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.1091,
+    "ece": 0.515,
+    "brier": 1.2553,
+    "nll": 4.6869,
+    "mean_confidence": 0.635,
+    "acc_at_50_coverage": 0.2,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.7582,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.76,
+     "0.5": 0.8,
+     "0.75": 0.8533,
+     "0.9": 0.8667,
+     "1.0": 0.88
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8792,
+    "ece": 0.0383,
+    "brier": 0.1513,
+    "nll": 0.7839,
+    "mean_confidence": 0.8981,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.016,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0667,
+     "1.0": 0.11
+    },
+    "latency_p50_ms": 229.7,
+    "latency_p95_ms": 355.8,
+    "cost_usd": 0.00262,
+    "input_tokens": 62493,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.2,
+    "kai~jev": 0.15,
+    "laya~jev": 0.28
+   }
+  },
+  "massive.fr": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.46,
+    "macro_f1": 0.4305,
+    "ece": 0.1726,
+    "brier": 0.7299,
+    "nll": 2.1488,
+    "mean_confidence": 0.4566,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3336,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.16,
+     "0.5": 0.42,
+     "0.75": 0.4933,
+     "0.9": 0.5222,
+     "1.0": 0.54
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.6,
+    "macro_f1": 0.5817,
+    "ece": 0.2683,
+    "brier": 0.6627,
+    "nll": 2.6707,
+    "mean_confidence": 0.8683,
+    "acc_at_50_coverage": 0.76,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.2329,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.24,
+     "0.5": 0.24,
+     "0.75": 0.3067,
+     "0.9": 0.3444,
+     "1.0": 0.4
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.59,
+    "macro_f1": 0.5822,
+    "ece": 0.2995,
+    "brier": 0.694,
+    "nll": 3.2748,
+    "mean_confidence": 0.8895,
+    "acc_at_50_coverage": 0.78,
+    "unanswered": 0,
+    "zero_prob": 0.05,
+    "questions": 100,
+    "aurc": 0.2064,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.08,
+     "0.5": 0.22,
+     "0.75": 0.3067,
+     "0.9": 0.3667,
+     "1.0": 0.41
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.6,
+    "macro_f1": 0.5733,
+    "ece": 0.2484,
+    "brier": 0.6184,
+    "nll": 2.2053,
+    "mean_confidence": 0.8403,
+    "acc_at_50_coverage": 0.8,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.2022,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.16,
+     "0.5": 0.2,
+     "0.75": 0.2667,
+     "0.9": 0.3333,
+     "1.0": 0.4
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.6,
+    "macro_f1": 0.5869,
+    "ece": 0.228,
+    "brier": 0.638,
+    "nll": 1.8988,
+    "mean_confidence": 0.7941,
+    "acc_at_50_coverage": 0.78,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.1975,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.04,
+     "0.5": 0.22,
+     "0.75": 0.3467,
+     "0.9": 0.3667,
+     "1.0": 0.4
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.9,
+    "macro_f1": 0.896,
+    "ece": 0.0652,
+    "brier": 0.1302,
+    "nll": 0.4976,
+    "mean_confidence": 0.9144,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0117,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0444,
+     "1.0": 0.1
+    },
+    "latency_p50_ms": 223.5,
+    "latency_p95_ms": 319.3,
+    "cost_usd": 0.00262,
+    "input_tokens": 62358,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.38,
+    "kai~jev": 0.44,
+    "laya~jev": 0.6
+   }
+  },
+  "massive.he": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.1319,
+    "ece": 0.1597,
+    "brier": 0.9956,
+    "nll": 3.0952,
+    "mean_confidence": 0.2128,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9061,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.88,
+     "0.75": 0.88,
+     "0.9": 0.8889,
+     "1.0": 0.88
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.37,
+    "macro_f1": 0.3581,
+    "ece": 0.4186,
+    "brier": 0.9688,
+    "nll": 2.8349,
+    "mean_confidence": 0.787,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4009,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.28,
+     "0.5": 0.42,
+     "0.75": 0.56,
+     "0.9": 0.6,
+     "1.0": 0.63
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.06,
+    "macro_f1": 0.039,
+    "ece": 0.7379,
+    "brier": 1.6073,
+    "nll": 8.523,
+    "mean_confidence": 0.7842,
+    "acc_at_50_coverage": 0.02,
+    "unanswered": 0,
+    "zero_prob": 0.11,
+    "questions": 100,
+    "aurc": 0.9793,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 1.0,
+     "0.5": 0.98,
+     "0.75": 0.96,
+     "0.9": 0.9556,
+     "1.0": 0.94
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.37,
+    "macro_f1": 0.3581,
+    "ece": 0.4186,
+    "brier": 0.9688,
+    "nll": 2.8349,
+    "mean_confidence": 0.787,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4009,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.28,
+     "0.5": 0.42,
+     "0.75": 0.56,
+     "0.9": 0.6,
+     "1.0": 0.63
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.03,
+    "macro_f1": 0.0261,
+    "ece": 0.5053,
+    "brier": 1.2889,
+    "nll": 5.2056,
+    "mean_confidence": 0.5353,
+    "acc_at_50_coverage": 0.04,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9626,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.96,
+     "0.5": 0.96,
+     "0.75": 0.96,
+     "0.9": 0.9667,
+     "1.0": 0.97
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9349,
+    "ece": 0.0427,
+    "brier": 0.0928,
+    "nll": 0.4303,
+    "mean_confidence": 0.9287,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0069,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0222,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 234.8,
+    "latency_p95_ms": 357.0,
+    "cost_usd": 0.00266,
+    "input_tokens": 63273,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.11,
+    "kai~jev": 0.14,
+    "laya~jev": 0.36
+   }
+  },
+  "massive.hi": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.1234,
+    "ece": 0.1272,
+    "brier": 0.9736,
+    "nll": 3.1659,
+    "mean_confidence": 0.2291,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8008,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.8,
+     "0.5": 0.86,
+     "0.75": 0.88,
+     "0.9": 0.8889,
+     "1.0": 0.88
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.46,
+    "macro_f1": 0.409,
+    "ece": 0.3685,
+    "brier": 0.8783,
+    "nll": 2.8703,
+    "mean_confidence": 0.8175,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3879,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.32,
+     "0.5": 0.42,
+     "0.75": 0.48,
+     "0.9": 0.5111,
+     "1.0": 0.54
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.0758,
+    "ece": 0.6416,
+    "brier": 1.4552,
+    "nll": 7.4333,
+    "mean_confidence": 0.7416,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.08,
+    "questions": 100,
+    "aurc": 0.8837,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.88,
+     "0.5": 0.92,
+     "0.75": 0.88,
+     "0.9": 0.8889,
+     "1.0": 0.9
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.46,
+    "macro_f1": 0.409,
+    "ece": 0.3685,
+    "brier": 0.8783,
+    "nll": 2.8703,
+    "mean_confidence": 0.8175,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3879,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.32,
+     "0.5": 0.42,
+     "0.75": 0.48,
+     "0.9": 0.5111,
+     "1.0": 0.54
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.087,
+    "ece": 0.46,
+    "brier": 1.2697,
+    "nll": 5.0621,
+    "mean_confidence": 0.57,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8761,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.88,
+     "0.5": 0.9,
+     "0.75": 0.8933,
+     "0.9": 0.8889,
+     "1.0": 0.89
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.95,
+    "macro_f1": 0.949,
+    "ece": 0.029,
+    "brier": 0.0827,
+    "nll": 0.4076,
+    "mean_confidence": 0.942,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0068,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0222,
+     "1.0": 0.05
+    },
+    "latency_p50_ms": 229.5,
+    "latency_p95_ms": 336.1,
+    "cost_usd": 0.00266,
+    "input_tokens": 63332,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.07,
+    "kai~jev": 0.11,
+    "laya~jev": 0.47
+   }
+  },
+  "massive.hu": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.1182,
+    "ece": 0.1922,
+    "brier": 1.0294,
+    "nll": 3.3397,
+    "mean_confidence": 0.2821,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8868,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.88,
+     "0.5": 0.88,
+     "0.75": 0.8667,
+     "0.9": 0.8667,
+     "1.0": 0.88
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.34,
+    "macro_f1": 0.3138,
+    "ece": 0.4374,
+    "brier": 1.0516,
+    "nll": 3.7979,
+    "mean_confidence": 0.7625,
+    "acc_at_50_coverage": 0.44,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.5046,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.4,
+     "0.5": 0.56,
+     "0.75": 0.6533,
+     "0.9": 0.6667,
+     "1.0": 0.66
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0813,
+    "ece": 0.6783,
+    "brier": 1.5325,
+    "nll": 8.7347,
+    "mean_confidence": 0.7683,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.14,
+    "questions": 100,
+    "aurc": 0.9155,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.94,
+     "0.75": 0.92,
+     "0.9": 0.9,
+     "1.0": 0.91
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.36,
+    "macro_f1": 0.3339,
+    "ece": 0.4005,
+    "brier": 1.0048,
+    "nll": 3.3634,
+    "mean_confidence": 0.7457,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4871,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.36,
+     "0.5": 0.54,
+     "0.75": 0.6133,
+     "0.9": 0.6333,
+     "1.0": 0.64
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0595,
+    "ece": 0.5381,
+    "brier": 1.3306,
+    "nll": 5.4549,
+    "mean_confidence": 0.6081,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8788,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.92,
+     "0.5": 0.92,
+     "0.75": 0.92,
+     "0.9": 0.9222,
+     "1.0": 0.93
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.914,
+    "ece": 0.0387,
+    "brier": 0.1328,
+    "nll": 1.0535,
+    "mean_confidence": 0.9156,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.009,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0333,
+     "1.0": 0.08
+    },
+    "latency_p50_ms": 224.4,
+    "latency_p95_ms": 373.2,
+    "cost_usd": 0.00263,
+    "input_tokens": 62684,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.1,
+    "kai~jev": 0.18,
+    "laya~jev": 0.33
+   }
+  },
+  "massive.hy": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0608,
+    "ece": 0.1321,
+    "brier": 1.0065,
+    "nll": 3.2157,
+    "mean_confidence": 0.2021,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9348,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.92,
+     "0.5": 0.9,
+     "0.75": 0.92,
+     "0.9": 0.9333,
+     "1.0": 0.93
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.25,
+    "macro_f1": 0.2364,
+    "ece": 0.5127,
+    "brier": 1.1723,
+    "nll": 4.1263,
+    "mean_confidence": 0.7627,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.7133,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.76,
+     "0.5": 0.7,
+     "0.75": 0.7067,
+     "0.9": 0.7222,
+     "1.0": 0.75
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.05,
+    "macro_f1": 0.0355,
+    "ece": 0.5709,
+    "brier": 1.4019,
+    "nll": 6.2584,
+    "mean_confidence": 0.6209,
+    "acc_at_50_coverage": 0.04,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.9629,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.96,
+     "0.5": 0.96,
+     "0.75": 0.9467,
+     "0.9": 0.9556,
+     "1.0": 0.95
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.25,
+    "macro_f1": 0.2364,
+    "ece": 0.5127,
+    "brier": 1.1723,
+    "nll": 4.1263,
+    "mean_confidence": 0.7627,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.7133,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.76,
+     "0.5": 0.7,
+     "0.75": 0.7067,
+     "0.9": 0.7222,
+     "1.0": 0.75
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.04,
+    "macro_f1": 0.0515,
+    "ece": 0.419,
+    "brier": 1.2273,
+    "nll": 4.4821,
+    "mean_confidence": 0.459,
+    "acc_at_50_coverage": 0.02,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9777,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.96,
+     "0.5": 0.98,
+     "0.75": 0.9867,
+     "0.9": 0.9667,
+     "1.0": 0.96
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.84,
+    "macro_f1": 0.8592,
+    "ece": 0.0901,
+    "brier": 0.1861,
+    "nll": 0.6293,
+    "mean_confidence": 0.8733,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0227,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0333,
+     "0.9": 0.0778,
+     "1.0": 0.16
+    },
+    "latency_p50_ms": 225.6,
+    "latency_p95_ms": 320.7,
+    "cost_usd": 0.00268,
+    "input_tokens": 63845,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.04,
+    "kai~jev": 0.14,
+    "laya~jev": 0.25
+   }
+  },
+  "massive.id": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.22,
+    "macro_f1": 0.1773,
+    "ece": 0.1614,
+    "brier": 0.9043,
+    "nll": 2.9189,
+    "mean_confidence": 0.3774,
+    "acc_at_50_coverage": 0.34,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5635,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.48,
+     "0.5": 0.66,
+     "0.75": 0.7333,
+     "0.9": 0.7778,
+     "1.0": 0.78
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.36,
+    "macro_f1": 0.3274,
+    "ece": 0.4856,
+    "brier": 1.1008,
+    "nll": 5.0724,
+    "mean_confidence": 0.8291,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.4555,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.28,
+     "0.5": 0.52,
+     "0.75": 0.6,
+     "0.9": 0.6333,
+     "1.0": 0.64
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.36,
+    "macro_f1": 0.3283,
+    "ece": 0.487,
+    "brier": 1.1037,
+    "nll": 5.0802,
+    "mean_confidence": 0.8304,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.4559,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.28,
+     "0.5": 0.52,
+     "0.75": 0.6,
+     "0.9": 0.6333,
+     "1.0": 0.64
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.51,
+    "macro_f1": 0.4973,
+    "ece": 0.3225,
+    "brier": 0.7524,
+    "nll": 2.2673,
+    "mean_confidence": 0.8281,
+    "acc_at_50_coverage": 0.76,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.239,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.12,
+     "0.5": 0.24,
+     "0.75": 0.3733,
+     "0.9": 0.4444,
+     "1.0": 0.49
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.35,
+    "macro_f1": 0.3399,
+    "ece": 0.3176,
+    "brier": 0.9377,
+    "nll": 3.0188,
+    "mean_confidence": 0.6676,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4618,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.36,
+     "0.5": 0.54,
+     "0.75": 0.6,
+     "0.9": 0.6333,
+     "1.0": 0.65
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.93,
+    "macro_f1": 0.9372,
+    "ece": 0.0453,
+    "brier": 0.1195,
+    "nll": 0.7266,
+    "mean_confidence": 0.9333,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0092,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0444,
+     "1.0": 0.07
+    },
+    "latency_p50_ms": 232.2,
+    "latency_p95_ms": 327.9,
+    "cost_usd": 0.00261,
+    "input_tokens": 62203,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.24,
+    "kai~jev": 0.24,
+    "laya~jev": 0.39
+   }
+  },
+  "massive.is": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.14,
+    "macro_f1": 0.1296,
+    "ece": 0.1343,
+    "brier": 0.9851,
+    "nll": 3.2202,
+    "mean_confidence": 0.2664,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8115,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.88,
+     "0.5": 0.84,
+     "0.75": 0.8533,
+     "0.9": 0.8444,
+     "1.0": 0.86
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.33,
+    "macro_f1": 0.3115,
+    "ece": 0.486,
+    "brier": 1.0847,
+    "nll": 4.8372,
+    "mean_confidence": 0.8091,
+    "acc_at_50_coverage": 0.4,
+    "unanswered": 0,
+    "zero_prob": 0.08,
+    "questions": 100,
+    "aurc": 0.5699,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.48,
+     "0.5": 0.6,
+     "0.75": 0.6133,
+     "0.9": 0.6333,
+     "1.0": 0.67
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.0893,
+    "ece": 0.6641,
+    "brier": 1.4728,
+    "nll": 8.4791,
+    "mean_confidence": 0.7741,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.16,
+    "questions": 100,
+    "aurc": 0.8328,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.84,
+     "0.5": 0.84,
+     "0.75": 0.8533,
+     "0.9": 0.8778,
+     "1.0": 0.89
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.35,
+    "macro_f1": 0.3355,
+    "ece": 0.4518,
+    "brier": 1.0317,
+    "nll": 4.0166,
+    "mean_confidence": 0.7949,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.04,
+    "questions": 100,
+    "aurc": 0.4926,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.4,
+     "0.5": 0.54,
+     "0.75": 0.5867,
+     "0.9": 0.6222,
+     "1.0": 0.65
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.0695,
+    "ece": 0.5395,
+    "brier": 1.3122,
+    "nll": 5.2892,
+    "mean_confidence": 0.6395,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8442,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.8,
+     "0.5": 0.86,
+     "0.75": 0.8933,
+     "0.9": 0.8889,
+     "1.0": 0.9
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.84,
+    "macro_f1": 0.8292,
+    "ece": 0.073,
+    "brier": 0.2212,
+    "nll": 0.9779,
+    "mean_confidence": 0.8445,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0248,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.04,
+     "0.9": 0.0889,
+     "1.0": 0.16
+    },
+    "latency_p50_ms": 230.6,
+    "latency_p95_ms": 364.7,
+    "cost_usd": 0.00263,
+    "input_tokens": 62574,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.14,
+    "kai~jev": 0.16,
+    "laya~jev": 0.38
+   }
+  },
+  "massive.it": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.24,
+    "macro_f1": 0.2222,
+    "ece": 0.1958,
+    "brier": 0.898,
+    "nll": 2.9335,
+    "mean_confidence": 0.4272,
+    "acc_at_50_coverage": 0.38,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5592,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.36,
+     "0.5": 0.62,
+     "0.75": 0.7067,
+     "0.9": 0.7333,
+     "1.0": 0.76
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.47,
+    "macro_f1": 0.4507,
+    "ece": 0.38,
+    "brier": 0.8862,
+    "nll": 3.9536,
+    "mean_confidence": 0.8293,
+    "acc_at_50_coverage": 0.62,
+    "unanswered": 0,
+    "zero_prob": 0.07,
+    "questions": 100,
+    "aurc": 0.3937,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.36,
+     "0.5": 0.38,
+     "0.75": 0.4533,
+     "0.9": 0.4889,
+     "1.0": 0.53
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.34,
+    "macro_f1": 0.3101,
+    "ece": 0.5156,
+    "brier": 1.1115,
+    "nll": 5.5529,
+    "mean_confidence": 0.8534,
+    "acc_at_50_coverage": 0.52,
+    "unanswered": 0,
+    "zero_prob": 0.1,
+    "questions": 100,
+    "aurc": 0.4051,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.28,
+     "0.5": 0.48,
+     "0.75": 0.5733,
+     "0.9": 0.6333,
+     "1.0": 0.66
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.52,
+    "macro_f1": 0.5034,
+    "ece": 0.3428,
+    "brier": 0.7809,
+    "nll": 2.6981,
+    "mean_confidence": 0.819,
+    "acc_at_50_coverage": 0.68,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.3414,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.28,
+     "0.5": 0.32,
+     "0.75": 0.4133,
+     "0.9": 0.4444,
+     "1.0": 0.48
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.41,
+    "macro_f1": 0.3731,
+    "ece": 0.3423,
+    "brier": 0.8979,
+    "nll": 3.1843,
+    "mean_confidence": 0.7334,
+    "acc_at_50_coverage": 0.56,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4054,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.32,
+     "0.5": 0.44,
+     "0.75": 0.52,
+     "0.9": 0.5889,
+     "1.0": 0.59
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.96,
+    "macro_f1": 0.9562,
+    "ece": 0.0502,
+    "brier": 0.0568,
+    "nll": 0.3569,
+    "mean_confidence": 0.9396,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0047,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0111,
+     "1.0": 0.04
+    },
+    "latency_p50_ms": 240.8,
+    "latency_p95_ms": 321.4,
+    "cost_usd": 0.00262,
+    "input_tokens": 62273,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.26,
+    "kai~jev": 0.26,
+    "laya~jev": 0.48
+   }
+  },
+  "massive.ja": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.35,
+    "macro_f1": 0.3608,
+    "ece": 0.104,
+    "brier": 0.7873,
+    "nll": 2.4248,
+    "mean_confidence": 0.4044,
+    "acc_at_50_coverage": 0.54,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4048,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.28,
+     "0.5": 0.46,
+     "0.75": 0.5733,
+     "0.9": 0.6111,
+     "1.0": 0.65
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.64,
+    "macro_f1": 0.5896,
+    "ece": 0.2337,
+    "brier": 0.5645,
+    "nll": 1.7428,
+    "mean_confidence": 0.8737,
+    "acc_at_50_coverage": 0.84,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.1879,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.08,
+     "0.5": 0.16,
+     "0.75": 0.2533,
+     "0.9": 0.3222,
+     "1.0": 0.36
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.53,
+    "macro_f1": 0.4942,
+    "ece": 0.3657,
+    "brier": 0.832,
+    "nll": 3.7558,
+    "mean_confidence": 0.8957,
+    "acc_at_50_coverage": 0.76,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.2844,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.12,
+     "0.5": 0.24,
+     "0.75": 0.3733,
+     "0.9": 0.4444,
+     "1.0": 0.47
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.64,
+    "macro_f1": 0.5896,
+    "ece": 0.2337,
+    "brier": 0.5645,
+    "nll": 1.7428,
+    "mean_confidence": 0.8737,
+    "acc_at_50_coverage": 0.84,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.1879,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.08,
+     "0.5": 0.16,
+     "0.75": 0.2533,
+     "0.9": 0.3222,
+     "1.0": 0.36
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.56,
+    "macro_f1": 0.5347,
+    "ece": 0.2391,
+    "brier": 0.6878,
+    "nll": 2.1149,
+    "mean_confidence": 0.7824,
+    "acc_at_50_coverage": 0.78,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.2428,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.16,
+     "0.5": 0.22,
+     "0.75": 0.3467,
+     "0.9": 0.4,
+     "1.0": 0.44
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.97,
+    "macro_f1": 0.9545,
+    "ece": 0.0587,
+    "brier": 0.0602,
+    "nll": 0.3747,
+    "mean_confidence": 0.9431,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0035,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0095,
+     "0.9": 0.0111,
+     "1.0": 0.03
+    },
+    "latency_p50_ms": 243.4,
+    "latency_p95_ms": 351.8,
+    "cost_usd": 0.00263,
+    "input_tokens": 62666,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.3,
+    "kai~jev": 0.36,
+    "laya~jev": 0.64
+   }
+  },
+  "massive.jv": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.15,
+    "macro_f1": 0.1394,
+    "ece": 0.2384,
+    "brier": 1.0203,
+    "nll": 3.3545,
+    "mean_confidence": 0.3863,
+    "acc_at_50_coverage": 0.2,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.7531,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.64,
+     "0.5": 0.8,
+     "0.75": 0.84,
+     "0.9": 0.8333,
+     "1.0": 0.85
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1541,
+    "ece": 0.6634,
+    "brier": 1.4425,
+    "nll": 7.5006,
+    "mean_confidence": 0.8234,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.11,
+    "questions": 100,
+    "aurc": 0.7915,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.84,
+     "0.5": 0.84,
+     "0.75": 0.8133,
+     "0.9": 0.8333,
+     "1.0": 0.84
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1537,
+    "ece": 0.67,
+    "brier": 1.456,
+    "nll": 7.6072,
+    "mean_confidence": 0.83,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.11,
+    "questions": 100,
+    "aurc": 0.7935,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.84,
+     "0.5": 0.84,
+     "0.75": 0.8133,
+     "0.9": 0.8333,
+     "1.0": 0.84
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.3,
+    "macro_f1": 0.2714,
+    "ece": 0.4842,
+    "brier": 1.1318,
+    "nll": 4.47,
+    "mean_confidence": 0.7676,
+    "acc_at_50_coverage": 0.4,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.6118,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.64,
+     "0.5": 0.6,
+     "0.75": 0.6667,
+     "0.9": 0.6889,
+     "1.0": 0.7
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.0936,
+    "ece": 0.5344,
+    "brier": 1.2828,
+    "nll": 4.825,
+    "mean_confidence": 0.6444,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.792,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.76,
+     "0.5": 0.84,
+     "0.75": 0.8667,
+     "0.9": 0.8778,
+     "1.0": 0.89
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.75,
+    "macro_f1": 0.7285,
+    "ece": 0.0856,
+    "brier": 0.3814,
+    "nll": 1.8353,
+    "mean_confidence": 0.7758,
+    "acc_at_50_coverage": 0.9,
+    "unanswered": 0,
+    "zero_prob": 0.04,
+    "questions": 100,
+    "aurc": 0.0908,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.1,
+     "0.75": 0.1467,
+     "0.9": 0.2,
+     "1.0": 0.25
+    },
+    "latency_p50_ms": 247.3,
+    "latency_p95_ms": 334.0,
+    "cost_usd": 0.00262,
+    "input_tokens": 62277,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.26,
+    "kai~jev": 0.16,
+    "laya~jev": 0.2
+   }
+  },
+  "massive.ka": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0579,
+    "ece": 0.1613,
+    "brier": 1.001,
+    "nll": 3.2188,
+    "mean_confidence": 0.2181,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8783,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.92,
+     "0.5": 0.92,
+     "0.75": 0.92,
+     "0.9": 0.9222,
+     "1.0": 0.93
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.15,
+    "macro_f1": 0.1449,
+    "ece": 0.5422,
+    "brier": 1.2966,
+    "nll": 4.3721,
+    "mean_confidence": 0.6835,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8097,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.8,
+     "0.5": 0.78,
+     "0.75": 0.8267,
+     "0.9": 0.8444,
+     "1.0": 0.85
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0742,
+    "ece": 0.6102,
+    "brier": 1.4279,
+    "nll": 6.2363,
+    "mean_confidence": 0.7002,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9134,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.9,
+     "0.75": 0.9067,
+     "0.9": 0.9,
+     "1.0": 0.91
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.15,
+    "macro_f1": 0.1449,
+    "ece": 0.5422,
+    "brier": 1.2966,
+    "nll": 4.3721,
+    "mean_confidence": 0.6835,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8097,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.8,
+     "0.5": 0.78,
+     "0.75": 0.8267,
+     "0.9": 0.8444,
+     "1.0": 0.85
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.04,
+    "macro_f1": 0.0319,
+    "ece": 0.4568,
+    "brier": 1.2406,
+    "nll": 4.3894,
+    "mean_confidence": 0.4968,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9532,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.92,
+     "0.5": 0.94,
+     "0.75": 0.9467,
+     "0.9": 0.9556,
+     "1.0": 0.96
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.88,
+    "macro_f1": 0.8594,
+    "ece": 0.1081,
+    "brier": 0.2376,
+    "nll": 0.9616,
+    "mean_confidence": 0.8629,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.039,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0933,
+     "0.9": 0.1111,
+     "1.0": 0.12
+    },
+    "latency_p50_ms": 225.1,
+    "latency_p95_ms": 364.0,
+    "cost_usd": 0.00267,
+    "input_tokens": 63634,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.05,
+    "kai~jev": 0.07,
+    "laya~jev": 0.15
+   }
+  },
+  "massive.km": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0794,
+    "ece": 0.0819,
+    "brier": 0.9827,
+    "nll": 3.1768,
+    "mean_confidence": 0.1699,
+    "acc_at_50_coverage": 0.04,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9392,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.96,
+     "0.75": 0.9467,
+     "0.9": 0.9333,
+     "1.0": 0.91
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.2,
+    "macro_f1": 0.188,
+    "ece": 0.4454,
+    "brier": 1.1586,
+    "nll": 3.7259,
+    "mean_confidence": 0.6454,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6855,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.64,
+     "0.5": 0.78,
+     "0.75": 0.7467,
+     "0.9": 0.7778,
+     "1.0": 0.8
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.0,
+    "macro_f1": 0.0,
+    "ece": 0.7051,
+    "brier": 1.5573,
+    "nll": 7.4182,
+    "mean_confidence": 0.7051,
+    "acc_at_50_coverage": 0.0,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 1.0,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 1.0,
+     "0.5": 1.0,
+     "0.75": 1.0,
+     "0.9": 1.0,
+     "1.0": 1.0
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.2,
+    "macro_f1": 0.188,
+    "ece": 0.4454,
+    "brier": 1.1586,
+    "nll": 3.7259,
+    "mean_confidence": 0.6454,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6855,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.64,
+     "0.5": 0.78,
+     "0.75": 0.7467,
+     "0.9": 0.7778,
+     "1.0": 0.8
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.06,
+    "macro_f1": 0.0639,
+    "ece": 0.3552,
+    "brier": 1.1745,
+    "nll": 4.2697,
+    "mean_confidence": 0.4152,
+    "acc_at_50_coverage": 0.04,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9687,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 1.0,
+     "0.5": 0.96,
+     "0.75": 0.9467,
+     "0.9": 0.9444,
+     "1.0": 0.94
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.81,
+    "macro_f1": 0.795,
+    "ece": 0.0731,
+    "brier": 0.2688,
+    "nll": 1.2603,
+    "mean_confidence": 0.8377,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.0484,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.01,
+     "0.75": 0.0933,
+     "0.9": 0.1444,
+     "1.0": 0.19
+    },
+    "latency_p50_ms": 229.6,
+    "latency_p95_ms": 325.2,
+    "cost_usd": 0.0027,
+    "input_tokens": 64279,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.08,
+    "kai~jev": 0.13,
+    "laya~jev": 0.16
+   }
+  },
+  "massive.kn": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.06,
+    "macro_f1": 0.0533,
+    "ece": 0.1064,
+    "brier": 0.9779,
+    "nll": 3.094,
+    "mean_confidence": 0.1664,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9418,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.96,
+     "0.5": 0.92,
+     "0.75": 0.9333,
+     "0.9": 0.9444,
+     "1.0": 0.94
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.3,
+    "macro_f1": 0.2465,
+    "ece": 0.388,
+    "brier": 1.028,
+    "nll": 3.3642,
+    "mean_confidence": 0.6578,
+    "acc_at_50_coverage": 0.36,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6162,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.56,
+     "0.5": 0.64,
+     "0.75": 0.6533,
+     "0.9": 0.6889,
+     "1.0": 0.7
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.0913,
+    "ece": 0.5903,
+    "brier": 1.4055,
+    "nll": 6.2851,
+    "mean_confidence": 0.6951,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.9276,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.92,
+     "0.5": 0.92,
+     "0.75": 0.9067,
+     "0.9": 0.9,
+     "1.0": 0.89
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.3,
+    "macro_f1": 0.2465,
+    "ece": 0.388,
+    "brier": 1.028,
+    "nll": 3.3642,
+    "mean_confidence": 0.6578,
+    "acc_at_50_coverage": 0.36,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6162,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.56,
+     "0.5": 0.64,
+     "0.75": 0.6533,
+     "0.9": 0.6889,
+     "1.0": 0.7
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.1016,
+    "ece": 0.3606,
+    "brier": 1.1718,
+    "nll": 4.1668,
+    "mean_confidence": 0.4806,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8859,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.8,
+     "0.5": 0.88,
+     "0.75": 0.88,
+     "0.9": 0.8778,
+     "1.0": 0.88
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.87,
+    "macro_f1": 0.8617,
+    "ece": 0.07,
+    "brier": 0.158,
+    "nll": 0.5547,
+    "mean_confidence": 0.8984,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0211,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.04,
+     "0.9": 0.0556,
+     "1.0": 0.13
+    },
+    "latency_p50_ms": 236.9,
+    "latency_p95_ms": 339.2,
+    "cost_usd": 0.00269,
+    "input_tokens": 64112,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.05,
+    "kai~jev": 0.09,
+    "laya~jev": 0.27
+   }
+  },
+  "massive.ko": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.1264,
+    "ece": 0.1255,
+    "brier": 1.0002,
+    "nll": 3.1897,
+    "mean_confidence": 0.2294,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8971,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.88,
+     "0.5": 0.88,
+     "0.75": 0.8667,
+     "0.9": 0.8889,
+     "1.0": 0.88
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.47,
+    "macro_f1": 0.4428,
+    "ece": 0.3108,
+    "brier": 0.7771,
+    "nll": 2.34,
+    "mean_confidence": 0.7773,
+    "acc_at_50_coverage": 0.68,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.2997,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.16,
+     "0.5": 0.32,
+     "0.75": 0.4133,
+     "0.9": 0.4778,
+     "1.0": 0.53
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.0943,
+    "ece": 0.6804,
+    "brier": 1.5102,
+    "nll": 7.6867,
+    "mean_confidence": 0.7904,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.12,
+    "questions": 100,
+    "aurc": 0.8448,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.8,
+     "0.5": 0.86,
+     "0.75": 0.88,
+     "0.9": 0.8778,
+     "1.0": 0.89
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.47,
+    "macro_f1": 0.4428,
+    "ece": 0.3108,
+    "brier": 0.7771,
+    "nll": 2.34,
+    "mean_confidence": 0.7773,
+    "acc_at_50_coverage": 0.68,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.2997,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.16,
+     "0.5": 0.32,
+     "0.75": 0.4133,
+     "0.9": 0.4778,
+     "1.0": 0.53
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.06,
+    "macro_f1": 0.0519,
+    "ece": 0.5059,
+    "brier": 1.2604,
+    "nll": 4.6336,
+    "mean_confidence": 0.5659,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8776,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.84,
+     "0.5": 0.88,
+     "0.75": 0.92,
+     "0.9": 0.9333,
+     "1.0": 0.94
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9456,
+    "ece": 0.0423,
+    "brier": 0.0812,
+    "nll": 0.3968,
+    "mean_confidence": 0.9487,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.007,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0111,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 270.2,
+    "latency_p95_ms": 388.1,
+    "cost_usd": 0.00262,
+    "input_tokens": 62368,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.06,
+    "kai~jev": 0.14,
+    "laya~jev": 0.43
+   }
+  },
+  "massive.lv": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.082,
+    "ece": 0.1474,
+    "brier": 1.0139,
+    "nll": 3.242,
+    "mean_confidence": 0.224,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9342,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.96,
+     "0.5": 0.92,
+     "0.75": 0.9067,
+     "0.9": 0.9,
+     "1.0": 0.9
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.3,
+    "macro_f1": 0.2899,
+    "ece": 0.486,
+    "brier": 1.1049,
+    "nll": 3.9548,
+    "mean_confidence": 0.786,
+    "acc_at_50_coverage": 0.4,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5448,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.44,
+     "0.5": 0.6,
+     "0.75": 0.6533,
+     "0.9": 0.6667,
+     "1.0": 0.7
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.0786,
+    "ece": 0.6659,
+    "brier": 1.4871,
+    "nll": 7.3307,
+    "mean_confidence": 0.7659,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.08,
+    "questions": 100,
+    "aurc": 0.885,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.88,
+     "0.5": 0.9,
+     "0.75": 0.92,
+     "0.9": 0.9,
+     "1.0": 0.9
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.31,
+    "macro_f1": 0.3022,
+    "ece": 0.472,
+    "brier": 1.0767,
+    "nll": 3.7436,
+    "mean_confidence": 0.782,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5248,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.44,
+     "0.5": 0.54,
+     "0.75": 0.64,
+     "0.9": 0.6556,
+     "1.0": 0.69
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0805,
+    "ece": 0.4966,
+    "brier": 1.2831,
+    "nll": 5.0617,
+    "mean_confidence": 0.5866,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8759,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.92,
+     "0.5": 0.88,
+     "0.75": 0.92,
+     "0.9": 0.9111,
+     "1.0": 0.91
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.85,
+    "macro_f1": 0.8447,
+    "ece": 0.0748,
+    "brier": 0.2047,
+    "nll": 0.935,
+    "mean_confidence": 0.86,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0253,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.1,
+     "1.0": 0.15
+    },
+    "latency_p50_ms": 246.6,
+    "latency_p95_ms": 330.0,
+    "cost_usd": 0.00263,
+    "input_tokens": 62691,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.08,
+    "kai~jev": 0.12,
+    "laya~jev": 0.3
+   }
+  },
+  "massive.ml": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0643,
+    "ece": 0.1286,
+    "brier": 0.9558,
+    "nll": 3.0819,
+    "mean_confidence": 0.1869,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8346,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.84,
+     "0.5": 0.9,
+     "0.75": 0.92,
+     "0.9": 0.9333,
+     "1.0": 0.93
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.28,
+    "macro_f1": 0.2712,
+    "ece": 0.4433,
+    "brier": 1.0956,
+    "nll": 3.5857,
+    "mean_confidence": 0.7072,
+    "acc_at_50_coverage": 0.32,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.6375,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.6,
+     "0.5": 0.68,
+     "0.75": 0.6667,
+     "0.9": 0.7111,
+     "1.0": 0.72
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0503,
+    "ece": 0.601,
+    "brier": 1.3834,
+    "nll": 6.2205,
+    "mean_confidence": 0.671,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.8316,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.84,
+     "0.5": 0.9,
+     "0.75": 0.9067,
+     "0.9": 0.9222,
+     "1.0": 0.93
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.28,
+    "macro_f1": 0.2712,
+    "ece": 0.4433,
+    "brier": 1.0956,
+    "nll": 3.5857,
+    "mean_confidence": 0.7072,
+    "acc_at_50_coverage": 0.32,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.6375,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.6,
+     "0.5": 0.68,
+     "0.75": 0.6667,
+     "0.9": 0.7111,
+     "1.0": 0.72
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.1013,
+    "ece": 0.3686,
+    "brier": 1.1473,
+    "nll": 4.1697,
+    "mean_confidence": 0.4686,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8208,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.84,
+     "0.5": 0.9,
+     "0.75": 0.9067,
+     "0.9": 0.8889,
+     "1.0": 0.9
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.91,
+    "macro_f1": 0.9029,
+    "ece": 0.0495,
+    "brier": 0.1368,
+    "nll": 0.5517,
+    "mean_confidence": 0.9051,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0111,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0389,
+     "1.0": 0.09
+    },
+    "latency_p50_ms": 258.4,
+    "latency_p95_ms": 377.3,
+    "cost_usd": 0.00271,
+    "input_tokens": 64495,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.11,
+    "kai~jev": 0.09,
+    "laya~jev": 0.27
+   }
+  },
+  "massive.mn": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.05,
+    "macro_f1": 0.0438,
+    "ece": 0.191,
+    "brier": 1.0283,
+    "nll": 3.3559,
+    "mean_confidence": 0.241,
+    "acc_at_50_coverage": 0.04,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9494,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.96,
+     "0.5": 0.96,
+     "0.75": 0.9467,
+     "0.9": 0.9444,
+     "1.0": 0.95
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1422,
+    "ece": 0.577,
+    "brier": 1.3206,
+    "nll": 5.0728,
+    "mean_confidence": 0.737,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.7486,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.72,
+     "0.5": 0.78,
+     "0.75": 0.7867,
+     "0.9": 0.8222,
+     "1.0": 0.84
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.13,
+    "macro_f1": 0.1213,
+    "ece": 0.6704,
+    "brier": 1.4925,
+    "nll": 7.9451,
+    "mean_confidence": 0.7977,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.1,
+    "questions": 100,
+    "aurc": 0.887,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.84,
+     "0.5": 0.86,
+     "0.75": 0.8933,
+     "0.9": 0.8889,
+     "1.0": 0.87
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1422,
+    "ece": 0.577,
+    "brier": 1.3206,
+    "nll": 5.0728,
+    "mean_confidence": 0.737,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.7486,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.72,
+     "0.5": 0.78,
+     "0.75": 0.7867,
+     "0.9": 0.8222,
+     "1.0": 0.84
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0595,
+    "ece": 0.569,
+    "brier": 1.3665,
+    "nll": 5.2813,
+    "mean_confidence": 0.639,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8957,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.88,
+     "0.5": 0.92,
+     "0.75": 0.9333,
+     "0.9": 0.9333,
+     "1.0": 0.93
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.84,
+    "macro_f1": 0.8334,
+    "ece": 0.0825,
+    "brier": 0.2063,
+    "nll": 0.6907,
+    "mean_confidence": 0.8655,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0252,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0889,
+     "1.0": 0.16
+    },
+    "latency_p50_ms": 236.4,
+    "latency_p95_ms": 341.8,
+    "cost_usd": 0.00269,
+    "input_tokens": 64102,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.11,
+    "kai~jev": 0.06,
+    "laya~jev": 0.17
+   }
+  },
+  "massive.ms": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.19,
+    "macro_f1": 0.1771,
+    "ece": 0.1559,
+    "brier": 0.9301,
+    "nll": 3.0163,
+    "mean_confidence": 0.3075,
+    "acc_at_50_coverage": 0.26,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6413,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.64,
+     "0.5": 0.74,
+     "0.75": 0.76,
+     "0.9": 0.7889,
+     "1.0": 0.81
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.27,
+    "macro_f1": 0.2372,
+    "ece": 0.5064,
+    "brier": 1.1586,
+    "nll": 5.3374,
+    "mean_confidence": 0.7764,
+    "acc_at_50_coverage": 0.4,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.546,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.36,
+     "0.5": 0.6,
+     "0.75": 0.6933,
+     "0.9": 0.7111,
+     "1.0": 0.73
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.27,
+    "macro_f1": 0.2372,
+    "ece": 0.5064,
+    "brier": 1.1586,
+    "nll": 5.3374,
+    "mean_confidence": 0.7764,
+    "acc_at_50_coverage": 0.4,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.546,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.36,
+     "0.5": 0.6,
+     "0.75": 0.6933,
+     "0.9": 0.7111,
+     "1.0": 0.73
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.41,
+    "macro_f1": 0.3787,
+    "ece": 0.4364,
+    "brier": 0.9581,
+    "nll": 3.3356,
+    "mean_confidence": 0.8269,
+    "acc_at_50_coverage": 0.58,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.4225,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.4,
+     "0.5": 0.42,
+     "0.75": 0.5467,
+     "0.9": 0.5556,
+     "1.0": 0.59
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.24,
+    "macro_f1": 0.1995,
+    "ece": 0.3277,
+    "brier": 1.0249,
+    "nll": 3.3724,
+    "mean_confidence": 0.5672,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6168,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.6,
+     "0.5": 0.7,
+     "0.75": 0.72,
+     "0.9": 0.7444,
+     "1.0": 0.76
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9192,
+    "ece": 0.0684,
+    "brier": 0.1374,
+    "nll": 1.0285,
+    "mean_confidence": 0.92,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.0143,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0333,
+     "0.9": 0.0333,
+     "1.0": 0.08
+    },
+    "latency_p50_ms": 234.3,
+    "latency_p95_ms": 427.7,
+    "cost_usd": 0.00262,
+    "input_tokens": 62274,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.14,
+    "kai~jev": 0.19,
+    "laya~jev": 0.27
+   }
+  },
+  "massive.my": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.05,
+    "macro_f1": 0.0429,
+    "ece": 0.1378,
+    "brier": 0.9955,
+    "nll": 3.2036,
+    "mean_confidence": 0.1878,
+    "acc_at_50_coverage": 0.04,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9644,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.92,
+     "0.5": 0.96,
+     "0.75": 0.96,
+     "0.9": 0.9556,
+     "1.0": 0.95
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1424,
+    "ece": 0.4766,
+    "brier": 1.2443,
+    "nll": 3.989,
+    "mean_confidence": 0.6219,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8866,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.9,
+     "0.75": 0.84,
+     "0.9": 0.8444,
+     "1.0": 0.84
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.06,
+    "macro_f1": 0.0455,
+    "ece": 0.5797,
+    "brier": 1.3653,
+    "nll": 5.8399,
+    "mean_confidence": 0.6397,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9128,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.88,
+     "0.5": 0.92,
+     "0.75": 0.92,
+     "0.9": 0.9333,
+     "1.0": 0.94
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1424,
+    "ece": 0.4766,
+    "brier": 1.2443,
+    "nll": 3.989,
+    "mean_confidence": 0.6219,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8866,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.9,
+     "0.75": 0.84,
+     "0.9": 0.8444,
+     "1.0": 0.84
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.08,
+    "macro_f1": 0.0699,
+    "ece": 0.3454,
+    "brier": 1.1473,
+    "nll": 4.0301,
+    "mean_confidence": 0.4254,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9293,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 1.0,
+     "0.5": 0.9,
+     "0.75": 0.9067,
+     "0.9": 0.9111,
+     "1.0": 0.92
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8853,
+    "ece": 0.0572,
+    "brier": 0.1661,
+    "nll": 0.5575,
+    "mean_confidence": 0.8781,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0182,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0778,
+     "1.0": 0.11
+    },
+    "latency_p50_ms": 262.8,
+    "latency_p95_ms": 390.2,
+    "cost_usd": 0.00271,
+    "input_tokens": 64450,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.1,
+    "kai~jev": 0.07,
+    "laya~jev": 0.16
+   }
+  },
+  "massive.nb": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.26,
+    "macro_f1": 0.2311,
+    "ece": 0.1732,
+    "brier": 0.8735,
+    "nll": 2.6918,
+    "mean_confidence": 0.4144,
+    "acc_at_50_coverage": 0.42,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5094,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.32,
+     "0.5": 0.58,
+     "0.75": 0.6933,
+     "0.9": 0.7222,
+     "1.0": 0.74
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.5,
+    "macro_f1": 0.4519,
+    "ece": 0.3679,
+    "brier": 0.8543,
+    "nll": 3.8176,
+    "mean_confidence": 0.8679,
+    "acc_at_50_coverage": 0.68,
+    "unanswered": 0,
+    "zero_prob": 0.04,
+    "questions": 100,
+    "aurc": 0.2972,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.2,
+     "0.5": 0.32,
+     "0.75": 0.44,
+     "0.9": 0.4667,
+     "1.0": 0.5
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.33,
+    "macro_f1": 0.3025,
+    "ece": 0.5179,
+    "brier": 1.1373,
+    "nll": 5.8232,
+    "mean_confidence": 0.8479,
+    "acc_at_50_coverage": 0.52,
+    "unanswered": 0,
+    "zero_prob": 0.09,
+    "questions": 100,
+    "aurc": 0.4227,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.32,
+     "0.5": 0.48,
+     "0.75": 0.5733,
+     "0.9": 0.6444,
+     "1.0": 0.67
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.56,
+    "macro_f1": 0.5174,
+    "ece": 0.2937,
+    "brier": 0.7025,
+    "nll": 2.4173,
+    "mean_confidence": 0.8537,
+    "acc_at_50_coverage": 0.74,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.2423,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.2,
+     "0.5": 0.26,
+     "0.75": 0.3467,
+     "0.9": 0.3889,
+     "1.0": 0.44
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.36,
+    "macro_f1": 0.317,
+    "ece": 0.3212,
+    "brier": 0.8917,
+    "nll": 3.295,
+    "mean_confidence": 0.6812,
+    "acc_at_50_coverage": 0.56,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3869,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.28,
+     "0.5": 0.44,
+     "0.75": 0.5333,
+     "0.9": 0.6,
+     "1.0": 0.64
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.86,
+    "macro_f1": 0.8364,
+    "ece": 0.0713,
+    "brier": 0.1846,
+    "nll": 0.6197,
+    "mean_confidence": 0.8865,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0223,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0778,
+     "1.0": 0.14
+    },
+    "latency_p50_ms": 241.2,
+    "latency_p95_ms": 370.0,
+    "cost_usd": 0.00262,
+    "input_tokens": 62273,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.26,
+    "kai~jev": 0.24,
+    "laya~jev": 0.5
+   }
+  },
+  "massive.nl": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.25,
+    "macro_f1": 0.2282,
+    "ece": 0.1692,
+    "brier": 0.8807,
+    "nll": 2.7639,
+    "mean_confidence": 0.3878,
+    "acc_at_50_coverage": 0.34,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5761,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.52,
+     "0.5": 0.66,
+     "0.75": 0.68,
+     "0.9": 0.7222,
+     "1.0": 0.75
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.4,
+    "macro_f1": 0.3967,
+    "ece": 0.4792,
+    "brier": 1.0453,
+    "nll": 5.621,
+    "mean_confidence": 0.8792,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.16,
+    "questions": 100,
+    "aurc": 0.445,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.4,
+     "0.5": 0.4,
+     "0.75": 0.5333,
+     "0.9": 0.5889,
+     "1.0": 0.6
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.39,
+    "macro_f1": 0.3968,
+    "ece": 0.5025,
+    "brier": 1.0787,
+    "nll": 6.068,
+    "mean_confidence": 0.8831,
+    "acc_at_50_coverage": 0.56,
+    "unanswered": 0,
+    "zero_prob": 0.18,
+    "questions": 100,
+    "aurc": 0.4603,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.4,
+     "0.5": 0.44,
+     "0.75": 0.56,
+     "0.9": 0.6111,
+     "1.0": 0.61
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.47,
+    "macro_f1": 0.4069,
+    "ece": 0.397,
+    "brier": 0.8739,
+    "nll": 2.9847,
+    "mean_confidence": 0.8557,
+    "acc_at_50_coverage": 0.68,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.3565,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.24,
+     "0.5": 0.32,
+     "0.75": 0.4667,
+     "0.9": 0.5111,
+     "1.0": 0.53
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.37,
+    "macro_f1": 0.3444,
+    "ece": 0.3445,
+    "brier": 0.924,
+    "nll": 3.2633,
+    "mean_confidence": 0.7145,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4568,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.36,
+     "0.5": 0.52,
+     "0.75": 0.5733,
+     "0.9": 0.5889,
+     "1.0": 0.63
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.9,
+    "macro_f1": 0.8966,
+    "ece": 0.0551,
+    "brier": 0.1544,
+    "nll": 0.827,
+    "mean_confidence": 0.9165,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0142,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0444,
+     "1.0": 0.1
+    },
+    "latency_p50_ms": 238.3,
+    "latency_p95_ms": 375.1,
+    "cost_usd": 0.00262,
+    "input_tokens": 62294,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.23,
+    "kai~jev": 0.28,
+    "laya~jev": 0.37
+   }
+  },
+  "massive.pl": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.2,
+    "macro_f1": 0.1794,
+    "ece": 0.134,
+    "brier": 0.9022,
+    "nll": 2.7527,
+    "mean_confidence": 0.3272,
+    "acc_at_50_coverage": 0.32,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5986,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.52,
+     "0.5": 0.68,
+     "0.75": 0.7467,
+     "0.9": 0.7889,
+     "1.0": 0.8
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.47,
+    "macro_f1": 0.4548,
+    "ece": 0.3737,
+    "brier": 0.8546,
+    "nll": 2.9006,
+    "mean_confidence": 0.8293,
+    "acc_at_50_coverage": 0.74,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.2628,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.04,
+     "0.5": 0.26,
+     "0.75": 0.44,
+     "0.9": 0.5111,
+     "1.0": 0.53
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.24,
+    "macro_f1": 0.2033,
+    "ece": 0.5695,
+    "brier": 1.2812,
+    "nll": 6.3695,
+    "mean_confidence": 0.7951,
+    "acc_at_50_coverage": 0.36,
+    "unanswered": 0,
+    "zero_prob": 0.08,
+    "questions": 100,
+    "aurc": 0.5929,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.52,
+     "0.5": 0.64,
+     "0.75": 0.72,
+     "0.9": 0.7556,
+     "1.0": 0.76
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.5,
+    "macro_f1": 0.4781,
+    "ece": 0.3529,
+    "brier": 0.7994,
+    "nll": 2.5359,
+    "mean_confidence": 0.8407,
+    "acc_at_50_coverage": 0.76,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.2589,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.04,
+     "0.5": 0.24,
+     "0.75": 0.4,
+     "0.9": 0.4778,
+     "1.0": 0.5
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.25,
+    "macro_f1": 0.1982,
+    "ece": 0.3442,
+    "brier": 1.0012,
+    "nll": 3.6854,
+    "mean_confidence": 0.5933,
+    "acc_at_50_coverage": 0.42,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5573,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.44,
+     "0.5": 0.58,
+     "0.75": 0.7067,
+     "0.9": 0.7333,
+     "1.0": 0.75
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9288,
+    "ece": 0.0358,
+    "brier": 0.1231,
+    "nll": 0.4784,
+    "mean_confidence": 0.9243,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0105,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0444,
+     "1.0": 0.08
+    },
+    "latency_p50_ms": 246.3,
+    "latency_p95_ms": 346.8,
+    "cost_usd": 0.00262,
+    "input_tokens": 62499,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.17,
+    "kai~jev": 0.25,
+    "laya~jev": 0.43
+   }
+  },
+  "massive.pt": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.31,
+    "macro_f1": 0.2799,
+    "ece": 0.163,
+    "brier": 0.8317,
+    "nll": 2.5364,
+    "mean_confidence": 0.4286,
+    "acc_at_50_coverage": 0.44,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4526,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.28,
+     "0.5": 0.56,
+     "0.75": 0.6533,
+     "0.9": 0.6667,
+     "1.0": 0.69
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.44,
+    "macro_f1": 0.4162,
+    "ece": 0.3956,
+    "brier": 0.9349,
+    "nll": 4.2072,
+    "mean_confidence": 0.8337,
+    "acc_at_50_coverage": 0.62,
+    "unanswered": 0,
+    "zero_prob": 0.08,
+    "questions": 100,
+    "aurc": 0.385,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.32,
+     "0.5": 0.38,
+     "0.75": 0.4933,
+     "0.9": 0.5333,
+     "1.0": 0.56
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.47,
+    "macro_f1": 0.4213,
+    "ece": 0.4317,
+    "brier": 0.9253,
+    "nll": 5.3812,
+    "mean_confidence": 0.8894,
+    "acc_at_50_coverage": 0.66,
+    "unanswered": 0,
+    "zero_prob": 0.15,
+    "questions": 100,
+    "aurc": 0.3301,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.24,
+     "0.5": 0.34,
+     "0.75": 0.4133,
+     "0.9": 0.5111,
+     "1.0": 0.53
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.5,
+    "macro_f1": 0.4598,
+    "ece": 0.3405,
+    "brier": 0.7884,
+    "nll": 2.5341,
+    "mean_confidence": 0.8136,
+    "acc_at_50_coverage": 0.72,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.2881,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.24,
+     "0.5": 0.28,
+     "0.75": 0.4267,
+     "0.9": 0.4667,
+     "1.0": 0.5
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.5,
+    "macro_f1": 0.4758,
+    "ece": 0.2695,
+    "brier": 0.7686,
+    "nll": 2.6742,
+    "mean_confidence": 0.7568,
+    "acc_at_50_coverage": 0.64,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3309,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.32,
+     "0.5": 0.36,
+     "0.75": 0.44,
+     "0.9": 0.4556,
+     "1.0": 0.5
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.9,
+    "macro_f1": 0.9031,
+    "ece": 0.0985,
+    "brier": 0.159,
+    "nll": 1.0782,
+    "mean_confidence": 0.9111,
+    "acc_at_50_coverage": 0.96,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.0447,
+    "risk_at_coverage": {
+     "0.1": 0.0385,
+     "0.25": 0.0385,
+     "0.5": 0.0385,
+     "0.75": 0.0533,
+     "0.9": 0.0444,
+     "1.0": 0.1
+    },
+    "latency_p50_ms": 248.8,
+    "latency_p95_ms": 329.2,
+    "cost_usd": 0.00261,
+    "input_tokens": 62236,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.23,
+    "kai~jev": 0.33,
+    "laya~jev": 0.45
+   }
+  },
+  "massive.ro": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.25,
+    "macro_f1": 0.2308,
+    "ece": 0.1088,
+    "brier": 0.886,
+    "nll": 2.7372,
+    "mean_confidence": 0.357,
+    "acc_at_50_coverage": 0.38,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5505,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.4,
+     "0.5": 0.62,
+     "0.75": 0.72,
+     "0.9": 0.7333,
+     "1.0": 0.75
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.37,
+    "macro_f1": 0.3513,
+    "ece": 0.473,
+    "brier": 1.0551,
+    "nll": 4.9228,
+    "mean_confidence": 0.843,
+    "acc_at_50_coverage": 0.52,
+    "unanswered": 0,
+    "zero_prob": 0.07,
+    "questions": 100,
+    "aurc": 0.4941,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.44,
+     "0.5": 0.48,
+     "0.75": 0.56,
+     "0.9": 0.6,
+     "1.0": 0.63
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.33,
+    "macro_f1": 0.2976,
+    "ece": 0.5499,
+    "brier": 1.144,
+    "nll": 5.9633,
+    "mean_confidence": 0.8668,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.11,
+    "questions": 100,
+    "aurc": 0.4988,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.52,
+     "0.5": 0.52,
+     "0.75": 0.6,
+     "0.9": 0.6556,
+     "1.0": 0.67
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.37,
+    "macro_f1": 0.3426,
+    "ece": 0.3974,
+    "brier": 0.96,
+    "nll": 3.0397,
+    "mean_confidence": 0.7674,
+    "acc_at_50_coverage": 0.56,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3993,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.24,
+     "0.5": 0.44,
+     "0.75": 0.56,
+     "0.9": 0.6,
+     "1.0": 0.63
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.31,
+    "macro_f1": 0.2675,
+    "ece": 0.399,
+    "brier": 1.0408,
+    "nll": 3.6373,
+    "mean_confidence": 0.6696,
+    "acc_at_50_coverage": 0.38,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5802,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.52,
+     "0.5": 0.62,
+     "0.75": 0.6933,
+     "0.9": 0.6778,
+     "1.0": 0.69
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9302,
+    "ece": 0.0822,
+    "brier": 0.102,
+    "nll": 0.7529,
+    "mean_confidence": 0.9085,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0071,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0111,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 271.2,
+    "latency_p95_ms": 378.9,
+    "cost_usd": 0.00262,
+    "input_tokens": 62352,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.18,
+    "kai~jev": 0.26,
+    "laya~jev": 0.37
+   }
+  },
+  "massive.ru": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.27,
+    "macro_f1": 0.2641,
+    "ece": 0.17,
+    "brier": 0.8562,
+    "nll": 2.5391,
+    "mean_confidence": 0.3965,
+    "acc_at_50_coverage": 0.38,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4952,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.36,
+     "0.5": 0.62,
+     "0.75": 0.6533,
+     "0.9": 0.7,
+     "1.0": 0.73
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.57,
+    "macro_f1": 0.5342,
+    "ece": 0.2959,
+    "brier": 0.7319,
+    "nll": 2.5767,
+    "mean_confidence": 0.8594,
+    "acc_at_50_coverage": 0.7,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3078,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.24,
+     "0.5": 0.3,
+     "0.75": 0.3467,
+     "0.9": 0.3889,
+     "1.0": 0.43
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.31,
+    "macro_f1": 0.3084,
+    "ece": 0.5946,
+    "brier": 1.228,
+    "nll": 6.4115,
+    "mean_confidence": 0.9046,
+    "acc_at_50_coverage": 0.42,
+    "unanswered": 0,
+    "zero_prob": 0.15,
+    "questions": 100,
+    "aurc": 0.5355,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.44,
+     "0.5": 0.58,
+     "0.75": 0.6267,
+     "0.9": 0.6556,
+     "1.0": 0.69
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.57,
+    "macro_f1": 0.5342,
+    "ece": 0.2959,
+    "brier": 0.7319,
+    "nll": 2.5767,
+    "mean_confidence": 0.8594,
+    "acc_at_50_coverage": 0.7,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3078,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.24,
+     "0.5": 0.3,
+     "0.75": 0.3467,
+     "0.9": 0.3889,
+     "1.0": 0.43
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.39,
+    "macro_f1": 0.3815,
+    "ece": 0.2835,
+    "brier": 0.9005,
+    "nll": 3.0722,
+    "mean_confidence": 0.6626,
+    "acc_at_50_coverage": 0.52,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4751,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.4,
+     "0.5": 0.48,
+     "0.75": 0.52,
+     "0.9": 0.5778,
+     "1.0": 0.61
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9408,
+    "ece": 0.0325,
+    "brier": 0.0781,
+    "nll": 0.4076,
+    "mean_confidence": 0.9461,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0052,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0111,
+     "0.9": 0.0111,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 286.5,
+    "latency_p95_ms": 1282.4,
+    "cost_usd": 0.00265,
+    "input_tokens": 63197,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.24,
+    "kai~jev": 0.29,
+    "laya~jev": 0.54
+   }
+  },
+  "massive.sl": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.15,
+    "macro_f1": 0.126,
+    "ece": 0.1103,
+    "brier": 0.9428,
+    "nll": 2.9877,
+    "mean_confidence": 0.2419,
+    "acc_at_50_coverage": 0.18,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.7363,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.72,
+     "0.5": 0.82,
+     "0.75": 0.84,
+     "0.9": 0.8333,
+     "1.0": 0.85
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.33,
+    "macro_f1": 0.2924,
+    "ece": 0.4871,
+    "brier": 1.1102,
+    "nll": 4.9705,
+    "mean_confidence": 0.8171,
+    "acc_at_50_coverage": 0.4,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.5472,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.52,
+     "0.5": 0.6,
+     "0.75": 0.64,
+     "0.9": 0.6444,
+     "1.0": 0.67
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.2,
+    "macro_f1": 0.1679,
+    "ece": 0.5994,
+    "brier": 1.3626,
+    "nll": 7.5628,
+    "mean_confidence": 0.7994,
+    "acc_at_50_coverage": 0.26,
+    "unanswered": 0,
+    "zero_prob": 0.12,
+    "questions": 100,
+    "aurc": 0.6777,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.68,
+     "0.5": 0.74,
+     "0.75": 0.7867,
+     "0.9": 0.7889,
+     "1.0": 0.8
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.37,
+    "macro_f1": 0.348,
+    "ece": 0.4338,
+    "brier": 1.0103,
+    "nll": 3.2354,
+    "mean_confidence": 0.7952,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4403,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.36,
+     "0.5": 0.52,
+     "0.75": 0.5867,
+     "0.9": 0.6,
+     "1.0": 0.63
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.16,
+    "macro_f1": 0.1254,
+    "ece": 0.3987,
+    "brier": 1.1234,
+    "nll": 4.4217,
+    "mean_confidence": 0.5587,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6819,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.64,
+     "0.5": 0.78,
+     "0.75": 0.8,
+     "0.9": 0.8222,
+     "1.0": 0.84
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8893,
+    "ece": 0.0579,
+    "brier": 0.16,
+    "nll": 0.5963,
+    "mean_confidence": 0.9104,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0148,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0444,
+     "1.0": 0.11
+    },
+    "latency_p50_ms": 261.3,
+    "latency_p95_ms": 329.1,
+    "cost_usd": 0.00262,
+    "input_tokens": 62385,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.13,
+    "kai~jev": 0.17,
+    "laya~jev": 0.34
+   }
+  },
+  "massive.sq": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.21,
+    "macro_f1": 0.1837,
+    "ece": 0.1543,
+    "brier": 0.9278,
+    "nll": 3.0377,
+    "mean_confidence": 0.3048,
+    "acc_at_50_coverage": 0.28,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6461,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.52,
+     "0.5": 0.72,
+     "0.75": 0.7333,
+     "0.9": 0.7778,
+     "1.0": 0.79
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.29,
+    "macro_f1": 0.2575,
+    "ece": 0.4996,
+    "brier": 1.1614,
+    "nll": 4.0241,
+    "mean_confidence": 0.7822,
+    "acc_at_50_coverage": 0.38,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.5334,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.44,
+     "0.5": 0.62,
+     "0.75": 0.6933,
+     "0.9": 0.7,
+     "1.0": 0.71
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.21,
+    "macro_f1": 0.1667,
+    "ece": 0.6031,
+    "brier": 1.3494,
+    "nll": 7.3943,
+    "mean_confidence": 0.8131,
+    "acc_at_50_coverage": 0.28,
+    "unanswered": 0,
+    "zero_prob": 0.16,
+    "questions": 100,
+    "aurc": 0.684,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.68,
+     "0.5": 0.72,
+     "0.75": 0.7733,
+     "0.9": 0.7889,
+     "1.0": 0.79
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.3,
+    "macro_f1": 0.2679,
+    "ece": 0.4869,
+    "brier": 1.1324,
+    "nll": 3.6543,
+    "mean_confidence": 0.7795,
+    "acc_at_50_coverage": 0.4,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5115,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.4,
+     "0.5": 0.6,
+     "0.75": 0.6667,
+     "0.9": 0.6889,
+     "1.0": 0.7
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.19,
+    "macro_f1": 0.1637,
+    "ece": 0.4217,
+    "brier": 1.1237,
+    "nll": 4.275,
+    "mean_confidence": 0.6117,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6277,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.52,
+     "0.5": 0.7,
+     "0.75": 0.76,
+     "0.9": 0.8,
+     "1.0": 0.81
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.76,
+    "macro_f1": 0.7662,
+    "ece": 0.094,
+    "brier": 0.3067,
+    "nll": 1.1755,
+    "mean_confidence": 0.8186,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0531,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0933,
+     "0.9": 0.1778,
+     "1.0": 0.24
+    },
+    "latency_p50_ms": 255.7,
+    "latency_p95_ms": 406.9,
+    "cost_usd": 0.00263,
+    "input_tokens": 62527,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.16,
+    "kai~jev": 0.24,
+    "laya~jev": 0.29
+   }
+  },
+  "massive.sv": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.21,
+    "macro_f1": 0.211,
+    "ece": 0.211,
+    "brier": 0.9444,
+    "nll": 2.9173,
+    "mean_confidence": 0.3693,
+    "acc_at_50_coverage": 0.24,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6465,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.64,
+     "0.5": 0.76,
+     "0.75": 0.76,
+     "0.9": 0.7778,
+     "1.0": 0.79
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.48,
+    "macro_f1": 0.4253,
+    "ece": 0.3699,
+    "brier": 0.8409,
+    "nll": 3.286,
+    "mean_confidence": 0.8481,
+    "acc_at_50_coverage": 0.7,
+    "unanswered": 0,
+    "zero_prob": 0.04,
+    "questions": 100,
+    "aurc": 0.3547,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.28,
+     "0.5": 0.3,
+     "0.75": 0.44,
+     "0.9": 0.4778,
+     "1.0": 0.52
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.38,
+    "macro_f1": 0.3809,
+    "ece": 0.4874,
+    "brier": 1.0817,
+    "nll": 5.4997,
+    "mean_confidence": 0.8501,
+    "acc_at_50_coverage": 0.5,
+    "unanswered": 0,
+    "zero_prob": 0.09,
+    "questions": 100,
+    "aurc": 0.445,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.32,
+     "0.5": 0.5,
+     "0.75": 0.6,
+     "0.9": 0.6111,
+     "1.0": 0.62
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.49,
+    "macro_f1": 0.4496,
+    "ece": 0.341,
+    "brier": 0.7772,
+    "nll": 2.587,
+    "mean_confidence": 0.8215,
+    "acc_at_50_coverage": 0.74,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3089,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.2,
+     "0.5": 0.26,
+     "0.75": 0.3867,
+     "0.9": 0.4778,
+     "1.0": 0.51
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.24,
+    "macro_f1": 0.212,
+    "ece": 0.4338,
+    "brier": 1.0703,
+    "nll": 3.6524,
+    "mean_confidence": 0.6687,
+    "acc_at_50_coverage": 0.38,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5683,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.52,
+     "0.5": 0.62,
+     "0.75": 0.7333,
+     "0.9": 0.7667,
+     "1.0": 0.76
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9311,
+    "ece": 0.0737,
+    "brier": 0.1188,
+    "nll": 0.5312,
+    "mean_confidence": 0.9187,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0103,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0222,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 242.8,
+    "latency_p95_ms": 334.8,
+    "cost_usd": 0.00262,
+    "input_tokens": 62329,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.19,
+    "kai~jev": 0.23,
+    "laya~jev": 0.46
+   }
+  },
+  "massive.sw": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.18,
+    "macro_f1": 0.1706,
+    "ece": 0.1643,
+    "brier": 0.9266,
+    "nll": 3.0629,
+    "mean_confidence": 0.3059,
+    "acc_at_50_coverage": 0.26,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6433,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.6,
+     "0.5": 0.74,
+     "0.75": 0.76,
+     "0.9": 0.8,
+     "1.0": 0.82
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.13,
+    "macro_f1": 0.1113,
+    "ece": 0.6279,
+    "brier": 1.4219,
+    "nll": 6.7622,
+    "mean_confidence": 0.7471,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.8262,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.76,
+     "0.5": 0.84,
+     "0.75": 0.8533,
+     "0.9": 0.8667,
+     "1.0": 0.87
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.13,
+    "macro_f1": 0.1149,
+    "ece": 0.6318,
+    "brier": 1.4341,
+    "nll": 6.9309,
+    "mean_confidence": 0.7511,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.842,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.8,
+     "0.5": 0.86,
+     "0.75": 0.8533,
+     "0.9": 0.8778,
+     "1.0": 0.87
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.23,
+    "macro_f1": 0.2259,
+    "ece": 0.4922,
+    "brier": 1.1812,
+    "nll": 3.9796,
+    "mean_confidence": 0.7118,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.5978,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.52,
+     "0.5": 0.7,
+     "0.75": 0.7333,
+     "0.9": 0.7556,
+     "1.0": 0.77
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.0772,
+    "ece": 0.4629,
+    "brier": 1.2274,
+    "nll": 4.7365,
+    "mean_confidence": 0.5629,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8354,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.84,
+     "0.5": 0.84,
+     "0.75": 0.8667,
+     "0.9": 0.8889,
+     "1.0": 0.9
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.7,
+    "macro_f1": 0.7043,
+    "ece": 0.1124,
+    "brier": 0.3897,
+    "nll": 2.6964,
+    "mean_confidence": 0.732,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.07,
+    "questions": 100,
+    "aurc": 0.0724,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.01,
+     "0.75": 0.1467,
+     "0.9": 0.2333,
+     "1.0": 0.3
+    },
+    "latency_p50_ms": 248.4,
+    "latency_p95_ms": 359.7,
+    "cost_usd": 0.00262,
+    "input_tokens": 62369,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.19,
+    "kai~jev": 0.24,
+    "laya~jev": 0.13
+   }
+  },
+  "massive.ta": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0565,
+    "ece": 0.1028,
+    "brier": 0.9841,
+    "nll": 3.1715,
+    "mean_confidence": 0.1728,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9313,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.94,
+     "0.75": 0.92,
+     "0.9": 0.9222,
+     "1.0": 0.93
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.31,
+    "macro_f1": 0.2842,
+    "ece": 0.4479,
+    "brier": 1.1179,
+    "nll": 3.804,
+    "mean_confidence": 0.7371,
+    "acc_at_50_coverage": 0.34,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6719,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.64,
+     "0.5": 0.66,
+     "0.75": 0.6667,
+     "0.9": 0.6889,
+     "1.0": 0.69
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.0971,
+    "ece": 0.5541,
+    "brier": 1.3544,
+    "nll": 6.1649,
+    "mean_confidence": 0.6741,
+    "acc_at_50_coverage": 0.12,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.8994,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.96,
+     "0.5": 0.88,
+     "0.75": 0.8667,
+     "0.9": 0.8667,
+     "1.0": 0.88
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.31,
+    "macro_f1": 0.2842,
+    "ece": 0.4479,
+    "brier": 1.1179,
+    "nll": 3.804,
+    "mean_confidence": 0.7371,
+    "acc_at_50_coverage": 0.34,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6719,
+    "risk_at_coverage": {
+     "0.1": 0.6,
+     "0.25": 0.64,
+     "0.5": 0.66,
+     "0.75": 0.6667,
+     "0.9": 0.6889,
+     "1.0": 0.69
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.08,
+    "macro_f1": 0.0628,
+    "ece": 0.3566,
+    "brier": 1.14,
+    "nll": 4.1015,
+    "mean_confidence": 0.4366,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8933,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.92,
+     "0.5": 0.9,
+     "0.75": 0.92,
+     "0.9": 0.9333,
+     "1.0": 0.92
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9047,
+    "ece": 0.0924,
+    "brier": 0.171,
+    "nll": 0.8763,
+    "mean_confidence": 0.8746,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.0173,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.05,
+     "1.0": 0.08
+    },
+    "latency_p50_ms": 247.7,
+    "latency_p95_ms": 641.8,
+    "cost_usd": 0.0027,
+    "input_tokens": 64388,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.06,
+    "kai~jev": 0.08,
+    "laya~jev": 0.34
+   }
+  },
+  "massive.te": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0769,
+    "ece": 0.1137,
+    "brier": 0.9901,
+    "nll": 3.2244,
+    "mean_confidence": 0.1866,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9379,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.92,
+     "0.5": 0.94,
+     "0.75": 0.92,
+     "0.9": 0.9111,
+     "1.0": 0.91
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.22,
+    "macro_f1": 0.1935,
+    "ece": 0.4969,
+    "brier": 1.1789,
+    "nll": 3.5847,
+    "mean_confidence": 0.7169,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.635,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.6,
+     "0.5": 0.7,
+     "0.75": 0.76,
+     "0.9": 0.7667,
+     "1.0": 0.78
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0722,
+    "ece": 0.6689,
+    "brier": 1.5148,
+    "nll": 7.3505,
+    "mean_confidence": 0.7568,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.9438,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.96,
+     "0.5": 0.94,
+     "0.75": 0.9333,
+     "0.9": 0.9111,
+     "1.0": 0.91
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.22,
+    "macro_f1": 0.1935,
+    "ece": 0.4969,
+    "brier": 1.1789,
+    "nll": 3.5847,
+    "mean_confidence": 0.7169,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.635,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.6,
+     "0.5": 0.7,
+     "0.75": 0.76,
+     "0.9": 0.7667,
+     "1.0": 0.78
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.09,
+    "macro_f1": 0.0615,
+    "ece": 0.4389,
+    "brier": 1.2271,
+    "nll": 4.4676,
+    "mean_confidence": 0.5289,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9119,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.9,
+     "0.75": 0.9067,
+     "0.9": 0.9,
+     "1.0": 0.91
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.91,
+    "macro_f1": 0.9031,
+    "ece": 0.0375,
+    "brier": 0.1252,
+    "nll": 0.4976,
+    "mean_confidence": 0.9088,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0111,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0333,
+     "1.0": 0.09
+    },
+    "latency_p50_ms": 240.1,
+    "latency_p95_ms": 353.8,
+    "cost_usd": 0.00269,
+    "input_tokens": 64020,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.07,
+    "kai~jev": 0.1,
+    "laya~jev": 0.24
+   }
+  },
+  "massive.th": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.0981,
+    "ece": 0.1322,
+    "brier": 1.0055,
+    "nll": 3.2229,
+    "mean_confidence": 0.2282,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9203,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.92,
+     "0.5": 0.9,
+     "0.75": 0.8933,
+     "0.9": 0.8889,
+     "1.0": 0.89
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.48,
+    "macro_f1": 0.4524,
+    "ece": 0.3563,
+    "brier": 0.8366,
+    "nll": 2.6507,
+    "mean_confidence": 0.8259,
+    "acc_at_50_coverage": 0.62,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3897,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.32,
+     "0.5": 0.38,
+     "0.75": 0.4267,
+     "0.9": 0.4889,
+     "1.0": 0.52
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.08,
+    "macro_f1": 0.048,
+    "ece": 0.7179,
+    "brier": 1.5336,
+    "nll": 8.2793,
+    "mean_confidence": 0.7979,
+    "acc_at_50_coverage": 0.1,
+    "unanswered": 0,
+    "zero_prob": 0.11,
+    "questions": 100,
+    "aurc": 0.8998,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.88,
+     "0.5": 0.9,
+     "0.75": 0.8933,
+     "0.9": 0.9111,
+     "1.0": 0.92
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.48,
+    "macro_f1": 0.4524,
+    "ece": 0.3563,
+    "brier": 0.8366,
+    "nll": 2.6507,
+    "mean_confidence": 0.8259,
+    "acc_at_50_coverage": 0.62,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.3897,
+    "risk_at_coverage": {
+     "0.1": 0.3,
+     "0.25": 0.32,
+     "0.5": 0.38,
+     "0.75": 0.4267,
+     "0.9": 0.4889,
+     "1.0": 0.52
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.1,
+    "macro_f1": 0.0707,
+    "ece": 0.54,
+    "brier": 1.2942,
+    "nll": 4.774,
+    "mean_confidence": 0.64,
+    "acc_at_50_coverage": 0.14,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8633,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.8,
+     "0.5": 0.86,
+     "0.75": 0.88,
+     "0.9": 0.9,
+     "1.0": 0.9
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9415,
+    "ece": 0.047,
+    "brier": 0.0858,
+    "nll": 0.4225,
+    "mean_confidence": 0.947,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0035,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0133,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 255.0,
+    "latency_p95_ms": 337.9,
+    "cost_usd": 0.00268,
+    "input_tokens": 63742,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.11,
+    "kai~jev": 0.11,
+    "laya~jev": 0.47
+   }
+  },
+  "massive.tl": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.32,
+    "macro_f1": 0.3002,
+    "ece": 0.1614,
+    "brier": 0.7831,
+    "nll": 2.5714,
+    "mean_confidence": 0.4086,
+    "acc_at_50_coverage": 0.54,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3741,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.08,
+     "0.5": 0.46,
+     "0.75": 0.6,
+     "0.9": 0.6556,
+     "1.0": 0.68
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.3,
+    "macro_f1": 0.2749,
+    "ece": 0.4922,
+    "brier": 1.1279,
+    "nll": 4.9423,
+    "mean_confidence": 0.7922,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.447,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.28,
+     "0.5": 0.54,
+     "0.75": 0.6133,
+     "0.9": 0.6667,
+     "1.0": 0.7
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.29,
+    "macro_f1": 0.249,
+    "ece": 0.5121,
+    "brier": 1.1543,
+    "nll": 5.1295,
+    "mean_confidence": 0.8021,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.07,
+    "questions": 100,
+    "aurc": 0.4547,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.28,
+     "0.5": 0.54,
+     "0.75": 0.6267,
+     "0.9": 0.6778,
+     "1.0": 0.71
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.35,
+    "macro_f1": 0.3033,
+    "ece": 0.4297,
+    "brier": 1.0109,
+    "nll": 3.3587,
+    "mean_confidence": 0.7797,
+    "acc_at_50_coverage": 0.54,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3897,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.24,
+     "0.5": 0.46,
+     "0.75": 0.5733,
+     "0.9": 0.6222,
+     "1.0": 0.65
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.32,
+    "macro_f1": 0.2928,
+    "ece": 0.349,
+    "brier": 0.9696,
+    "nll": 3.4495,
+    "mean_confidence": 0.669,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.4553,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.36,
+     "0.5": 0.54,
+     "0.75": 0.6133,
+     "0.9": 0.6556,
+     "1.0": 0.68
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.85,
+    "macro_f1": 0.8511,
+    "ece": 0.0845,
+    "brier": 0.1962,
+    "nll": 1.1255,
+    "mean_confidence": 0.8786,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.03,
+    "questions": 100,
+    "aurc": 0.0212,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.1111,
+     "1.0": 0.15
+    },
+    "latency_p50_ms": 252.6,
+    "latency_p95_ms": 384.4,
+    "cost_usd": 0.00262,
+    "input_tokens": 62439,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.29,
+    "kai~jev": 0.31,
+    "laya~jev": 0.3
+   }
+  },
+  "massive.tr": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.25,
+    "macro_f1": 0.2124,
+    "ece": 0.1501,
+    "brier": 0.9343,
+    "nll": 3.0071,
+    "mean_confidence": 0.2835,
+    "acc_at_50_coverage": 0.3,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.6544,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.68,
+     "0.5": 0.7,
+     "0.75": 0.7333,
+     "0.9": 0.7444,
+     "1.0": 0.75
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.41,
+    "macro_f1": 0.3977,
+    "ece": 0.3854,
+    "brier": 0.937,
+    "nll": 3.1366,
+    "mean_confidence": 0.7954,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3757,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.24,
+     "0.5": 0.4,
+     "0.75": 0.52,
+     "0.9": 0.5556,
+     "1.0": 0.59
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.14,
+    "macro_f1": 0.0967,
+    "ece": 0.5874,
+    "brier": 1.3509,
+    "nll": 6.5337,
+    "mean_confidence": 0.7274,
+    "acc_at_50_coverage": 0.2,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.7108,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.68,
+     "0.5": 0.8,
+     "0.75": 0.8267,
+     "0.9": 0.8444,
+     "1.0": 0.86
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.4,
+    "macro_f1": 0.3846,
+    "ece": 0.4004,
+    "brier": 0.953,
+    "nll": 3.0366,
+    "mean_confidence": 0.8004,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3915,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.24,
+     "0.5": 0.4,
+     "0.75": 0.5333,
+     "0.9": 0.5667,
+     "1.0": 0.6
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.14,
+    "macro_f1": 0.1107,
+    "ece": 0.4196,
+    "brier": 1.1428,
+    "nll": 4.3414,
+    "mean_confidence": 0.5596,
+    "acc_at_50_coverage": 0.22,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.7145,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.68,
+     "0.5": 0.78,
+     "0.75": 0.8267,
+     "0.9": 0.8556,
+     "1.0": 0.86
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9108,
+    "ece": 0.061,
+    "brier": 0.1492,
+    "nll": 0.8341,
+    "mean_confidence": 0.8964,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.012,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0444,
+     "1.0": 0.08
+    },
+    "latency_p50_ms": 258.2,
+    "latency_p95_ms": 371.0,
+    "cost_usd": 0.00262,
+    "input_tokens": 62421,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.15,
+    "kai~jev": 0.27,
+    "laya~jev": 0.4
+   }
+  },
+  "massive.ur": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.06,
+    "macro_f1": 0.057,
+    "ece": 0.1661,
+    "brier": 1.0204,
+    "nll": 3.2945,
+    "mean_confidence": 0.2261,
+    "acc_at_50_coverage": 0.04,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9525,
+    "risk_at_coverage": {
+     "0.1": 1.0,
+     "0.25": 0.96,
+     "0.5": 0.96,
+     "0.75": 0.92,
+     "0.9": 0.9333,
+     "1.0": 0.94
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.42,
+    "macro_f1": 0.3947,
+    "ece": 0.3355,
+    "brier": 0.8645,
+    "nll": 2.7845,
+    "mean_confidence": 0.7555,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.4357,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.28,
+     "0.5": 0.4,
+     "0.75": 0.48,
+     "0.9": 0.5333,
+     "1.0": 0.58
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.07,
+    "macro_f1": 0.0645,
+    "ece": 0.6428,
+    "brier": 1.4593,
+    "nll": 6.6436,
+    "mean_confidence": 0.7128,
+    "acc_at_50_coverage": 0.08,
+    "unanswered": 0,
+    "zero_prob": 0.05,
+    "questions": 100,
+    "aurc": 0.8953,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.88,
+     "0.5": 0.92,
+     "0.75": 0.9067,
+     "0.9": 0.9222,
+     "1.0": 0.93
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.42,
+    "macro_f1": 0.3947,
+    "ece": 0.3355,
+    "brier": 0.8645,
+    "nll": 2.7845,
+    "mean_confidence": 0.7555,
+    "acc_at_50_coverage": 0.6,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.4357,
+    "risk_at_coverage": {
+     "0.1": 0.4,
+     "0.25": 0.28,
+     "0.5": 0.4,
+     "0.75": 0.48,
+     "0.9": 0.5333,
+     "1.0": 0.58
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.11,
+    "macro_f1": 0.1085,
+    "ece": 0.4079,
+    "brier": 1.1741,
+    "nll": 4.5366,
+    "mean_confidence": 0.5179,
+    "acc_at_50_coverage": 0.16,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8238,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.8,
+     "0.5": 0.84,
+     "0.75": 0.8667,
+     "0.9": 0.8778,
+     "1.0": 0.89
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.9,
+    "macro_f1": 0.9009,
+    "ece": 0.0638,
+    "brier": 0.1499,
+    "nll": 0.5641,
+    "mean_confidence": 0.903,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0178,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0667,
+     "1.0": 0.1
+    },
+    "latency_p50_ms": 258.7,
+    "latency_p95_ms": 384.6,
+    "cost_usd": 0.00266,
+    "input_tokens": 63380,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.07,
+    "kai~jev": 0.1,
+    "laya~jev": 0.43
+   }
+  },
+  "massive.vi": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.14,
+    "macro_f1": 0.1325,
+    "ece": 0.1007,
+    "brier": 0.9681,
+    "nll": 3.1406,
+    "mean_confidence": 0.2342,
+    "acc_at_50_coverage": 0.18,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.8017,
+    "risk_at_coverage": {
+     "0.1": 0.7,
+     "0.25": 0.84,
+     "0.5": 0.82,
+     "0.75": 0.8533,
+     "0.9": 0.8667,
+     "1.0": 0.86
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.33,
+    "macro_f1": 0.2925,
+    "ece": 0.467,
+    "brier": 1.0723,
+    "nll": 3.9035,
+    "mean_confidence": 0.7714,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.5551,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.4,
+     "0.5": 0.54,
+     "0.75": 0.6267,
+     "0.9": 0.6556,
+     "1.0": 0.67
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.06,
+    "macro_f1": 0.0498,
+    "ece": 0.69,
+    "brier": 1.5327,
+    "nll": 7.5659,
+    "mean_confidence": 0.75,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.06,
+    "questions": 100,
+    "aurc": 0.886,
+    "risk_at_coverage": {
+     "0.1": 0.8,
+     "0.25": 0.88,
+     "0.5": 0.94,
+     "0.75": 0.9467,
+     "0.9": 0.9444,
+     "1.0": 0.94
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.34,
+    "macro_f1": 0.3059,
+    "ece": 0.4636,
+    "brier": 1.0617,
+    "nll": 3.7993,
+    "mean_confidence": 0.778,
+    "acc_at_50_coverage": 0.46,
+    "unanswered": 0,
+    "zero_prob": 0.02,
+    "questions": 100,
+    "aurc": 0.5502,
+    "risk_at_coverage": {
+     "0.1": 0.5,
+     "0.25": 0.4,
+     "0.5": 0.54,
+     "0.75": 0.6133,
+     "0.9": 0.6444,
+     "1.0": 0.66
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.06,
+    "macro_f1": 0.0474,
+    "ece": 0.5037,
+    "brier": 1.284,
+    "nll": 5.0598,
+    "mean_confidence": 0.5637,
+    "acc_at_50_coverage": 0.06,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.9104,
+    "risk_at_coverage": {
+     "0.1": 0.9,
+     "0.25": 0.92,
+     "0.5": 0.94,
+     "0.75": 0.9333,
+     "0.9": 0.9333,
+     "1.0": 0.94
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8817,
+    "ece": 0.0518,
+    "brier": 0.1479,
+    "nll": 0.5202,
+    "mean_confidence": 0.924,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0142,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0556,
+     "1.0": 0.11
+    },
+    "latency_p50_ms": 239.5,
+    "latency_p95_ms": 355.2,
+    "cost_usd": 0.00262,
+    "input_tokens": 62482,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.03,
+    "kai~jev": 0.16,
+    "laya~jev": 0.29
+   }
+  },
+  "massive.zh-CN": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.51,
+    "macro_f1": 0.518,
+    "ece": 0.1032,
+    "brier": 0.5881,
+    "nll": 1.6248,
+    "mean_confidence": 0.5928,
+    "acc_at_50_coverage": 0.82,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.203,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.04,
+     "0.5": 0.18,
+     "0.75": 0.3467,
+     "0.9": 0.4444,
+     "1.0": 0.49
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.65,
+    "macro_f1": 0.605,
+    "ece": 0.2192,
+    "brier": 0.5484,
+    "nll": 1.872,
+    "mean_confidence": 0.859,
+    "acc_at_50_coverage": 0.84,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.1685,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.12,
+     "0.5": 0.16,
+     "0.75": 0.2133,
+     "0.9": 0.2889,
+     "1.0": 0.35
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.62,
+    "macro_f1": 0.6175,
+    "ece": 0.3198,
+    "brier": 0.6745,
+    "nll": 3.2664,
+    "mean_confidence": 0.9244,
+    "acc_at_50_coverage": 0.84,
+    "unanswered": 0,
+    "zero_prob": 0.07,
+    "questions": 100,
+    "aurc": 0.1931,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.12,
+     "0.5": 0.16,
+     "0.75": 0.2667,
+     "0.9": 0.3556,
+     "1.0": 0.38
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.65,
+    "macro_f1": 0.605,
+    "ece": 0.2192,
+    "brier": 0.5484,
+    "nll": 1.872,
+    "mean_confidence": 0.859,
+    "acc_at_50_coverage": 0.84,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.1685,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.12,
+     "0.5": 0.16,
+     "0.75": 0.2133,
+     "0.9": 0.2889,
+     "1.0": 0.35
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.6,
+    "macro_f1": 0.5902,
+    "ece": 0.2483,
+    "brier": 0.6039,
+    "nll": 1.6799,
+    "mean_confidence": 0.8079,
+    "acc_at_50_coverage": 0.84,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.1983,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.08,
+     "0.5": 0.16,
+     "0.75": 0.32,
+     "0.9": 0.3778,
+     "1.0": 0.4
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9454,
+    "ece": 0.0363,
+    "brier": 0.1018,
+    "nll": 0.4259,
+    "mean_confidence": 0.9511,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.007,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.01,
+     "0.9": 0.0333,
+     "1.0": 0.06
+    },
+    "latency_p50_ms": 263.6,
+    "latency_p95_ms": 517.6,
+    "cost_usd": 0.00262,
+    "input_tokens": 62289,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.44,
+    "kai~jev": 0.52,
+    "laya~jev": 0.63
+   }
+  },
+  "massive.zh-TW": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.36,
+    "macro_f1": 0.362,
+    "ece": 0.1449,
+    "brier": 0.7598,
+    "nll": 2.1607,
+    "mean_confidence": 0.4303,
+    "acc_at_50_coverage": 0.54,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3865,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.16,
+     "0.5": 0.46,
+     "0.75": 0.5467,
+     "0.9": 0.6111,
+     "1.0": 0.64
+    }
+   },
+   "laya": {
+    "n": 100,
+    "accuracy": 0.61,
+    "macro_f1": 0.5565,
+    "ece": 0.2662,
+    "brier": 0.6563,
+    "nll": 2.2928,
+    "mean_confidence": 0.8558,
+    "acc_at_50_coverage": 0.78,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.2685,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.16,
+     "0.5": 0.22,
+     "0.75": 0.32,
+     "0.9": 0.3556,
+     "1.0": 0.39
+    }
+   },
+   "laya:english": {
+    "n": 100,
+    "accuracy": 0.46,
+    "macro_f1": 0.4294,
+    "ece": 0.4344,
+    "brier": 0.9242,
+    "nll": 4.7668,
+    "mean_confidence": 0.8944,
+    "acc_at_50_coverage": 0.72,
+    "unanswered": 0,
+    "zero_prob": 0.13,
+    "questions": 100,
+    "aurc": 0.2625,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.04,
+     "0.5": 0.28,
+     "0.75": 0.4267,
+     "0.9": 0.5111,
+     "1.0": 0.54
+    }
+   },
+   "laya:multilingual": {
+    "n": 100,
+    "accuracy": 0.61,
+    "macro_f1": 0.5565,
+    "ece": 0.2662,
+    "brier": 0.6563,
+    "nll": 2.2928,
+    "mean_confidence": 0.8558,
+    "acc_at_50_coverage": 0.78,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.2685,
+    "risk_at_coverage": {
+     "0.1": 0.2,
+     "0.25": 0.16,
+     "0.5": 0.22,
+     "0.75": 0.32,
+     "0.9": 0.3556,
+     "1.0": 0.39
+    }
+   },
+   "laya:typed-decisions": {
+    "n": 100,
+    "accuracy": 0.47,
+    "macro_f1": 0.4633,
+    "ece": 0.2984,
+    "brier": 0.7866,
+    "nll": 2.5075,
+    "mean_confidence": 0.7611,
+    "acc_at_50_coverage": 0.68,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.3109,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.2,
+     "0.5": 0.32,
+     "0.75": 0.44,
+     "0.9": 0.5,
+     "1.0": 0.53
+    }
+   },
+   "jev": {
+    "n": 100,
+    "accuracy": 0.93,
+    "macro_f1": 0.9357,
+    "ece": 0.0621,
+    "brier": 0.1145,
+    "nll": 0.4636,
+    "mean_confidence": 0.9228,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.01,
+    "questions": 100,
+    "aurc": 0.0101,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0444,
+     "1.0": 0.07
+    },
+    "latency_p50_ms": 248.6,
+    "latency_p95_ms": 357.2,
+    "cost_usd": 0.00262,
+    "input_tokens": 62318,
+    "served": {
+     "typesafe/jev-1.13-20260917": 100
+    },
+    "n_errors": 0
+   },
+   "agreement": {
+    "kai~laya": 0.3,
+    "kai~jev": 0.37,
+    "laya~jev": 0.57
+   }
+  }
+ },
+ "jev_sequential_latency": {
+  "n": 50,
+  "p50_ms": 227.3,
+  "p95_ms": 333.9
+ },
+ "jev_total_cost_usd": 0.2486,
+ "massive_summary": {
+  "jev": {
+   "languages": 51,
+   "n": 5099,
+   "unanswered": 1,
+   "questions": 5100,
+   "english": 0.92,
+   "non_english_macro": 0.8896,
+   "above_3x_random": 51,
+   "risk_at_coverage": {
+    "0.1": 0.0008,
+    "0.25": 0.0008,
+    "0.5": 0.0047,
+    "0.75": 0.0306,
+    "0.9": 0.0618,
+    "1.0": 0.1098
+   },
+   "macro_accuracy": 0.8902,
+   "macro_macro_f1": 0.8861,
+   "macro_ece": 0.0638,
+   "macro_brier": 0.1606,
+   "macro_nll": 0.7754,
+   "macro_aurc": 0.0199,
+   "macro_acc_at_50_coverage": 0.9953,
+   "macro_zero_prob": 0.0176
+  },
+  "kai": {
+   "languages": 51,
+   "n": 5100,
+   "unanswered": 0,
+   "questions": 5100,
+   "english": 0.89,
+   "non_english_macro": 0.1778,
+   "above_3x_random": 24,
+   "risk_at_coverage": {
+    "0.1": 0.5255,
+    "0.25": 0.6424,
+    "0.5": 0.7467,
+    "0.75": 0.7788,
+    "0.9": 0.7967,
+    "1.0": 0.8082
+   },
+   "macro_accuracy": 0.1918,
+   "macro_macro_f1": 0.1786,
+   "macro_ece": 0.1506,
+   "macro_brier": 0.9176,
+   "macro_nll": 2.9183,
+   "macro_aurc": 0.7013,
+   "macro_acc_at_50_coverage": 0.2533,
+   "macro_zero_prob": 0.0
+  },
+  "laya": {
+   "languages": 51,
+   "n": 5100,
+   "unanswered": 0,
+   "questions": 5100,
+   "english": 0.82,
+   "non_english_macro": 0.3734,
+   "above_3x_random": 48,
+   "risk_at_coverage": {
+    "0.1": 0.3451,
+    "0.25": 0.4071,
+    "0.5": 0.4957,
+    "0.75": 0.559,
+    "0.9": 0.5919,
+    "1.0": 0.6178
+   },
+   "macro_accuracy": 0.3822,
+   "macro_macro_f1": 0.3567,
+   "macro_ece": 0.4184,
+   "macro_brier": 0.987,
+   "macro_nll": 3.8282,
+   "macro_aurc": 0.4804,
+   "macro_acc_at_50_coverage": 0.5043,
+   "macro_zero_prob": 0.0298
+  },
+  "laya:english": {
+   "languages": 51,
+   "n": 5100,
+   "unanswered": 0,
+   "questions": 5100,
+   "english": 0.82,
+   "non_english_macro": 0.215,
+   "above_3x_random": 23,
+   "risk_at_coverage": {
+    "0.1": 0.5392,
+    "0.25": 0.6212,
+    "0.5": 0.698,
+    "0.75": 0.737,
+    "0.9": 0.761,
+    "1.0": 0.7731
+   },
+   "macro_accuracy": 0.2269,
+   "macro_macro_f1": 0.2053,
+   "macro_ece": 0.5709,
+   "macro_brier": 1.2751,
+   "macro_nll": 6.3968,
+   "macro_aurc": 0.6716,
+   "macro_acc_at_50_coverage": 0.302,
+   "macro_zero_prob": 0.0802
+  },
+  "laya:multilingual": {
+   "languages": 51,
+   "n": 5100,
+   "unanswered": 0,
+   "questions": 5100,
+   "english": 0.71,
+   "non_english_macro": 0.3946,
+   "above_3x_random": 48,
+   "risk_at_coverage": {
+    "0.1": 0.3157,
+    "0.25": 0.3678,
+    "0.5": 0.458,
+    "0.75": 0.5336,
+    "0.9": 0.5715,
+    "1.0": 0.5992
+   },
+   "macro_accuracy": 0.4008,
+   "macro_macro_f1": 0.3737,
+   "macro_ece": 0.3911,
+   "macro_brier": 0.9344,
+   "macro_nll": 3.127,
+   "macro_aurc": 0.449,
+   "macro_acc_at_50_coverage": 0.542,
+   "macro_zero_prob": 0.0073
+  },
+  "laya:typed-decisions": {
+   "languages": 51,
+   "n": 5100,
+   "unanswered": 0,
+   "questions": 5100,
+   "english": 0.82,
+   "non_english_macro": 0.2104,
+   "above_3x_random": 24,
+   "risk_at_coverage": {
+    "0.1": 0.5275,
+    "0.25": 0.6204,
+    "0.5": 0.6941,
+    "0.75": 0.7422,
+    "0.9": 0.7634,
+    "1.0": 0.7776
+   },
+   "macro_accuracy": 0.2224,
+   "macro_macro_f1": 0.2023,
+   "macro_ece": 0.3989,
+   "macro_brier": 1.0785,
+   "macro_nll": 3.9626,
+   "macro_aurc": 0.6682,
+   "macro_acc_at_50_coverage": 0.3059,
+   "macro_zero_prob": 0.0
+  }
+ }
+}
