@@ -24,12 +24,17 @@ uv run --with numpy python harness/merge.py  # results/scores.json and results/t
 uv run --with numpy python -m unittest discover -s harness   # merge.py's metrics on hand-computed cases
 ```
 
-Kai is run by `bench` in `hanzoai/decision`, on the same states:
+Kai is run by `bench` in `hanzoai/decision`, on the same states, and `bench` scores and times all three with no Python:
 
 ```sh
 bench preds --model <dir | owner/name[@rev]> --states results/states.json.gz --out results/kai/preds.json.gz
-bench speed --model <dir | owner/name[@rev]> --states results/states.json.gz --out speed.json
+bench score --harness . --kai results/kai/preds.json.gz --out results/scores.json   # merge.py's scores.json
+bench cap --harness . --who kai,laya,jev --kai <checkpoint>                          # capability/, every suite
+bench speed --states results/states.json.gz --results capability/results --who kai,laya --kai <checkpoint>
+bench tex --harness . --out <paper>/kai/tables                                       # the paper's tables
 ```
+
+`bench score` reproduces `merge.py`'s `scores.json` value for value (checked on `results/kai-a/`: 7,454 of 7,461 equal), except `acc_at_50_coverage` where a confidence tie straddles the half: numpy's argsort breaks ties by machine, `bench` by case order (7 of 378, by at most 0.025).
 
 ## Results
 
