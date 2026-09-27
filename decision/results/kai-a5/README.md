@@ -31,3 +31,26 @@ Scored on the frozen harness beside Laya and Jev. In `scores.json` and `table.md
 | macro, 11 suites | 0.830 | **0.851** | 0.702 | 0.770 |
 
 Best of three, among backends that did not train on a suite's rows: Kai 8, Laya 3, Jev 2 of 12 (AG News a tie).
+
+## Gates
+
+`bench gate` on 100 drawn cases a suite (`gate.laya.json`, `gate.jev.json`): both reject. Against
+Laya: AG News on calibration (ECE 0.097 against 0.050 at the same accuracy), support triage
+(0.39 against 0.48) and typed decisions. Against Jev: typed decisions and 15 of the 51 MASSIVE
+languages.
+
+## By training sibling
+
+`harness/siblings.py` over the a3 build's barrier (see `../kai-a4`): a5 trains on the official
+typed split, siblings included, so the split no longer costs it. Accuracy over every question of
+the state, choice / noul / score in parentheses:
+
+| | all 400 | without a sibling (235) | with a sibling (165) |
+|---|---|---|---|
+| Kai a5 | 0.705 (0.713 / 0.833 / 0.603) | 0.697 (0.741 / 0.796 / 0.589) | 0.716 (0.676 / 0.888 / 0.621) |
+| Laya typed | 0.766 (0.733 / 0.857 / 0.723) | 0.773 (0.744 / 0.835 / 0.747) | 0.756 (0.719 / 0.888 / 0.688) |
+| Jev | 0.736 (0.732 / 0.785 / 0.701) | 0.770 (0.784 / 0.765 / 0.764) | 0.686 (0.660 / 0.814 / 0.612) |
+
+What remains is the score head: 0.589 against Laya's 0.747 on the clean half, with choice within
+a point and noul above Jev.
+

@@ -1,0 +1,1388 @@
+{
+  "pass": false,
+  "candidate": {
+    "model": "/Users/a/scratch/decision/runs/a5",
+    "weights": "df1c16a2fef7ec93f2b34a6a194f6dc3c2eee70e936473b802151543c5d46e83",
+    "device": "metal",
+    "dtype": "bf16"
+  },
+  "baseline": {
+    "model": "jev",
+    "recorded": {
+      "backend": "jev",
+      "model": "typesafe/jev-1.13"
+    }
+  },
+  "cases": 100,
+  "tolerance": {
+    "accuracy": 0.02,
+    "ece": 0.03
+  },
+  "parity": null,
+  "aggregate": {
+    "suites": 62,
+    "candidate": 0.8786321277289022,
+    "baseline": 0.8669257086999022,
+    "delta": 0.011706419029000048
+  },
+  "regressions": [
+    "harness/typed_decisions",
+    "harness/massive.de",
+    "harness/massive.el",
+    "harness/massive.es",
+    "harness/massive.he",
+    "harness/massive.hi",
+    "harness/massive.hu",
+    "harness/massive.ja",
+    "harness/massive.ka",
+    "harness/massive.ml",
+    "harness/massive.ro",
+    "harness/massive.sv",
+    "harness/massive.ta",
+    "harness/massive.te",
+    "harness/massive.tr",
+    "harness/massive.ur"
+  ],
+  "suites": {
+    "harness/jev.ag_news": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.97,
+        "ece": 0.09678747147321702
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.83,
+        "ece": 0.12050000071525568
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/jev.emotion": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.07829443186521529
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.64,
+        "ece": 0.24150000125169754
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/jev.banking77_full": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.89,
+        "ece": 0.1010316482186318
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.85,
+        "ece": 0.08564848810434346
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/app.support_triage": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.39,
+        "ece": 0.21937582075595857
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.29,
+        "ece": 0.561000002026558
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/app.email_spam": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 1.0,
+        "ece": 0.00008834540843960514
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.96,
+        "ece": 0.07149999797344209
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/app.phishing": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 1.0,
+        "ece": 0.0000836509466171087
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.89,
+        "ece": 0.08049999296665189
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/app.guardrails_jailbreak": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.055477619767189054
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.0655999952554703
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/app.moderation_toxicity": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.83,
+        "ece": 0.1615606594085694
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.73,
+        "ece": 0.1372000062465668
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/app.rag_relevance": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.58,
+        "ece": 0.12734931707382205
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.51,
+        "ece": 0.39620000362396246
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/app.model_routing_domain": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 1.0,
+        "ece": 0.0018489766120910467
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.98,
+        "ece": 0.026600003242492693
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/typed_decisions": {
+      "group": "harness",
+      "n": 500,
+      "candidate": {
+        "n": 500,
+        "accuracy": 0.696,
+        "ece": 0.1625631979107857
+      },
+      "baseline": {
+        "n": 500,
+        "accuracy": 0.73,
+        "ece": 0.07618141478300096
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.af": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.89,
+        "ece": 0.05952447265386586
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.87,
+        "ece": 0.08726868644356728
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.am": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.84,
+        "ece": 0.06833967849612237
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.85,
+        "ece": 0.09598384097218512
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.ar": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.88,
+        "ece": 0.08501704618334774
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.87,
+        "ece": 0.08222424164414406
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.az": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.06093618080019949
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.88,
+        "ece": 0.04820606261491777
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.bn": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.87,
+        "ece": 0.0521162086725235
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.86,
+        "ece": 0.0710626265406609
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.cy": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.82,
+        "ece": 0.06791832819581037
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.76,
+        "ece": 0.09916767939925195
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.da": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.91,
+        "ece": 0.04912485331296921
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.88,
+        "ece": 0.038734343349933635
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.de": {
+      "group": "harness",
+      "n": 99,
+      "candidate": {
+        "n": 99,
+        "accuracy": 0.9191919191919192,
+        "ece": 0.06942960951063372
+      },
+      "baseline": {
+        "n": 99,
+        "accuracy": 0.9393939393939394,
+        "ece": 0.057024792589322484
+      },
+      "unanswered": 1,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.el": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.05367249518632891
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.057093940079212174
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.en": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.05163752526044845
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.02530000150203709
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.es": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.04325293913483622
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.93,
+        "ece": 0.06282828330993653
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.fa": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.93,
+        "ece": 0.05692772075533863
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.95,
+        "ece": 0.04546464592218401
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.fi": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.060005676448345244
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.89,
+        "ece": 0.0383111131191253
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.fr": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.05017257452011109
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.0651949521899224
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.he": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.87,
+        "ece": 0.07292630210518837
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.042724243700504254
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.hi": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.93,
+        "ece": 0.07353801846504208
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.95,
+        "ece": 0.029023234546184544
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.hu": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.87,
+        "ece": 0.050389538556337356
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.03867272794246674
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.hy": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.84,
+        "ece": 0.057336805462837225
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.84,
+        "ece": 0.07812121435999876
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.id": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.05904934585094447
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.93,
+        "ece": 0.05200909078121181
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.is": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.86,
+        "ece": 0.05912843495607373
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.84,
+        "ece": 0.07296262651681899
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.it": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.050549613535404186
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.96,
+        "ece": 0.05021818310022354
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.ja": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.06279848605394359
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.97,
+        "ece": 0.05874444544315334
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.jv": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.83,
+        "ece": 0.10250622883439062
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.75,
+        "ece": 0.07757171720266345
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.ka": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.79,
+        "ece": 0.10097189977765086
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.88,
+        "ece": 0.09805454522371292
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.km": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.8,
+        "ece": 0.09994862869381903
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.81,
+        "ece": 0.07332727491855619
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.kn": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.87,
+        "ece": 0.05703154116868977
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.87,
+        "ece": 0.062040405273437446
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.ko": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.06531809881329537
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.04226868838071823
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.lv": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.85,
+        "ece": 0.07480210557579993
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.85,
+        "ece": 0.06903636515140534
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.ml": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.82,
+        "ece": 0.06367021948099139
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.91,
+        "ece": 0.049515153467655115
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.mn": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.88,
+        "ece": 0.10917697399854666
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.84,
+        "ece": 0.08651313126087185
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.ms": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.05931672349572179
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.06841818481683726
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.my": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.06698188766837115
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.89,
+        "ece": 0.07051919519901269
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.nb": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.91,
+        "ece": 0.06739467456936835
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.86,
+        "ece": 0.06732828453183172
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.nl": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.06967766851186752
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.055070708692073866
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.pl": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.06593496680259701
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.04303939431905744
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.pt": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.048627837598323856
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.09853636592626569
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.ro": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.05783455386757851
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.08220606148242947
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.ru": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.96,
+        "ece": 0.06510985448956491
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.0405292943120003
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.sl": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.05202076986432077
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.89,
+        "ece": 0.057861616015434277
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.sq": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.88,
+        "ece": 0.07386779703199861
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.76,
+        "ece": 0.0900494961440563
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.sv": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.88,
+        "ece": 0.06018931411206718
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.07373636573553077
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.sw": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.81,
+        "ece": 0.06739190667867664
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.7,
+        "ece": 0.11177171409130097
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.ta": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.84,
+        "ece": 0.08809512436389924
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.09244343683123586
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.te": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.83,
+        "ece": 0.0734219098091125
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.91,
+        "ece": 0.04149899095296861
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.th": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.93,
+        "ece": 0.049760746955871585
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.04299999922513963
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.tl": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.86,
+        "ece": 0.050127259045839354
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.85,
+        "ece": 0.08445252478122714
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.tr": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.88,
+        "ece": 0.07631486147642136
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.92,
+        "ece": 0.0609899020195007
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.ur": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.86,
+        "ece": 0.07368002861738204
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.9,
+        "ece": 0.06538687020540238
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": true
+    },
+    "harness/massive.vi": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.89,
+        "ece": 0.05955071091651916
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.89,
+        "ece": 0.04620000123977666
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.zh-CN": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.93,
+        "ece": 0.050360209196805984
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.94,
+        "ece": 0.03629999935626985
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "harness/massive.zh-TW": {
+      "group": "harness",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.97,
+        "ece": 0.07615835040807721
+      },
+      "baseline": {
+        "n": 100,
+        "accuracy": 0.93,
+        "ece": 0.06207878708839416
+      },
+      "unanswered": 0,
+      "gated": true,
+      "regressed": false
+    },
+    "capability/clinc150": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.76,
+        "ece": 0.14612227261066435
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/sst5": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.39,
+        "ece": 0.18840801835060123
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.ar": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.66,
+        "ece": 0.14292311161756513
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.bg": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.77,
+        "ece": 0.1984384161233902
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.de": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.8,
+        "ece": 0.21225321918725967
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.el": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.76,
+        "ece": 0.24297191977500918
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.en": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.77,
+        "ece": 0.157812180519104
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.es": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.79,
+        "ece": 0.22035292655229569
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.fr": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.77,
+        "ece": 0.18113152056932452
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.hi": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.64,
+        "ece": 0.13377510339021684
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.ru": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.72,
+        "ece": 0.19517139703035355
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.sw": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.59,
+        "ece": 0.1174077433347702
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.th": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.66,
+        "ece": 0.1255523270368576
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.tr": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.76,
+        "ece": 0.24283051997423175
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.ur": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.59,
+        "ece": 0.14045946687459945
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.vi": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.73,
+        "ece": 0.16299013167619708
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "capability/xnli.zh": {
+      "group": "capability",
+      "n": 100,
+      "candidate": {
+        "n": 100,
+        "accuracy": 0.68,
+        "ece": 0.15210912466049198
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "robustness/shuffle": {
+      "group": "robustness",
+      "n": 5753,
+      "candidate": {
+        "n": 5753,
+        "accuracy": 0.878845819572397,
+        "ece": 0.009889678792260997
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "robustness/alias": {
+      "group": "robustness",
+      "n": 647,
+      "candidate": {
+        "n": 647,
+        "accuracy": 0.8578052550231839,
+        "ece": 0.04941958235072942
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "robustness/swap": {
+      "group": "robustness",
+      "n": 647,
+      "candidate": {
+        "n": 647,
+        "accuracy": 0.8562596599690881,
+        "ece": 0.04407818801988954
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "robustness/subset": {
+      "group": "robustness",
+      "n": 5300,
+      "candidate": {
+        "n": 5300,
+        "accuracy": 0.940188679245283,
+        "ece": 0.011920550423410763
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    },
+    "robustness/near": {
+      "group": "robustness",
+      "n": 5300,
+      "candidate": {
+        "n": 5300,
+        "accuracy": 0.9060377358490566,
+        "ece": 0.030989159809530865
+      },
+      "baseline": null,
+      "unanswered": 0,
+      "gated": false,
+      "regressed": false
+    }
+  }
+}
