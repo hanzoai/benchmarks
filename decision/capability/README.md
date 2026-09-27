@@ -12,14 +12,14 @@ What a decision model can do beyond the frozen 62 suites, measured on Kai, Laya 
 | `refresh` | a program re-run after one evidence change: questions asked, time against a cold re-run |
 | `deploy` | offline in a no-network sandbox, data leaving the machine, self-hosting, fee, pinning |
 | `conformal` | ECE, Brier, risk–coverage, split conformal coverage at 90/95% over every answer on disk |
-| `questions` | `bench speed`: 1 … 1,000 questions on one state and 1 … 128 cases a call, latency p50/p95 and questions/s; Kai (and `kai-cold`, its option cache emptied each call) and Laya on one device and dtype, their calls interleaved; Jev over the network |
+| `questions` | `bench speed`: 1 … 1,000 questions on one state and 1 … 128 cases a call, latency p50/p95 and questions/s; Kai (and `kai-cold`, its option cache emptied each call) and Laya on one device and dtype, their calls interleaved, Laya's multilingual checkpoint (Kai's encoder) bare and its typed-decisions one (ModernBERT-large) as `-agent`; Jev over the network |
 
 ```sh
 B=bench   # hanzoai/decision: cargo build --release -p bench --features metal
 $B cap --harness decision --who kai,laya,jev --kai <checkpoint>              # every suite
 $B cap --harness decision --suites cardinality --who kai --kai <checkpoint>   # one suite, one backend; the others' results stay
 $B speed --states decision/results/states.json.gz --results decision/capability/results \
-  --who kai,kai-cold,laya --device metal --dtype f32 --kai <checkpoint>      # and --device cpu; --who jev once
+  --who kai,kai-cold,laya --laya multilingual,typed-decisions --device metal --dtype f32 --kai <checkpoint>  # and --device cpu; --who jev once
 $B score --harness decision --kai <preds.json.gz> --out scores.json          # merge.py's scores.json
 $B tex --harness decision --out <paper>/kai/tables                           # harness, languages, capability, speed
 ```
