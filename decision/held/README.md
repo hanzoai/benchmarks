@@ -12,6 +12,7 @@ Each suite asks its frozen suite's question verbatim (`research/scripts/bench_ap
 | `support/generate.jsonl` | every generation call: specifications, messages, raw answer, parsed tickets, the model that served it |
 | `support/check.jsonl` | every label-check answer, with the model that served it |
 | `laya/preds.json.gz` | Laya 0.3.20 on both suites |
+| `kai-a5/preds.json.gz` | Kai stage a5 on both suites |
 
 ## held.phishing
 
@@ -89,6 +90,17 @@ for n, rows in S.items():
     for who, p in [("laya", merge.routed(P, n, g))] + [("laya:" + m, P["models"][m][n]["p"]) for m in merge.LAYA]:
         print(n, who, merge.score(g, p))'
 ```
+
+## Kai
+
+`bench preds` (hanzoai/decision), Kai stage a5 (`results/kai-a5`, weights `df1c16a2`), Metal bf16. Scored with `merge.score`, as Laya above.
+
+| Suite | Backend | acc | macro F1 | ECE | Brier | frozen acc |
+|---|---|---|---|---|---|---|
+| held.phishing | kai a5 | 0.900 | 0.900 | 0.097 | 0.192 | 0.990 |
+| held.support_triage | kai a5 | 0.417 | 0.361 | 0.132 | 0.730 | 0.490 |
+
+Laya leads both. On phishing Kai loses 9 legitimate and 31 phishing (Laya 5 and 26). On support triage Kai answers Billing and Payments 111 times for 40 such tickets: pricing and payment words pull Sales and Pre-Sales (0/40) and Customer Service (6/40) there. Kai leads on IT Support (23/40 against 4/40), Service Outages and Maintenance and Product Support. The frozen suites' rows are Laya's training rows; these are not, and Kai's lead on the frozen phishing suite does not hold on them.
 
 ## Reproduce
 
