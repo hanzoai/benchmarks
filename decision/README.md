@@ -19,6 +19,7 @@ export LAYA_SRC=/path/to/laya          # github.com/NandhaKishorM/laya @ 0.3.20
 uv run --python 3.11 --with torch --with pandas --with pyarrow --with datasets --with "$LAYA_SRC" \
   python harness/three_way.py kai      # reference runtime, CPU f32
 uv run ... python harness/three_way.py jev   # typesafe/jev-1.13 via OpenRouter; key in harness/.or_key
+uv run ... python harness/three_way.py kai --states held/states.json.gz --out held/laya   # any states file instead of the builders
 uv run ... python harness/states.py          # results/states.json.gz: every case with its state
 uv run --with numpy python harness/merge.py  # results/scores.json and results/table.md
 uv run --with numpy python -m unittest discover -s harness   # merge.py's metrics on hand-computed cases
@@ -49,5 +50,6 @@ bench tex --harness . --out <paper>/kai/tables                                  
 | `results/kai-en/` | Kai factorized head, English baseline (not Kai), hanzo-ml, Metal bf16 | kai-1-agent trained 2 epochs on the harness train splits in English (`hanzoai/decision` 7f735f6), calibrated on its val split; its preds, `merge.py` scores beside Laya and Jev, and `bench speed`; see its README |
 | `results/kai-a/` | Kai stage A, 1 epoch, mmBERT-base; retrieval uncentered; hanzo-ml, Metal bf16 | kai-1-multilingual trained 1 epoch on stage A's build (`hanzoai/decision` 96150d1, 91,899 batches over dbc, evo and dgx), calibrated on the build's calibration split; its preds, `merge.py` scores beside Laya, Jev and kai-en, `bench speed`, and `bench gate` against Laya (reject); see its README |
 | `results/scores.json`, `results/table.md` | all of the above | `merge.py`: Kai, Laya and Jev side by side on every suite, with accuracy, macro F1, ECE, Brier, log loss, risk-coverage (AURC and risk at 10–100% coverage), the rate of zero probability on gold, score MAE, and MASSIVE by language |
+| `held/` | `held.phishing`, `held.support_triage` | the frozen `app.phishing` and `app.support_triage` questions on rows outside Laya's training data, 400 cases each, with Laya's predictions; see `held/README.md` |
 
 Laya's row in the table is the router's pick per case; its typed-decisions checkpoint, which the router does not pick, is listed beside it on typed decisions. Scoring `results/laya/preds.json.gz` through `merge.py` reproduces `results/laya/typed_decisions.json` (upstream Part B) to the fourth decimal for all three checkpoints. Kai checkpoints trained in Rust (hanzo-ml) are scored against these baselines on the same question set.

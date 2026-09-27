@@ -8,23 +8,28 @@ those files with the harness's metric code, so every backend is scored by the sa
 
     python three_way.py kai    # the three Kai checkpoints, reference runtime, CPU f32
     python three_way.py jev    # typesafe/jev-1.13 through OpenRouter's Decisions API
+    python three_way.py kai --states ../held/states.json.gz --out ../held/laya
+
+--states runs the cases of a {suite: [[state, questions, gold], ...]} gzip JSON file (the format of
+results/states.json.gz) instead of the builders; --out is where preds_<backend>.json and
+gold_<backend>.json go (default: this directory).
 
 Kai's weights are byte-identical to upstream Laya's (SHA-256 checked), so the kai run is
 also the Laya run.
 """
+import argparse
 import concurrent.futures as cf
+import gzip
 import importlib.util
 import json
 import os
 import random
-import sys
 import threading
 import time
 import urllib.error
 import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = os.environ["LAYA_SRC"]  # a checkout of github.com/NandhaKishorM/laya at 0.3.20
 BUNDLE, REV = "hanzoai/kai-1", "b50502c28537df49a3621f6fa543f9e8521e8a9c"
 JEV = "typesafe/jev-1.13"
 PER_LANG = int(os.environ.get("PER_LANG", "100"))
@@ -41,13 +46,22 @@ def module(name, path):
     return m
 
 
-bl = module("bl", os.path.join(SRC, "research/scripts/bench_local.py"))
-ba = module("ba", os.path.join(SRC, "research/scripts/bench_apps.py"))
-bl.REPO = DATA
+bl = ba = None
+
+
+def upstream():
+    """Load bench_local.py and bench_apps.py from LAYA_SRC, a checkout of github.com/NandhaKishorM/laya at 0.3.20."""
+    global bl, ba
+    if bl is None:
+        src = os.environ["LAYA_SRC"]
+        bl = module("bl", os.path.join(src, "research/scripts/bench_local.py"))
+        ba = module("ba", os.path.join(src, "research/scripts/bench_apps.py"))
+        bl.REPO = DATA
 
 
 def suites():
     """name -> list of (state, questions, gold) where gold maps qid -> harness gold record."""
+    upstream()
     out = {}
     ba.build()
     for name, S in ba.SUITES.items():
@@ -75,7 +89,8 @@ def order(qdef):
 
 
 # ------------------------------------------------------------------ kai
-def run_kai(S):
+def run_kai(S, dest=HERE):
+    upstream()
     import laya
     from huggingface_hub import snapshot_download
     from laya.router import Router
@@ -101,7 +116,7 @@ def run_kai(S):
                     [float(x) for x in bl.softmax_t(z, bl.temp_for(ag, qt, k))]
             preds["models"][m][name] = {"p": out, "seconds": secs, "dropped": dropped}
             print("kai %-16s %-28s %6.1fs" % (m, name, secs), flush=True)
-            json.dump(preds, open(os.path.join(HERE, "preds_kai.json"), "w"))
+            json.dump(preds, open(os.path.join(dest, "preds_kai.json"), "w"))
         del ag
     return preds
 
@@ -164,14 +179,14 @@ def vector(qdef, a):
     return [x / s for x in v]
 
 
-def run_jev(S, workers=8):
+def run_jev(S, dest=HERE, workers=8):
     global KEY
     KEY = open(os.path.join(HERE, ".or_key")).read().strip()
-    path = os.path.join(HERE, "preds_jev.json")
+    path = os.path.join(dest, "preds_jev.json")
     preds = json.load(open(path)) if os.path.exists(path) else {"backend": "jev", "model": JEV, "suites": {}}
-    # a clean single-call latency sample first, one request at a time
+    # a clean single-call latency sample first, one request at a time: jev.ag_news, else the first suite
     lat = []
-    for st, qs, _ in S["jev.ag_news"][:50]:
+    for st, qs, _ in (S.get("jev.ag_news") or next(iter(S.values())))[:50]:
         _, ms, err = jev_call(st, qs)
         if not err:
             lat.append(ms)
@@ -209,9 +224,14 @@ def run_jev(S, workers=8):
 
 
 if __name__ == "__main__":
-    which = sys.argv[1]
-    S = suites()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("backend", choices=("kai", "jev"))
+    ap.add_argument("--states", help="gzip JSON {suite: [[state, questions, gold], ...]} to run instead of the builders")
+    ap.add_argument("--out", default=HERE, help="directory for preds_<backend>.json and gold_<backend>.json")
+    a = ap.parse_args()
+    S = json.load(gzip.open(a.states)) if a.states else suites()
+    os.makedirs(a.out, exist_ok=True)
     json.dump({n: [[g, qs] for _, qs, g in rows] for n, rows in S.items()},
-              open(os.path.join(HERE, "gold_%s.json" % which), "w"))
-    run_kai(S) if which == "kai" else run_jev(S)
-    print("done", which, flush=True)
+              open(os.path.join(a.out, "gold_%s.json" % a.backend), "w"))
+    run_kai(S, a.out) if a.backend == "kai" else run_jev(S, a.out)
+    print("done", a.backend, flush=True)
