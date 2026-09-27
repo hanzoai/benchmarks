@@ -30,3 +30,20 @@ Scored on the frozen harness beside Laya and Jev. In `scores.json` and `table.md
 | typed decisions | 0.523 | 0.766 (Laya's typed checkpoint) | 0.736 |
 
 Typed decisions by question type (Kai / Laya typed / Jev): choice 0.518 / 0.733 / 0.732, noul 0.667 / 0.857 / 0.785, score 0.419 / 0.723 / 0.701.
+
+## By training sibling
+
+`harness/siblings.py` splits the 400 typed-decisions states by whether a training record of the
+same wording exists (the a3 build's barrier caught 547 such records as near duplicates of 165
+states, and dropped them; Laya's typed checkpoint trained on all of them). Accuracy over every
+question of the state, choice / noul / score in parentheses:
+
+| | all 400 | without a sibling (235) | with a sibling (165) |
+|---|---|---|---|
+| Kai a4 | 0.523 (0.518 / 0.667 / 0.419) | 0.605 (0.657 / 0.704 / 0.491) | 0.406 (0.328 / 0.612 / 0.315) |
+| Laya typed | 0.766 (0.733 / 0.857 / 0.723) | 0.773 (0.744 / 0.835 / 0.747) | 0.756 (0.719 / 0.888 / 0.688) |
+| Jev | 0.736 (0.732 / 0.785 / 0.701) | 0.770 (0.784 / 0.765 / 0.764) | 0.686 (0.660 / 0.814 / 0.612) |
+
+Laya scores the same with and without the siblings, so its lead is not memorized from them; Kai
+falls on exactly the states whose siblings the barrier removed from its training.
+
