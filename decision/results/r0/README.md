@@ -184,3 +184,49 @@ behavior.
 jev-harness's own `decide()` and `routeTools()` over kai1 through the runtime (compat/bench's
 driver, `model` renamed by a proxy): proposal review v4 84/150 (the score of holding every case,
 as a7), routing v5 54/114 (a7 36/114, the score of always asking; Jev 150 and 114).
+
+## The a4 collapse, replayed (`replay/`)
+
+a4's stage and build (`a3-d7a9a437cf484811`) trained from kai-1-multilingual on one worker, its
+schedule unchanged (980 warmup batches of 32,681), with `max_steps`, a checkpoint every 25 merged
+batches at rounds of 15–30 s and 8 validation rows a suite (`replay/a4r.json`; `a4n.json` the
+same with both retrieval weights 0; `a4r-long.json` to 1,100 batches). a4r and a4n ran on dgx
+(CUDA, bf16, the c3.1 build), a4r-long on dbc (Metal, bf16, the a5 build). One worker, one seed
+each, two backends: the steps below place the transition, they are not a distribution.
+
+**One unit carries the activation** (`gate.json`): unit 924 of layer 11's GeGLU MLP (0-based;
+it writes hidden state 12), a 138.4 and b 255.4 on [CLS] at kai-1-multilingual, alone 99% of that
+MLP's [CLS] output (norm 19,330).
+
+**When it goes** (`sweep-dgx.json`, `sweep-dbc.json`: [CLS] norm at hidden state 12):
+
+| arm | before | after | batches |
+|---|---|---|---|
+| retrieval off (dgx) | 18,366 | 9 → 55 at hidden state 12 | 326 → 398 |
+| retrieval on (dgx, to 500) | 19,330 | 10,869–13,256 at 439–500, not crossed | – |
+| retrieval on (dbc, to 1,100) | 10,292 at 901, 2,281 at 955 | 65 at 1,003 | 955 → 1,003 |
+
+**How** (`gate.json`, `dynamics-*.json`): layer 11's own weights change unit 924's input a by
+≤ 0.03; the [CLS] input to that MLP rotates (cosine to the init 0.997 → 0.295 across a4n's
+transition) and a falls from 134.6 to −2.3. The rotation builds through layers 5–10: [CLS]
+cosine to the init at hidden states 6 / 8 / 10 / 11, a4n at 398: 0.91 / 0.84 / 0.71 / 0.38.
+At the transition each encoder layer had moved 0.25–0.41% (relative Frobenius) from the init.
+Every step was clipped (round mean gradient norm 13–58, clip 1). Over 32 fixed validation rows
+through each checkpoint's own head: layer 11 took the largest answer-loss gradient at 5 of 6
+checkpoints and holds the largest AdamW first moment (0.095–0.152, the other layers
+0.010–0.090); 27–30% of the answer loss's gradient on the encoder output fell on [CLS] at the
+start, one token of ~100 (the retrieval loss's is all on it by construction). The retrieval loss
+is not what removes it: off, the collapse came earlier.
+
+**Graft** (`graft-b.json`, `sink-graft.json`, `views.json`): a7 with kai-1-multilingual's
+layers 11–21 and final norm (`forensics/graft.py`), untrained. [CLS] stays at 95 at hidden
+state 12: unit 924 reads a7's rotated input.
+
+| | B1 acc / AUC / noul AUC | labels.dev top-1 | renamed flips |
+|---|---|---|---|
+| graft, Laya's head | 0.560 / 0.803 / 0.684 | 0.532 (+0.093 [+0.035, +0.163] over a7) | 0.425 |
+| graft, a7's head | 0.490 / 0.682 / 0.661 | 0.433 | 0.492 |
+| a7 | 0.480 / 0.755 / 0.539 | 0.438 | 0.514 |
+| kai-1-multilingual | 0.690 / 0.851 / 0.723 | 0.583 | 0.369 |
+
+Not run: retrieval's query moved off the first token (a code change).

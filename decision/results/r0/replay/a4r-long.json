@@ -1,0 +1,488 @@
+{
+ "stage": "a4",
+ "init": {
+  "repo": "hanzoai/kai-1-multilingual",
+  "revision": "3119843b5261e34903f93d03813467524c57982e"
+ },
+ "sources": [
+  "ag_news",
+  "emotion",
+  "banking77",
+  "support_triage",
+  "email_spam",
+  "phishing",
+  "toxic_chat",
+  "jailbreak",
+  "rag_relevance",
+  "model_routing_domain",
+  "typed_decisions",
+  "massive",
+  "agent",
+  "function",
+  "swe",
+  "nemotron",
+  "clinc150",
+  "xnli",
+  "sst5",
+  "robust",
+  "codeswitch",
+  "boolq",
+  "mnli",
+  "code",
+  "control",
+  "skills",
+  "graph_typed",
+  "turbofan",
+  "rig",
+  "sysml",
+  "readiness",
+  "trade",
+  "testplan",
+  "arch"
+ ],
+ "manifest": "a3-d7a9a437cf484811/manifest.json",
+ "licenses": [
+  "GREEN",
+  "YELLOW",
+  "RED"
+ ],
+ "lang": null,
+ "takes": [
+  {
+   "suite": "ag_news",
+   "rows": 20000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "emotion",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "banking77",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "support_triage",
+   "rows": null,
+   "times": 2,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "email_spam",
+   "rows": 10000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "phishing",
+   "rows": 11000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "guardrails_jailbreak",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "moderation_toxicity",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "rag_relevance",
+   "rows": 24000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "model_routing_domain",
+   "rows": 6000,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "typed_decisions",
+   "rows": null,
+   "times": 4,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "massive",
+   "rows": 102000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": true
+  },
+  {
+   "suite": "clinc150",
+   "rows": 5000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "sst5",
+   "rows": null,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "xnli",
+   "rows": 3000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": true
+  },
+  {
+   "suite": "codeswitch",
+   "rows": 1000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": true
+  },
+  {
+   "suite": "function",
+   "rows": 700,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "resolve",
+   "rows": 400,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "action",
+   "rows": 400,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "nemotron",
+   "rows": 120,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "tool",
+   "rows": 700,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "risk",
+   "rows": 200,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "done",
+   "rows": 130,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "repo",
+   "rows": 110,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "shuffle",
+   "rows": 260,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "alias",
+   "rows": 130,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "swap",
+   "rows": 130,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "subset",
+   "rows": 190,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "near",
+   "rows": 190,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "boolq",
+   "rows": 1500,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "mnli",
+   "rows": 3000,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.file.gold",
+   "rows": 450,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.symbol.gold",
+   "rows": 300,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.test.silver",
+   "rows": 250,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.suspect.gold",
+   "rows": 120,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.affected.gold",
+   "rows": 300,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.context.gold",
+   "rows": 200,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.commit.gold",
+   "rows": 60,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.continue.gold",
+   "rows": 45,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.done.gold",
+   "rows": 20,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.repeat.gold",
+   "rows": 16,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.retry.gold",
+   "rows": 5,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.rollback.gold",
+   "rows": 40,
+   "times": 1,
+   "balance_class": true,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.strategy.gold",
+   "rows": 15,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.user.gold",
+   "rows": 11,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "control.user.silver",
+   "rows": 14,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.failure.gold",
+   "rows": 200,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "code.failure.silver",
+   "rows": 400,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "skills.select.silver",
+   "rows": 300,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "graph_typed",
+   "rows": 1400,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "turbofan",
+   "rows": 32,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "rig",
+   "rows": 32,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "sysml",
+   "rows": 95,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "readiness",
+   "rows": 80,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "trade",
+   "rows": 65,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "testplan",
+   "rows": 65,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  },
+  {
+   "suite": "arch",
+   "rows": 150,
+   "times": 1,
+   "balance_class": false,
+   "balance_lang": false
+  }
+ ],
+ "share": 1.0,
+ "frozen": [
+  "encoder.embeddings.tok_embeddings."
+ ],
+ "evidence": null,
+ "shared": false,
+ "mixed": 0.05,
+ "epochs": 2,
+ "lr_encoder": 3e-05,
+ "lr_head": 0.0001,
+ "weight_decay": 0.01,
+ "warmup": 0.03,
+ "cool": 0.3,
+ "decay": 1.0,
+ "budget": {
+  "ctx": 4096,
+  "options": 4096,
+  "head": 8192,
+  "keys": 16384,
+  "rows": 128,
+  "evidence": 16384
+ },
+ "retrieval": {
+  "wide": 1.0,
+  "whole": 0.2
+ },
+ "top_k": 160,
+ "max_len": 1024,
+ "clip": 1.0,
+ "seed": 1,
+ "eval_every": 25,
+ "eval_rows": 8,
+ "max_steps": 1100,
+ "outer": 1.0,
+ "momentum": 0.3,
+ "round": 30.0,
+ "grace": 5.0
+}
