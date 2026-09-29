@@ -11,9 +11,8 @@ enso/<study>/<condition>/<metric>. Everything a run touched stays in enso/data/<
 (gitignored): tasks.jsonl, grid.jsonl, router.jsonl, kai.jsonl, online.jsonl; each step
 resumes from its file. Without --kai the K conditions are skipped and say so.
 
-The thesis under test: Kai does not make Zen generate faster; it makes Zen generate less.
-So every condition reports decode tokens, KV GB-seconds and GPU-seconds per successful task
-beside success, and decode_tps (decode tokens per decode second), which Kai should not move.
+Every condition reports success, decode tokens, KV GB-seconds and GPU-seconds per successful
+task, and decode_tps (decode tokens per decode second).
 """
 import argparse
 import copy
@@ -169,15 +168,13 @@ def online(ts, tiers, cfg, data, cap, kai, picks, g):
             if keep_t is not None:
                 prev = attempt(t, "K4", 0, tier, level, keep_c, keep_t)
             out["K4"][t["id"]] = cellrun(prev) | {"kai_ms": ms}
-            if "content" not in prev:  # a row written without its reply: answer again for K5
-                prev = attempt(t, "K5", 0, tier, level, keep_c, keep_t)
             total, steps, cur_tier, cur_level = cellrun(prev) | {"kai_ms": ms}, [], tier, level
             for n in range(1, cfg["attempts"] + 1):
-                fin, rd = P.done(t, prev.get("content", ""), kai)
+                fin, rd = P.done(t, prev["content"], kai)
                 total["kai_ms"] += rd["ms"]
                 if fin or n == cfg["attempts"]:
                     break
-                steps.append({"tool": "answer", "result": prev.get("content", "")[:300]})
+                steps.append({"tool": "answer", "result": prev["content"][:300]})
                 st, rp = P.stuck(t, steps, kai)
                 total["kai_ms"] += rp["ms"]
                 if st:

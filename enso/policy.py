@@ -1,6 +1,6 @@
 """The study's conditions: what each one picks for a task.
 
-B0  Zen-only: the primary tier at the default budget, full context and tools (today).
+B0  Zen-only: the primary tier at the default budget, full context and tools.
 B1  static router: zen-svc's own request-shape rules (escalate.go isHardTask, classifyTask,
     wantsShortAnswer) as a tier and budget: hard -> large/deep, code -> medium/medium,
     short answer -> small/none, else medium/short.

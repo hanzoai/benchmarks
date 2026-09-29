@@ -6,7 +6,7 @@
     r = regret(g, best, picks)      # per task: $ over the oracle, and success lost
 
 The oracle is the cheapest successful cell by $ (ties: fewer GPU-seconds, then fewer decode
-tokens), never the largest that succeeded: the training target is "the least that works".
+tokens).
 """
 import statistics
 
