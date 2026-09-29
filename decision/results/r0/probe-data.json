@@ -1,0 +1,49 @@
+{
+ "sealed_units": 1387,
+ "splits": {
+  "train": {
+   "rows": 31801,
+   "by_source": {
+    "mnli": 3000,
+    "boolq": 3000,
+    "typed_decisions": 5485,
+    "sst5": 1500,
+    "ag_news": 1000,
+    "emotion": 1000,
+    "rag_relevance": 1000,
+    "toxic_chat": 1000,
+    "model_routing_domain": 500,
+    "arc": 3370,
+    "openbookqa": 4954,
+    "sciq": 2994,
+    "social_iqa": 2998
+   },
+   "dropped": {
+    "units": 0,
+    "near": 0
+   }
+  },
+  "val": {
+   "rows": 3862,
+   "by_source": {
+    "mnli": 300,
+    "boolq": 300,
+    "typed_decisions": 300,
+    "sst5": 300,
+    "ag_news": 300,
+    "emotion": 300,
+    "rag_relevance": 300,
+    "toxic_chat": 300,
+    "model_routing_domain": 263,
+    "arc": 300,
+    "openbookqa": 300,
+    "sciq": 300,
+    "social_iqa": 299
+   },
+   "dropped": {
+    "units": 0,
+    "near": 0
+   }
+  }
+ }
+}

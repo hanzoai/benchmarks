@@ -1,0 +1,381 @@
+{
+ "kai1": {
+  "label": "kai1",
+  "models_arg": "laya",
+  "id": "laya",
+  "binary": "/home/z/.cache/go-tmp/claude-1000/-home-z-work-typesafeai/06ba2f90-67b1-45cf-87d5-4ff63dddfa61/scratchpad/bin/decision-86c2690",
+  "commit": "86c2690",
+  "threads": 8,
+  "nice": 19,
+  "host": "dgx",
+  "models": {
+   "object": "list",
+   "data": [
+    {
+     "id": "laya",
+     "object": "model",
+     "backend": "kai",
+     "checkpoint": "hanzoai/kai-1",
+     "revision": "b50502c28537df49a3621f6fa543f9e8521e8a9c",
+     "sha256": "891102d372688fc2a094dac56a384bc537b87c63f21f9f3dac0be2b7cbc8d86c",
+     "calibration": "cal_ad93eae1cf0e34a6",
+     "device": "cpu",
+     "routes": [
+      "laya",
+      "laya-multilingual"
+     ]
+    },
+    {
+     "id": "laya-multilingual",
+     "object": "model",
+     "backend": "kai",
+     "checkpoint": "hanzoai/kai-1-multilingual",
+     "revision": "3119843b5261e34903f93d03813467524c57982e",
+     "sha256": "9d628fd971b700382ac6f65920a86f149777b2e748e0c955fb3b19695aa8f204",
+     "calibration": "cal_6ceaa0b335b599b1",
+     "device": "cpu"
+    }
+   ],
+   "models": []
+  },
+  "load_before": [
+   4.13525390625,
+   4.716796875,
+   6.02880859375
+  ],
+  "started": "2026-09-29T00:41:54+00:00",
+  "check": {
+   "questions": 100,
+   "argmax_agree": 100,
+   "max_abs_dp": 1.7178287907926304e-05,
+   "against": "laya",
+   "route": "recorded"
+  },
+  "load_after": [
+   7.2841796875,
+   9.1044921875,
+   7.7421875
+  ],
+  "finished": "2026-09-29T00:52:13+00:00"
+ },
+ "kai1-ml": {
+  "label": "kai1-ml",
+  "models_arg": "laya-multilingual",
+  "id": "laya-multilingual",
+  "binary": "/home/z/.cache/go-tmp/claude-1000/-home-z-work-typesafeai/06ba2f90-67b1-45cf-87d5-4ff63dddfa61/scratchpad/bin/decision-86c2690",
+  "commit": "86c2690",
+  "threads": 8,
+  "nice": 19,
+  "host": "dgx",
+  "models": {
+   "object": "list",
+   "data": [
+    {
+     "id": "laya-multilingual",
+     "object": "model",
+     "backend": "kai",
+     "checkpoint": "hanzoai/kai-1-multilingual",
+     "revision": "3119843b5261e34903f93d03813467524c57982e",
+     "sha256": "9d628fd971b700382ac6f65920a86f149777b2e748e0c955fb3b19695aa8f204",
+     "calibration": "cal_6ceaa0b335b599b1",
+     "device": "cpu"
+    }
+   ],
+   "models": []
+  },
+  "load_before": [
+   7.2841796875,
+   9.1044921875,
+   7.7421875
+  ],
+  "started": "2026-09-29T00:52:17+00:00",
+  "check": {
+   "questions": 100,
+   "argmax_agree": 100,
+   "max_abs_dp": 5.502203065832489e-06,
+   "against": "laya",
+   "route": "multilingual"
+  },
+  "load_after": [
+   10.29150390625,
+   9.51123046875,
+   8.17724609375
+  ],
+  "finished": "2026-09-29T00:56:08+00:00"
+ },
+ "a4": {
+  "label": "a4",
+  "models_arg": "/home/z/.cache/decision-a2/runs/a4",
+  "id": "kai",
+  "binary": "/home/z/.cache/go-tmp/claude-1000/-home-z-work-typesafeai/06ba2f90-67b1-45cf-87d5-4ff63dddfa61/scratchpad/bin/decision-86c2690",
+  "commit": "86c2690",
+  "threads": 8,
+  "nice": 19,
+  "host": "dgx",
+  "models": {
+   "object": "list",
+   "data": [
+    {
+     "id": "kai",
+     "object": "model",
+     "backend": "kai",
+     "checkpoint": "a4",
+     "sha256": "dcd35aa61f0123063d366cccde37f8fc052c6c4be04a80941124410113f4b54e",
+     "calibration": "cal_44136fa355b3678a",
+     "device": "cpu"
+    }
+   ],
+   "models": [
+    {
+     "name": "kai",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state.",
+     "release_date": "2026-09-27"
+    },
+    {
+     "name": "kai-dcd35aa61f01",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state. These weights: sha256 dcd35aa61f0123063d366cccde37f8fc052c6c4be04a80941124410113f4b54e.",
+     "release_date": "2026-09-27"
+    }
+   ]
+  },
+  "load_before": [
+   9.86767578125,
+   9.43603515625,
+   8.16015625
+  ],
+  "started": "2026-09-29T00:56:13+00:00",
+  "check": {
+   "questions": 100,
+   "argmax_agree": 98,
+   "max_abs_dp": 0.03141973947496457,
+   "against": "kai-a4",
+   "route": "recorded"
+  },
+  "load_after": [
+   11.65380859375,
+   10.02880859375,
+   9.4052734375
+  ],
+  "finished": "2026-09-29T01:02:58+00:00"
+ },
+ "a5": {
+  "label": "a5",
+  "models_arg": "/home/z/.cache/decision-a2/runs/a5",
+  "id": "kai",
+  "binary": "/home/z/.cache/go-tmp/claude-1000/-home-z-work-typesafeai/06ba2f90-67b1-45cf-87d5-4ff63dddfa61/scratchpad/bin/decision-86c2690",
+  "commit": "86c2690",
+  "threads": 8,
+  "nice": 19,
+  "host": "dgx",
+  "models": {
+   "object": "list",
+   "data": [
+    {
+     "id": "kai",
+     "object": "model",
+     "backend": "kai",
+     "checkpoint": "a5",
+     "sha256": "df1c16a2fef7ec93f2b34a6a194f6dc3c2eee70e936473b802151543c5d46e83",
+     "calibration": "cal_47711d44267fdbdd",
+     "device": "cpu"
+    }
+   ],
+   "models": [
+    {
+     "name": "kai",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state.",
+     "release_date": "2026-09-27"
+    },
+    {
+     "name": "kai-df1c16a2fef7",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state. These weights: sha256 df1c16a2fef7ec93f2b34a6a194f6dc3c2eee70e936473b802151543c5d46e83.",
+     "release_date": "2026-09-27"
+    }
+   ]
+  },
+  "load_before": [
+   11.681640625,
+   10.06201171875,
+   9.41943359375
+  ],
+  "started": "2026-09-29T01:03:06+00:00",
+  "check": {
+   "questions": 100,
+   "argmax_agree": 100,
+   "max_abs_dp": 0.09777114155215222,
+   "against": "kai-a5",
+   "route": "recorded"
+  },
+  "load_after": [
+   18.38330078125,
+   19.34619140625,
+   13.837890625
+  ],
+  "finished": "2026-09-29T01:07:45+00:00"
+ },
+ "a6": {
+  "label": "a6",
+  "models_arg": "/home/z/.cache/decision-a2/runs/a6",
+  "id": "kai",
+  "binary": "/home/z/.cache/go-tmp/claude-1000/-home-z-work-typesafeai/06ba2f90-67b1-45cf-87d5-4ff63dddfa61/scratchpad/bin/decision-86c2690",
+  "commit": "86c2690",
+  "threads": 8,
+  "nice": 19,
+  "host": "dgx",
+  "models": {
+   "object": "list",
+   "data": [
+    {
+     "id": "kai",
+     "object": "model",
+     "backend": "kai",
+     "checkpoint": "a6",
+     "sha256": "a211cc70103825bfbc9bfb0fbe970f8bf08da2efe0953cd8045a3cd07397f4bf",
+     "calibration": "cal_fb8319a62914b86c",
+     "device": "cpu"
+    }
+   ],
+   "models": [
+    {
+     "name": "kai",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state.",
+     "release_date": "2026-09-28"
+    },
+    {
+     "name": "kai-a211cc701038",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state. These weights: sha256 a211cc70103825bfbc9bfb0fbe970f8bf08da2efe0953cd8045a3cd07397f4bf.",
+     "release_date": "2026-09-28"
+    }
+   ]
+  },
+  "load_before": [
+   17.2314453125,
+   19.09130859375,
+   13.78466796875
+  ],
+  "started": "2026-09-29T01:07:49+00:00",
+  "check": {
+   "questions": 100,
+   "argmax_agree": 100,
+   "max_abs_dp": 0.060487414263909745,
+   "against": "kai-a6",
+   "route": "recorded"
+  },
+  "load_after": [
+   27.43896484375,
+   19.6845703125,
+   14.87939453125
+  ],
+  "finished": "2026-09-29T01:13:24+00:00"
+ },
+ "a7": {
+  "label": "a7",
+  "models_arg": "/home/z/.cache/decision-a2/runs/a7",
+  "id": "kai",
+  "binary": "/home/z/.cache/go-tmp/claude-1000/-home-z-work-typesafeai/06ba2f90-67b1-45cf-87d5-4ff63dddfa61/scratchpad/bin/decision-86c2690",
+  "commit": "86c2690",
+  "threads": 8,
+  "nice": 19,
+  "host": "dgx",
+  "models": {
+   "object": "list",
+   "data": [
+    {
+     "id": "kai",
+     "object": "model",
+     "backend": "kai",
+     "checkpoint": "a7",
+     "sha256": "0834a74f2d140642a453373da09e5a128e3d2c8d9e8bb1dcaf86d7210a4ecdfc",
+     "calibration": "cal_e23c27a1f768bff7",
+     "device": "cpu"
+    }
+   ],
+   "models": [
+    {
+     "name": "kai",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state.",
+     "release_date": "2026-09-28"
+    },
+    {
+     "name": "kai-0834a74f2d14",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state. These weights: sha256 0834a74f2d140642a453373da09e5a128e3d2c8d9e8bb1dcaf86d7210a4ecdfc.",
+     "release_date": "2026-09-28"
+    }
+   ]
+  },
+  "load_before": [
+   25.64208984375,
+   19.4404296875,
+   14.826171875
+  ],
+  "started": "2026-09-29T01:13:31+00:00",
+  "check": {
+   "questions": 100,
+   "argmax_agree": 100,
+   "max_abs_dp": 0.05163444834977737,
+   "against": "kai-a7",
+   "route": "recorded"
+  },
+  "load_after": [
+   14.68798828125,
+   20.44775390625,
+   16.41455078125
+  ],
+  "finished": "2026-09-29T01:16:59+00:00"
+ },
+ "ties2": {
+  "label": "ties2",
+  "models_arg": "/home/z/.cache/decision-a2/runs/ties2",
+  "id": "kai",
+  "binary": "/home/z/.cache/go-tmp/claude-1000/-home-z-work-typesafeai/06ba2f90-67b1-45cf-87d5-4ff63dddfa61/scratchpad/bin/decision-86c2690",
+  "commit": "86c2690",
+  "threads": 8,
+  "nice": 19,
+  "host": "dgx",
+  "models": {
+   "object": "list",
+   "data": [
+    {
+     "id": "kai",
+     "object": "model",
+     "backend": "kai",
+     "checkpoint": "ties2",
+     "sha256": "f248d34b419b0b1886b5572c9dd474b8df24028f328f3e507b9211199acc5c97",
+     "calibration": "cal_e23c27a1f768bff7",
+     "device": "cpu"
+    }
+   ],
+   "models": [
+    {
+     "name": "kai",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state.",
+     "release_date": "2026-09-28"
+    },
+    {
+     "name": "kai-f248d34b419b",
+     "description": "Kai, Hanzo's decision model: calibrated noul, choice and score answers about a state. These weights: sha256 f248d34b419b0b1886b5572c9dd474b8df24028f328f3e507b9211199acc5c97.",
+     "release_date": "2026-09-28"
+    }
+   ]
+  },
+  "load_before": [
+   15.59423828125,
+   20.5400390625,
+   16.46630859375
+  ],
+  "started": "2026-09-29T01:17:05+00:00",
+  "check": {
+   "questions": 100,
+   "argmax_agree": 93,
+   "max_abs_dp": 0.9755849426972799,
+   "against": "kai-a7",
+   "route": "recorded"
+  },
+  "load_after": [
+   9.5009765625,
+   24.31298828125,
+   20.349609375
+  ],
+  "finished": "2026-09-29T01:25:20+00:00"
+ }
+}

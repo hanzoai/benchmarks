@@ -1,0 +1,38 @@
+{
+ "ml, Laya's head": {
+  "reference": "results/laya multilingual, CPU f32",
+  "questions": 40,
+  "argmax_agree": 40,
+  "max_abs_dp": 3.1888484954833984e-06
+ },
+ "kai1, Laya's head": {
+  "reference": "results/laya english, CPU f32",
+  "questions": 40,
+  "argmax_agree": 40,
+  "max_abs_dp": null
+ },
+ "a4, Kai's head": {
+  "reference": "results/kai-a4, cpu f32",
+  "questions": 32,
+  "argmax_agree": 32,
+  "max_abs_dp": 2.9206275939941406e-06
+ },
+ "a5, Kai's head": {
+  "reference": "results/kai-a5, metal bf16",
+  "questions": 32,
+  "argmax_agree": 32,
+  "max_abs_dp": 0.024202272295951843
+ },
+ "a6, Kai's head": {
+  "reference": "results/kai-a6, metal bf16",
+  "questions": 40,
+  "argmax_agree": 40,
+  "max_abs_dp": 0.047317296266555786
+ },
+ "a7, Kai's head": {
+  "reference": "results/kai-a7, metal bf16",
+  "questions": 40,
+  "argmax_agree": 40,
+  "max_abs_dp": 0.012379646301269531
+ }
+}
