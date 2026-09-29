@@ -70,7 +70,7 @@ EXAMINE = 400  # candidates per stratum: the head of its seeded shuffle
 # held.support_triage generation.
 API = "https://api.hanzo.ai/v1/chat/completions"
 GEN_MODEL, CHECK_MODEL = "zen6", "zen5"
-PER_QUEUE, BATCH, KEEP = 50, 2, 40  # support/generate.jsonl's first calls ran at 60 per queue, 5 per call
+PER_QUEUE, BATCH, KEEP = 50, 2, 40
 BUDGET = 480  # seconds; a token lives about 11 minutes
 INDUSTRIES = ["online retail", "software as a service", "hospital and clinics", "retail banking",
               "telecommunications", "logistics and shipping", "university", "law firm", "manufacturing",
