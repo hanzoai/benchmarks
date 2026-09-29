@@ -8,9 +8,9 @@ Scored on the frozen harness beside Laya and Jev. In `scores.json` and `table.md
 | init | `hanzoai/kai-1-multilingual@3119843b` (mmBERT-base) |
 | data | build `a3-d7a9a437cf484811`. The barrier caught 547 of 1,185 typed-decisions train records (near-duplicates of test states); Laya's typed checkpoint trained on all of them |
 | fit | stage `a4`: 2 epochs, 32,681 batches, dbc (Metal bf16) and evo (ROCm bf16, `--scale 0.25`) |
-| calibration | `train calibrate` on the build's calibration split (`kai.json`; the original is `kai.json.orig` on dbc) |
+| calibration | `train calibrate` on the build's calibration split |
 | preds | `bench preds` (dbc `target-score` build), 11,099 questions |
-| scores | `harness/merge.py`, unchanged, run in a scratch tree with `preds.json.gz` as `results/kai/preds.json.gz` |
+| scores | `harness/merge.py` over `preds.json.gz` |
 
 ## Accuracy against Laya and Jev
 
@@ -44,6 +44,6 @@ question of the state, choice / noul / score in parentheses:
 | Laya typed | 0.766 (0.733 / 0.857 / 0.723) | 0.773 (0.744 / 0.835 / 0.747) | 0.756 (0.719 / 0.888 / 0.688) |
 | Jev | 0.736 (0.732 / 0.785 / 0.701) | 0.770 (0.784 / 0.765 / 0.764) | 0.686 (0.660 / 0.814 / 0.612) |
 
-Laya scores the same with and without the siblings, so its lead is not memorized from them; Kai
-falls on exactly the states whose siblings the barrier removed from its training.
+Laya scores the same with and without the siblings, so its lead is not memorized; Kai falls on
+the states whose siblings the barrier removed from its training.
 

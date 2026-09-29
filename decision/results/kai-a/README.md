@@ -1,24 +1,22 @@
 # kai-a: Kai stage A, 1 epoch, mmBERT-base; retrieval uncentered
 
-The first Kai stage-A checkpoint, scored on the frozen harness the way `kai-en` was, beside Laya,
-Jev and kai-en. In `scores.json` and `table.md` the backend `kai` is this checkpoint. It predates
-retrieval centering (`hanzoai/decision` fe4d636), so main's `Decider` cannot load it; every step
-here ran the build that trained it, 96150d1.
+Scored on the frozen harness beside Laya, Jev and kai-en. In `scores.json` and `table.md` the
+backend `kai` is this checkpoint. It has no retrieval centers; every step ran the build that
+trained it, `hanzoai/decision` 96150d1.
 
 | | |
 |---|---|
 | checkpoint | `dbc:scratch/decision/runs/a` (not published), `model.safetensors` SHA-256 `6c77ab57873d303faa2191175047c7f53e5df228ac49209f6f84e6ec36425b98` |
 | init | `hanzoai/kai-1-multilingual@3119843b` (mmBERT-base, 22 layers, d 768, 256k vocabulary, token embeddings frozen); the ordinal and retrieval heads fresh |
 | data | stage A build `a-189e99d2fd11f7be` (`train stage a`: GREEN, YELLOW and RED, barriered against the harness): 33 sources, 3,686,475 train rows; the harness's English suites other than RAG (nine sources, typed decisions among them) take 6.8% of the draws (typed decisions 1.6%), RAG relevance 10.8%, MASSIVE 11.3% |
-| fit | `hanzoai/decision` 96150d1 with 8704424's stage file: 1 epoch, 91,899 batches, 6.2 h, 71 rounds of 300 s over dbc (Metal bf16), evo (ROCm bf16) and dgx (CUDA bf16, left after round 59); `max_len` 1024; a choice over 64 options trains on a sample of them, and inference narrows a choice over 32 by retrieval |
-| calibration | 96150d1 `train calibrate`: one temperature per bucket, fit on the build's calibration split (`validation/calibration`, 21,605 records, 47,081 questions), 1,535 s; the original is `kai.uncal.json` beside `kai.json` |
+| fit | `hanzoai/decision` 96150d1 with 8704424's stage file: 1 epoch, 91,899 batches, 6.2 h, 71 rounds of 300 s over dbc (Metal bf16), evo (ROCm bf16) and dgx (CUDA bf16, through round 59); `max_len` 1024; a choice over 64 options trains on a sample of them, and inference narrows a choice over 32 by retrieval |
+| calibration | 96150d1 `train calibrate`: one temperature per bucket, fit on the build's calibration split (`validation/calibration`, 21,605 records, 47,081 questions), 1,535 s |
 | preds | 96150d1 `bench preds`: Metal bf16 on dbc, 11,099 questions in 67 s |
-| scores | `harness/merge.py`, unchanged, run in a scratch tree with `preds.json.gz` as `results/kai/preds.json.gz` |
-| speed | 96150d1 `bench speed`, Metal bf16 on dbc, 20 timed rounds per size |
+| scores | `harness/merge.py` over `preds.json.gz` |
 | gate | 96150d1 `bench gate --baseline laya`: 100 cases per suite, seed 13, `results/laya/parity.json` |
 
 Files: `preds.json.gz` (harness preds format), `scores.json` and `table.md` (merge.py's output),
-`speed.json`, `gate.json` (the verdict), `checkpoint.json` (the run's spec, mixture, val,
+`gate.json` (the verdict), `checkpoint.json` (the run's spec, mixture, val,
 calibration and temperatures).
 
 ## Calibration
@@ -32,9 +30,8 @@ calibration and temperatures).
 | noul:2 | 21,856 | 1.072 | 0.585 → 0.585 |
 | score:* | 4,825 | 1.918 | 1.629 → 1.472 |
 
-The score bucket's temperature is off the bound now (kai-en's sat at 8.0 with log loss 17.8). The build's
-`calibrate` records the split as "val (carved from train)"; stage A's build has no val split, so
-the rows are its `calibration` split.
+The score bucket's temperature is off the bound (kai-en: 8.0, log loss 17.8). `checkpoint.json`
+names the split "val (carved from train)"; it is the build's `calibration` split.
 
 ## Harness
 
@@ -81,21 +78,16 @@ kai-en at three decimals: + above, − below, = equal. kai-en's numbers are
 - **Banking77** (0.245; Laya 0.425, Jev 0.835, kai-en 0.917). 77 options is over the stage's
   64, so it trained on a sample of them and answers by retrieval's top 32, then the head. Retrieval
   is not the loss: gold stays in its top 32 for 98.5% of questions (median rank 2, top 5 0.81).
-  The head is: top 1 0.26, macro F1 0.073. It never trained on retrieval's own negatives. Val
-  rose over the run (0.216 at 24,082 batches, 0.474 at 84,900) and ended at 0.429.
+  The head is: top 1 0.26, macro F1 0.073. It never trained on retrieval's own negatives.
 - **Jailbreak** (0.630; Laya 0.705). Both safety suites read toxic-chat prompts, and the train
-  split holds 54 jailbreak positives, balanced up to half of 6,000 draws. Val swung between the
-  two over the run (jailbreak / toxicity 0.965 / 0.798 at 49,071, 0.972 / 0.686 at 84,900,
-  0.707 / 0.909 at the end); at the final checkpoint it flags 217 of 400 prompts against 91 gold.
-- **RAG relevance** (0.510; Laya 0.625). At chance: val 0.47–0.53 from 13,101 batches on
-  (0.625 at 2,325), and on the harness it answers one side for 316 of 400 against gold 200 / 200,
-  though the MS MARCO train rows are balanced and take 10.8% of the draws. The cause is not
-  established here.
+  split holds 54 jailbreak positives, balanced up to half of 6,000 draws. It flags 217 of 400
+  prompts against 91 gold.
+- **RAG relevance** (0.510; Laya 0.625). At chance: it answers one side for 316 of 400 against
+  gold 200 / 200, though the MS MARCO train rows are balanced and take 10.8% of the draws.
 - **AG News, email spam, phishing, support triage, MASSIVE English** (0.02–0.15 under Laya).
   Each of the four app suites is 0.5–0.9% of the draws (MASSIVE's 11.3% spreads over 51
   locales), for one epoch, on a smaller encoder (22 layers, d 768, against ModernBERT-large's 28,
-  1024); kai-en saw only the harness suites, in English, twice. Val AG News rose from 0.807 at
-  24,082 batches to 0.860 at 84,900 and ended at 0.845.
+  1024); kai-en saw only the harness suites, in English, twice.
 
 ## MASSIVE by language
 
@@ -193,22 +185,6 @@ preds under merge.py's rule.
 | choice | 0 / 600 | 0 / 600 | 1 / 600 | 0 / 600 |
 | noul | 0 / 600 | 0 / 600 | 0 / 600 | 0 / 600 |
 | score | 0 / 800 | 0 / 800 | 5 / 800 | 584 / 800 |
-
-## Speed
-
-One call is one typed-decision state with N of the harness's 130 distinct questions (`bench
-speed`); load 0.4 s, peak footprint 3.9 GB. dbc was quiet: its 1-minute load average was 3.7
-before and 3.3 after. p95 at 100 and 500 is still about twice p50. kai-en's p50 is in the last
-column.
-
-| questions | p50 ms | p95 ms | questions/s | kai-en p50 ms |
-|---|---|---|---|---|
-| 1 | 24.9 | 26.5 | 42.2 | 48.2 |
-| 5 | 49.7 | 56.7 | 95.7 | 122.4 |
-| 10 | 82.0 | 112.3 | 118.4 | 184.3 |
-| 50 | 299.4 | 380.7 | 157.9 | 751.9 |
-| 100 | 627.2 | 1,320.0 | 133.2 | 1,534.4 |
-| 500 | 5,673.8 | 10,913.1 | 79.5 | 12,830.6 |
 
 ## Gate against Laya
 

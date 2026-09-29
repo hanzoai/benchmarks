@@ -4,7 +4,7 @@ Scored on the frozen harness beside Laya and Jev. In `scores.json` the backend `
 
 | | |
 |---|---|
-| checkpoint | `dbc:scratch/decision/runs/a8` (not published), `model.safetensors` SHA-256 `see checkpoint` |
+| checkpoint | `dbc:scratch/decision/runs/a8` (not published), `model.safetensors` SHA-256 `0cfeef05c879d7f24bbde275a6c23e85e80b6baf06cf9311d529010688d4a697` |
 | stage | `a8`: 1 epoch, `ordinal: false`, a7's takes plus synthetic tickets, HarmBench and JailbreakBench, rated and multiple-choice sets converted to score and choice questions; dbc + evo + dgx, 38,055 batches |
 | data | build `a8-e9608077b653178d` |
 | calibration | `train calibrate` on the build's calibration split |
@@ -36,14 +36,6 @@ Typed decisions by question type (Kai / Laya typed / Jev): choice 0.722 / 0.733 
 
 `bench gate` on 100 drawn cases a suite: Laya reject (harness/app.support_triage); Jev reject (harness/app.moderation_toxicity, harness/typed_decisions, harness/massive.en, harness/massive.he, harness/massive.hu, harness/massive.it, harness/massive.ka, harness/massive.km, harness/massive.ko, harness/massive.ml, harness/massive.sv, harness/massive.ta, harness/massive.te, harness/massive.tr).
 
-## By training sibling
-
-`harness/siblings.py` over the a3 build's barrier (see `../kai-a4`):
-
-```
-items 400, with a sibling 0, without 400
-```
-
 ## Acceptance against a6 and a7
 
-Reject: support triage 0.435, jailbreak 0.920, typed decisions 0.761 and AG News 0.943 are each under their floor (0.505, 0.942, 0.768, 0.951), and Banking77 0.897 falls 2.5 points under a6 and 1.0 under a7 (0.5 allowed). Toxicity +1.7 and RAG relevance +1.5 over a7. The next stage starts from a7 without a8's broad additions.
+Reject: support triage 0.435, jailbreak 0.920, typed decisions 0.761 and AG News 0.943 are each under their floor (0.505, 0.942, 0.768, 0.951), and Banking77 0.897 falls 2.5 points under a6 and 1.0 under a7 (0.5 allowed). Toxicity +1.7 and RAG relevance +1.5 over a7.

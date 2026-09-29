@@ -25,7 +25,7 @@ uv run --with numpy python harness/merge.py  # results/scores.json and results/t
 uv run --with numpy python -m unittest discover -s harness   # merge.py's metrics on hand-computed cases
 ```
 
-Kai is run by `bench` in `hanzoai/decision`, on the same states, and `bench` scores and times all three with no Python:
+`bench` in `hanzoai/decision` runs Kai on the same states and scores and times all three:
 
 ```sh
 bench preds --model <dir | owner/name[@rev]> --states results/states.json.gz --out results/kai/preds.json.gz
@@ -35,22 +35,23 @@ bench speed --states results/states.json.gz --results capability/results --who k
 bench tex --harness . --out <paper>/kai/tables                                       # the paper's tables
 ```
 
-`bench score` reproduces `merge.py`'s `scores.json` value for value (checked on `results/kai-a/`: 7,454 of 7,461 equal), except `acc_at_50_coverage` where a confidence tie straddles the half: numpy's argsort breaks ties by machine, `bench` by case order (7 of 378, by at most 0.025).
+`bench score` equals `merge.py`'s `scores.json` (7,454 of 7,461 values on `results/kai-a/`) except `acc_at_50_coverage` where a confidence tie straddles the half: numpy's argsort orders ties by machine, `bench` by case order (7 of 378, at most 0.025).
 
 ## Results
 
 | Path | Backend | Weights / model |
 |---|---|---|
 | `results/laya/` | Laya 0.3.20 reference runtime, CPU f32 | `hanzoai/kai-1@b50502c2`; the SHA-256 of all three `model.safetensors` equals `convaiinnovations/laya@55cf4c4e`, so these are Laya's results |
-| `results/jev/` | OpenRouter Decisions API | `typesafe/jev-1.13`, served as `typesafe/jev-1.13-20260917`, 2026-09-24; the full run cost $0.25 |
+| `results/jev/` | OpenRouter Decisions API | `typesafe/jev-1.13`, served as `typesafe/jev-1.13-20260917`; the full run cost $0.25 |
 | `results/questions.json.gz` | the question set | every question with its gold label, in harness order |
 | `results/states.json.gz` | the question set with states | `[state, questions, gold]` per case, in harness order; `harness/states.py` writes it from the same builders and checks it reproduces `questions.json.gz` |
 | `results/laya/preds.json.gz` | Laya 0.3.20 reference runtime, CPU f32 | `three_way.py kai` on all 62 suites: every question under each kai-1 checkpoint, and the checkpoint Laya's router picks per case |
 | `results/kai/preds.json.gz` | Kai, hanzo-ml | `bench preds`: one factorized Kai checkpoint's probability vectors; `merge.py` scores it when present |
-| `results/kai-en/` | Kai factorized head, English baseline (not Kai), hanzo-ml, Metal bf16 | kai-1-agent trained 2 epochs on the harness train splits in English (`hanzoai/decision` 7f735f6), calibrated on its val split; its preds, `merge.py` scores beside Laya and Jev, and `bench speed`; see its README |
-| `results/kai-a/` | Kai stage A, 1 epoch, mmBERT-base; retrieval uncentered; hanzo-ml, Metal bf16 | kai-1-multilingual trained 1 epoch on stage A's build (`hanzoai/decision` 96150d1, 91,899 batches over dbc, evo and dgx), calibrated on the build's calibration split; its preds, `merge.py` scores beside Laya, Jev and kai-en, `bench speed`, and `bench gate` against Laya (reject); see its README |
+| `results/kai-en/` | Kai's factorized head, English baseline (not Kai), hanzo-ml, Metal bf16 | kai-1-agent trained 2 epochs on the harness train splits in English (`hanzoai/decision` 7f735f6); preds and scores; see its README |
+| `results/kai-a/` | Kai stage A, 1 epoch, mmBERT-base, hanzo-ml, Metal bf16 | kai-1-multilingual trained 1 epoch on stage A's build (`hanzoai/decision` 96150d1); preds, scores and `bench gate` against Laya; see its README |
+| `results/kai-a4/` … `kai-a8/` | Kai stages a4–a8 | preds, scores and gates against Laya and Jev; see each README |
 | `results/scores.json`, `results/table.md` | all of the above | `merge.py`: Kai, Laya and Jev side by side on every suite, with accuracy, macro F1, ECE, Brier, log loss, risk-coverage (AURC and risk at 10–100% coverage), the rate of zero probability on gold, score MAE, and MASSIVE by language |
 | `results/r0/` | kai-1, kai-1-multilingual, Kai a4–a7 and the ties2 merge on jevlab B1, B3, B3b, with the encoder and the head taken apart | `hanzoai/decision` `forensics/`: the runtime on dgx's CPU for the lineage, a torch port of its layouts and heads for head swaps, frozen-encoder probes, CKA, massive activations, weight geometry and the open-label dev probes; see its README |
-| `held/` | `held.phishing`, `held.support_triage` | the frozen `app.phishing` and `app.support_triage` questions on rows outside Laya's training data, 400 cases each, with Laya's predictions; see `held/README.md` |
+| `held/` | `held.phishing`, `held.support_triage` | the frozen `app.phishing` and `app.support_triage` questions on rows outside Laya's training data, 400 cases each, with Laya's and Kai a5's predictions; see `held/README.md` |
 
-Laya's row in the table is the router's pick per case; its typed-decisions checkpoint, which the router does not pick, is listed beside it on typed decisions. Scoring `results/laya/preds.json.gz` through `merge.py` reproduces `results/laya/typed_decisions.json` (upstream Part B) to the fourth decimal for all three checkpoints. Kai checkpoints trained in Rust (hanzo-ml) are scored against these baselines on the same question set.
+Laya's row in the table is the router's pick per case; its typed-decisions checkpoint, which the router does not pick, is listed beside it on typed decisions. Scoring `results/laya/preds.json.gz` through `merge.py` reproduces `results/laya/typed_decisions.json` (upstream Part B) to the fourth decimal for all three checkpoints.

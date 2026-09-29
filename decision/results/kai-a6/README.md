@@ -4,7 +4,7 @@ Scored on the frozen harness beside Laya and Jev. In `scores.json` the backend `
 
 | | |
 |---|---|
-| checkpoint | `dbc:scratch/decision/runs/a6` (not published), `model.safetensors` SHA-256 `see checkpoint` |
+| checkpoint | `dbc:scratch/decision/runs/a6` (not published), `model.safetensors` SHA-256 `a211cc70103825bfbc9bfb0fbe970f8bf08da2efe0953cd8045a3cd07397f4bf` |
 | stage | `a6`: 1 epoch, `ordinal: false`, typed x10 on the official split, support triage x5, jailbreak x2, all spam rows, MASSIVE 300k, score questions as a choice over their levels with the ranked probability score; dbc + evo + dgx, 30,615 batches |
 | data | build `a5-eb438a72b2fc6853` |
 | calibration | `train calibrate` on the build's calibration split |
@@ -38,11 +38,11 @@ Typed decisions by question type (Kai / Laya typed / Jev): choice 0.722 / 0.733 
 
 ## By training sibling
 
-`harness/siblings.py` over the a3 build's barrier (see `../kai-a4`):
+`harness/siblings.py` over the a3 build's barrier (see `../kai-a4`). Accuracy over every
+question of the state, choice / noul / score in parentheses:
 
-```
-items 400, with a sibling 165, without 235
-kai-a6                 all (0.75, {'choice': 0.722, 'noul': 0.83, 'score': 0.711})   without siblings (0.734, {'choice': 0.749, 'noul': 0.782, 'score': 0.685})   with (0.773, {'choice': 0.684, 'noul': 0.901, 'score': 0.748})
-laya-typed             all (0.766, {'choice': 0.733, 'noul': 0.857, 'score': 0.723})   without siblings (0.773, {'choice': 0.744, 'noul': 0.835, 'score': 0.747})   with (0.756, {'choice': 0.719, 'noul': 0.888, 'score': 0.688})
-jev                    all (0.736, {'choice': 0.732, 'noul': 0.785, 'score': 0.701})   without siblings (0.77, {'choice': 0.784, 'noul': 0.765, 'score': 0.764})   with (0.686, {'choice': 0.66, 'noul': 0.814, 'score': 0.612})
-```
+| | all 400 | without a sibling (235) | with a sibling (165) |
+|---|---|---|---|
+| Kai a6 | 0.750 (0.722 / 0.830 / 0.711) | 0.734 (0.749 / 0.782 / 0.685) | 0.773 (0.684 / 0.901 / 0.748) |
+| Laya typed | 0.766 (0.733 / 0.857 / 0.723) | 0.773 (0.744 / 0.835 / 0.747) | 0.756 (0.719 / 0.888 / 0.688) |
+| Jev | 0.736 (0.732 / 0.785 / 0.701) | 0.770 (0.784 / 0.765 / 0.764) | 0.686 (0.660 / 0.814 / 0.612) |

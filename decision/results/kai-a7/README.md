@@ -4,7 +4,7 @@ Scored on the frozen harness beside Laya and Jev. In `scores.json` the backend `
 
 | | |
 |---|---|
-| checkpoint | `dbc:scratch/decision/runs/a7` (not published), `model.safetensors` SHA-256 `see checkpoint` |
+| checkpoint | `dbc:scratch/decision/runs/a7` (not published), `model.safetensors` SHA-256 `0834a74f2d140642a453373da09e5a128e3d2c8d9e8bb1dcaf86d7210a4ecdfc` |
 | stage | `a7`: 1 epoch, `ordinal: false`, AG News whole, support triage x2, jailbreak x2 balanced by class, typed x10 on the official split, MASSIVE 300k, score questions as a choice over their levels with the ranked probability score; dbc + evo + dgx, 30,928 batches |
 | data | build `a5-eb438a72b2fc6853` |
 | calibration | `train calibrate` on the build's calibration split |
@@ -35,14 +35,6 @@ Typed decisions by question type (Kai / Laya typed / Jev): choice 0.723 / 0.733 
 ## Gates
 
 `bench gate` on 100 drawn cases a suite: Laya reject (harness/app.support_triage); Jev reject (harness/app.moderation_toxicity, harness/typed_decisions, harness/massive.de, harness/massive.he, harness/massive.hi, harness/massive.hu, harness/massive.it, harness/massive.ka, harness/massive.ko, harness/massive.ml, harness/massive.ro, harness/massive.ta, harness/massive.te).
-
-## By training sibling
-
-`harness/siblings.py` over the a3 build's barrier (see `../kai-a4`):
-
-```
-items 400, with a sibling 0, without 400
-```
 
 ## Acceptance against a6
 

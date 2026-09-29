@@ -1,8 +1,7 @@
 # kai-en: the English baseline of Kai's factorized head
 
-Not Kai. This is the first checkpoint of the factorized option head trained in Rust
-(`hanzoai/decision`), in English only, scored on the frozen harness so later stages have a
-baseline. In `scores.json` and `table.md` the backend `kai` is this checkpoint.
+Not Kai: the factorized option head trained in Rust (`hanzoai/decision`), in English only,
+scored on the frozen harness. In `scores.json` and `table.md` the backend `kai` is this checkpoint.
 
 | | |
 |---|---|
@@ -12,11 +11,10 @@ baseline. In `scores.json` and `table.md` the backend `kai` is this checkpoint.
 | fit | `hanzoai/decision` 7f735f6, `train fit`: 2 epochs, 53,322 steps, 7.9 h, Metal bf16 on dbc (M4 Max) |
 | calibration | that build's `train calibrate`: one temperature per bucket, fit on the val split carved from train (11,966 rows) |
 | preds | `hanzoai/decision` 19838e2, `bench preds`: Metal bf16 on dbc, 11,099 questions in 141 s |
-| scores | `harness/merge.py`, unchanged, run in a scratch tree with `preds.json.gz` as `results/kai/preds.json.gz` |
-| speed | `bench speed` at 19838e2, Metal bf16 on dbc, 20 timed rounds per size |
+| scores | `harness/merge.py` over `preds.json.gz` |
 
 Files: `preds.json.gz` (harness preds format), `scores.json` and `table.md` (merge.py's output),
-`speed.json`, `checkpoint.json` (the run's spec, mixture, val, calibration and temperatures).
+`checkpoint.json` (the run's spec, mixture, val, calibration and temperatures).
 
 ## Calibration
 
@@ -29,8 +27,8 @@ Files: `preds.json.gz` (harness preds format), `scores.json` and `table.md` (mer
 | noul:2 | 5,418 | 1.524 | 0.397 → 0.386 |
 | score:* | 176 | 8.000 (bound) | 20.93 → 17.85 |
 
-The score head (cumulative link) is not learned: its temperature sits at the search bound and
-its val log loss stays near 18.
+The score head (cumulative link) is not learned: its temperature sits at the search bound, val
+log loss near 18.
 
 ## Harness
 
@@ -63,19 +61,3 @@ kai-en / Laya / Jev. Laya is the router's pick per case; on typed decisions it i
 - Above Laya on emotion, Banking77, guardrails, toxicity, RAG relevance and routing; within 0.01
   on AG News, spam and phishing; below on support triage (0.440 against 0.502). ECE at most
   0.089 on every app suite but toxicity (0.130).
-
-## Speed
-
-One call is one typed-decision state with N of the harness's 130 distinct questions (`bench
-speed`); load 0.3 s, peak footprint 4.4 GB. dbc was shared with other jobs' builds and tests:
-its 1-minute load average was 6.5 before the run and 14.4 after, so p95 at 100 and 500 (twice
-p50) is an upper bound, not a clean figure.
-
-| questions | p50 ms | p95 ms | questions/s |
-|---|---|---|---|
-| 1 | 48.2 | 53.5 | 22.1 |
-| 5 | 122.4 | 132.8 | 40.4 |
-| 10 | 184.3 | 221.4 | 53.6 |
-| 50 | 751.9 | 899.5 | 65.0 |
-| 100 | 1,534.4 | 3,192.4 | 54.5 |
-| 500 | 12,830.6 | 25,441.2 | 33.9 |

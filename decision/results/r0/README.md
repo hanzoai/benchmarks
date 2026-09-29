@@ -1,4 +1,4 @@
-# r0: where kai-1's transferable decision ability went by a7
+# r0: kai-1's transfer along Kai's lineage
 
 Kai's lineage on Jev's own benchmarks (jevlab B1, B3, B3b), with the encoder and the head taken
 apart. Lineage: `jhu-clsp/mmBERT-base` (`base`) → Laya's fine-tune `hanzoai/kai-1-multilingual@3119843b`
@@ -10,34 +10,32 @@ train, mine or distil; no item text is kept here, only answers keyed by item id.
 
 ## Answer
 
-- **a7's ordering is wrong, not compressed.** B1 nouls: ROC-AUC of P(true) 0.539 (kai1-ml 0.723,
-  kai1 0.812); the best any single threshold does is 0.577 (kai1-ml 0.692); log-odds SD 0.49
-  against 3.71. Calibration cannot recover it.
-- **The encoder forgot; the head did not hide it.** Laya's own head over a4's or a7's encoder
-  falls from 0.690 to 0.510 / 0.500 on B1. Fresh probes trained on the same generic decision data
-  read 0.62–0.63 from kai1-ml's encoder in Laya's layout and 0.46–0.55 from a4–a7's in either
-  layout, within a standard error of a7's own head (0.480), while all of them score alike on the
-  probe data's own validation (0.63–0.71): the loss is off-distribution, in the encoder.
-- **It happened at a4, in one step.** B1 0.690 → 0.470 at a4, then 0.450 / 0.490 / 0.480. At a4
-  the encoder's [CLS] massive activation at layer 12 (norm 11,748 on text, 18,607 in Kai's layout;
-  base 9,467) fell to 96–167, and the upper layers' representation followed (standardized CKA to
-  kai1-ml ≤ 0.14 from layer 12 on; a4 → a7 ≥ 0.68). The [SEP] sink stayed. Kai's retrieval query
-  is the context's first token.
-- **B3 and B3b are capacity, not recipe.** Every mmBERT encoder under every head or probe answers
-  ANLI r3 and B3b at chance (0.27–0.34), kai1-ml included; kai1's larger encoder reaches 0.455 on
+- a7 misorders B1's nouls, so no calibration recovers them: ROC-AUC of P(true) 0.539 (kai1-ml
+  0.723, kai1 0.812), best single threshold 0.577 (kai1-ml 0.692), log-odds SD 0.49 against 3.71.
+- The loss is in the encoder, off-distribution. Laya's head over a4's or a7's encoder falls from
+  0.690 to 0.510 / 0.500 on B1. Probes trained on the same generic decision data read 0.62–0.63
+  from kai1-ml's encoder in Laya's layout and 0.46–0.55 from a4–a7's in either layout, within a
+  standard error of a7's own head (0.480), while all score alike on the probe data's validation
+  (0.63–0.71).
+- It happened at a4: B1 0.690 → 0.470, then 0.450 / 0.490 / 0.480. At a4 the encoder's [CLS]
+  massive activation at layer 12 (norm 11,748 on text, 18,607 in Kai's layout; base 9,467) fell
+  to 96–167 and the upper layers followed (standardized CKA to kai1-ml ≤ 0.14 from layer 12;
+  a4 → a7 ≥ 0.68). The [SEP] sink stayed. Kai's retrieval query is the context's first token.
+- B3 and B3b are capacity: every mmBERT encoder under every head or probe answers ANLI r3 and
+  B3b at chance (0.27–0.34), kai1-ml included; kai1's larger encoder reaches 0.455 on
   CommonsenseQA, where kai1-ml's 0.345 fell to 0.19–0.26 in a4–a7.
-- **The open-label dev probes see the loss.** `labels.dev` top-1: kai1 0.649, kai1-ml 0.583, a7
-  0.438 (kai1 − a7 +0.211, 95% [+0.129, +0.303]); renamed-label flips 0.224 / 0.369 / 0.514.
-- **ties2 moved a7 as far as one ordinary stage, along a4's directions.** Against a6 → a7:
-  context cosine 0.976 / 0.976, retrieval-score correlation 0.922 / 0.929, head flips 10.5% /
-  11.0%; its update's top-16 subspaces overlap a4's 9–19× chance, rising with depth, most in the
-  residual writes (attn.Wo, mlp.Wo) of layers 16–21. Its dev differences from a7 are all within
-  the task-bootstrap interval.
+- `labels.dev` top-1: kai1 0.649, kai1-ml 0.583, a7 0.438 (kai1 − a7 +0.211, 95% [+0.129,
+  +0.303]); renamed-label flips 0.224 / 0.369 / 0.514.
+- ties2 moved a7 as far as one stage, along a4's directions. Against a6 → a7: context cosine
+  0.976 / 0.976, retrieval-score correlation 0.922 / 0.929, head flips 10.5% / 11.0%; its
+  update's top-16 subspaces overlap a4's 9–19× chance, rising with depth, most in the residual
+  writes (attn.Wo, mlp.Wo) of layers 16–21. Its dev differences from a7 are all within the
+  task-bootstrap interval.
 
 ## Runs
 
 Every checkpoint served by the decision runtime (`decision serve`, commit 86c2690) on dgx's CPU,
-8 threads, nice 19, one request at a time; Kai's encoder projections Q8_0 there, Laya F32. Before
+8 threads, one request at a time; Kai's encoder projections Q8_0 there, Laya F32. Before
 the corpus each service answered 100 frozen-harness questions against the checkpoint's recorded
 predictions (`results/<run>/preds.json.gz`): argmax agreement kai1 100 (max |Δp| 1.7e-5), kai1-ml
 100 (5.5e-6), a4 98, a5 100, a6 100, a7 100 (max |Δp| 0.03–0.10: Q8_0 against F32 and Metal bf16
@@ -176,8 +174,7 @@ a7 with α·(a4 − kai1-ml) subtracted from encoder layers `lo..hi`, a7's head 
 
 The [CLS] activation comes back only when layers 0–11 are reverted too, and with a7's head no
 revert recovers transfer: top-1 falls 0.007–0.038 and description flips rise up to +0.262
-[+0.165, +0.354]. a7's head reads a7's encoder; weight arithmetic does not reach kai1-ml's
-behavior.
+[+0.165, +0.354].
 
 ## jev-harness (`verdicts-kai1.json`)
 
@@ -191,8 +188,8 @@ a4's stage and build (`a3-d7a9a437cf484811`) trained from kai-1-multilingual on 
 schedule unchanged (980 warmup batches of 32,681), with `max_steps`, a checkpoint every 25 merged
 batches at rounds of 15–30 s and 8 validation rows a suite (`replay/a4r.json`; `a4n.json` the
 same with both retrieval weights 0; `a4r-long.json` to 1,100 batches). a4r and a4n ran on dgx
-(CUDA, bf16, the c3.1 build), a4r-long on dbc (Metal, bf16, the a5 build). One worker, one seed
-each, two backends: the steps below place the transition, they are not a distribution.
+(CUDA, bf16, the c3.1 build), a4r-long on dbc (Metal, bf16, the a5 build). One worker and one seed
+an arm: the steps place the transition, not a distribution.
 
 **One unit carries the activation** (`gate.json`): unit 924 of layer 11's GeGLU MLP (0-based;
 it writes hidden state 12), a 138.4 and b 255.4 on [CLS] at kai-1-multilingual, alone 99% of that
@@ -215,8 +212,8 @@ Every step was clipped (round mean gradient norm 13–58, clip 1). Over 32 fixed
 through each checkpoint's own head: layer 11 took the largest answer-loss gradient at 5 of 6
 checkpoints and holds the largest AdamW first moment (0.095–0.152, the other layers
 0.010–0.090); 27–30% of the answer loss's gradient on the encoder output fell on [CLS] at the
-start, one token of ~100 (the retrieval loss's is all on it by construction). The retrieval loss
-is not what removes it: off, the collapse came earlier.
+start, one token of ~100 (the retrieval loss's is all on it by construction). With the retrieval
+loss off, the collapse comes sooner.
 
 **Graft** (`graft-b.json`, `sink-graft.json`, `views.json`): a7 with kai-1-multilingual's
 layers 11–21 and final norm (`forensics/graft.py`), untrained. [CLS] stays at 95 at hidden
@@ -228,5 +225,3 @@ state 12: unit 924 reads a7's rotated input.
 | graft, a7's head | 0.490 / 0.682 / 0.661 | 0.433 | 0.492 |
 | a7 | 0.480 / 0.755 / 0.539 | 0.438 | 0.514 |
 | kai-1-multilingual | 0.690 / 0.851 / 0.723 | 0.583 | 0.369 |
-
-Not run: retrieval's query moved off the first token (a code change).
