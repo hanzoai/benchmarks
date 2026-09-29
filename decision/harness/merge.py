@@ -94,8 +94,7 @@ def score(gold, preds, typed=False):
     m = metrics([(g["idx"], None if p is None else np.asarray(p, float)) for g, p, _, _ in its])
     m["unanswered"] = sum(1 for _, p, _, _ in its if p is None)
     answered = [(g, p) for g, p, _, _ in its if p is not None]
-    # the share of answers that gave the true option no probability at all: a caller that
-    # branches on confidence cannot recover from these
+    # share of answers giving gold p < 1e-6
     m["zero_prob"] = round(sum(1 for g, p in answered if float(p[g["idx"]]) < 1e-6) / len(answered), 4) \
         if answered else None
     m["questions"] = len(its)
@@ -130,7 +129,7 @@ def pct(v, q):
     return round(float(np.percentile(v, q)), 1) if v else None
 
 
-# --- added: selective prediction, backends side by side, MASSIVE by language ----------
+# --- selective prediction, backends side by side, MASSIVE by language ----------------
 COVERAGE = (0.1, 0.25, 0.5, 0.75, 0.9, 1.0)
 
 
