@@ -202,7 +202,7 @@ MLP's [CLS] output (norm 19,330).
 
 | arm | before | after | batches |
 |---|---|---|---|
-| retrieval off (dgx) | 18,366 | 9 → 55 at hidden state 12 | 326 → 398 |
+| retrieval off (dgx) | 18,361 at 326 | 55 at 398 | 326 → 398 |
 | retrieval on (dgx, to 500) | 19,330 | 10,869–13,256 at 439–500, not crossed | – |
 | retrieval on (dbc, to 1,100) | 10,292 at 901, 2,281 at 955 | 65 at 1,003 | 955 → 1,003 |
 
