@@ -1,0 +1,19 @@
+Hanzo benchmarks
+Copyright 2026 Hanzo AI Inc.
+
+The code in this repository is licensed under the Apache License 2.0 (LICENSE).
+
+Third-party datasets
+--------------------
+The lanes under brain/ evaluate against public datasets. They are fetched at
+run time and never committed; each carries its own terms, which apply to any
+use of the data and of results derived from it:
+
+  LoCoMo              snap-research/locomo           CC BY-NC 4.0
+  RepoBench-R         tianyang/repobench-r           CC BY-NC-ND 4.0
+  MemoryAgentBench    ai-hyz/MemoryAgentBench        MIT
+  LongMemEval         xiaowu0162/longmemeval         MIT
+
+What this repository commits is its own side of each run: the code, the
+prompts, and the predictions and scores it produced. brain/README.md describes
+how each dataset is fetched.
