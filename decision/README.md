@@ -35,7 +35,7 @@ bench speed --states results/states.json.gz --results capability/results --who k
 bench tex --harness . --out <paper>/kai/tables                                       # the paper's tables
 ```
 
-`bench score` equals `merge.py`'s `scores.json` (7,454 of 7,461 values on `results/kai-a/`) except `acc_at_50_coverage` where a confidence tie straddles the half: numpy's argsort orders ties by machine, `bench` by case order (7 of 378, at most 0.025).
+`bench score` equals `merge.py`'s `scores.json` (7,454 of 7,461 values on Kai stage A's predictions) except `acc_at_50_coverage` where a confidence tie straddles the half: numpy's argsort orders ties by machine, `bench` by case order (7 of 378, at most 0.025).
 
 ## Results
 
@@ -47,9 +47,7 @@ bench tex --harness . --out <paper>/kai/tables                                  
 | `results/states.json.gz` | the question set with states | `[state, questions, gold]` per case, in harness order; `harness/states.py` writes it from the same builders and checks it reproduces `questions.json.gz` |
 | `results/laya/preds.json.gz` | Laya 0.3.20 reference runtime, CPU f32 | `three_way.py kai` on all 62 suites: every question under each kai-1 checkpoint, and the checkpoint Laya's router picks per case |
 | `results/kai/preds.json.gz` | Kai, hanzo-ml | `bench preds`: one factorized Kai checkpoint's probability vectors; `merge.py` scores it when present |
-| `results/kai-en/` | Kai's factorized head, English baseline (not Kai), hanzo-ml, Metal bf16 | kai-1-agent trained 2 epochs on the harness train splits in English (`hanzoai/decision` 7f735f6); preds and scores; see its README |
-| `results/kai-a/` | Kai stage A, 1 epoch, mmBERT-base, hanzo-ml, Metal bf16 | kai-1-multilingual trained 1 epoch on stage A's build (`hanzoai/decision` 96150d1); preds, scores and `bench gate` against Laya; see its README |
-| `results/kai-a4/` … `kai-a8/` | Kai stages a4–a8 | preds, scores and gates against Laya and Jev; see each README |
+| Kai's own results | Kai stages a, a4–a8 and the English baseline | kept with Kai in hanzo-inc/kai (`results/kai-*`, `held/kai-a5`, Kai's rows of `capability/results`) |
 | `results/scores.json`, `results/table.md` | all of the above | `merge.py`: Kai, Laya and Jev side by side on every suite, with accuracy, macro F1, ECE, Brier, log loss, risk-coverage (AURC and risk at 10–100% coverage), the rate of zero probability on gold, score MAE, and MASSIVE by language |
 | `results/r0/` | kai-1, kai-1-multilingual, Kai a4–a7 and the ties2 merge on jevlab B1, B3, B3b, with the encoder and the head taken apart | `hanzoai/decision` `forensics/`: the runtime on dgx's CPU for the lineage, a torch port of its layouts and heads for head swaps, frozen-encoder probes, CKA, massive activations, weight geometry and the open-label dev probes; see its README |
 | `held/` | `held.phishing`, `held.support_triage` | the frozen `app.phishing` and `app.support_triage` questions on rows outside Laya's training data, 400 cases each, with Laya's and Kai a5's predictions; see `held/README.md` |

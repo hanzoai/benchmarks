@@ -176,7 +176,7 @@ The [CLS] activation comes back only when layers 0–11 are reverted too, and wi
 revert recovers transfer: top-1 falls 0.007–0.038 and description flips rise up to +0.262
 [+0.165, +0.354].
 
-## jev-harness (`verdicts-kai1.json`)
+## jev-harness (verdicts kept with Kai)
 
 jev-harness's own `decide()` and `routeTools()` over kai1 through the runtime (compat/bench's
 driver, `model` renamed by a proxy): proposal review v4 84/150 (the score of holding every case,

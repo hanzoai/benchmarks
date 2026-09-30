@@ -12,7 +12,6 @@ Each suite asks its frozen suite's question verbatim (`research/scripts/bench_ap
 | `support/generate.jsonl` | every generation call: specifications, messages, raw answer, parsed tickets, the model that served it |
 | `support/check.jsonl` | every label-check answer, with the model that served it |
 | `laya/preds.json.gz` | Laya 0.3.20 on both suites |
-| `kai-a5/preds.json.gz` | Kai stage a5 on both suites |
 
 ## held.phishing
 
@@ -93,7 +92,7 @@ for n, rows in S.items():
 
 ## Kai
 
-`bench preds` (hanzoai/decision), Kai stage a5 (`results/kai-a5`, weights `df1c16a2`), Metal bf16. Scored with `merge.score`, as Laya above.
+`bench preds` (hanzoai/decision), Kai stage a5 (weights `df1c16a2`; its predictions are kept with Kai), Metal bf16. Scored with `merge.score`, as Laya above.
 
 | Suite | Backend | acc | macro F1 | ECE | Brier | frozen acc |
 |---|---|---|---|---|---|---|
