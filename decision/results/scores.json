@@ -1,5 +1,11 @@
 {
  "sources": {
+  "kai": {
+   "model": "models/kai-2",
+   "weights": "b8f6e1b8dfcb9bbb0382af95f48be1cb2adafed16d3f0826b813fb07bfc36256",
+   "device": "cuda",
+   "dtype": "bf16"
+  },
   "laya": {
    "bundle": "hanzoai/kai-1",
    "revision": "b50502c28537df49a3621f6fa543f9e8521e8a9c",
@@ -16,6 +22,28 @@
  },
  "suites": {
   "jev.ag_news": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.9475,
+    "macro_f1": 0.9416,
+    "ece": 0.0579,
+    "brier": 0.096,
+    "nll": 0.2,
+    "mean_confidence": 0.8916,
+    "acc_at_50_coverage": 0.995,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0091,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.005,
+     "0.75": 0.0133,
+     "0.9": 0.0306,
+     "1.0": 0.0525
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.95,
@@ -135,10 +163,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.95,
+    "kai~jev": 0.85,
     "laya~jev": 0.8525
    }
   },
   "jev.emotion": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.9325,
+    "macro_f1": 0.8879,
+    "ece": 0.0749,
+    "brier": 0.1028,
+    "nll": 0.2288,
+    "mean_confidence": 0.8654,
+    "acc_at_50_coverage": 0.995,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0105,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.01,
+     "0.5": 0.005,
+     "0.75": 0.0033,
+     "0.9": 0.0278,
+     "1.0": 0.0675
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.595,
@@ -258,10 +310,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.6025,
+    "kai~jev": 0.6075,
     "laya~jev": 0.68
    }
   },
   "jev.banking77_full": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.88,
+    "macro_f1": 0.3071,
+    "ece": 0.0646,
+    "brier": 0.2003,
+    "nll": 0.5645,
+    "mean_confidence": 0.8439,
+    "acc_at_50_coverage": 0.96,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0602,
+    "risk_at_coverage": {
+     "0.1": 0.05,
+     "0.25": 0.04,
+     "0.5": 0.04,
+     "0.75": 0.0633,
+     "0.9": 0.0778,
+     "1.0": 0.12
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.425,
@@ -381,10 +457,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.43,
+    "kai~jev": 0.8175,
     "laya~jev": 0.4675
    }
   },
   "app.support_triage": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.3675,
+    "macro_f1": 0.3546,
+    "ece": 0.2202,
+    "brier": 0.8292,
+    "nll": 2.092,
+    "mean_confidence": 0.5849,
+    "acc_at_50_coverage": 0.48,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.4407,
+    "risk_at_coverage": {
+     "0.1": 0.05,
+     "0.25": 0.37,
+     "0.5": 0.52,
+     "0.75": 0.5567,
+     "0.9": 0.6083,
+     "1.0": 0.6325
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.5025,
@@ -504,10 +604,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.4425,
+    "kai~jev": 0.375,
     "laya~jev": 0.6125
    }
   },
   "app.email_spam": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.985,
+    "macro_f1": 0.985,
+    "ece": 0.0125,
+    "brier": 0.0262,
+    "nll": 0.0751,
+    "mean_confidence": 0.9947,
+    "acc_at_50_coverage": 0.995,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0045,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.005,
+     "0.75": 0.01,
+     "0.9": 0.0083,
+     "1.0": 0.015
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.9975,
@@ -627,10 +751,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.9825,
+    "kai~jev": 0.9725,
     "laya~jev": 0.98
    }
   },
   "app.phishing": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.9825,
+    "macro_f1": 0.9815,
+    "ece": 0.0128,
+    "brier": 0.0309,
+    "nll": 0.0836,
+    "mean_confidence": 0.9953,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0022,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0033,
+     "0.9": 0.0056,
+     "1.0": 0.0175
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.9825,
@@ -750,10 +898,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.99,
+    "kai~jev": 0.8975,
     "laya~jev": 0.8925
    }
   },
   "app.guardrails_jailbreak": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.9825,
+    "macro_f1": 0.975,
+    "ece": 0.0377,
+    "brier": 0.0447,
+    "nll": 0.1028,
+    "mean_confidence": 0.9448,
+    "acc_at_50_coverage": 0.995,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.0059,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.005,
+     "0.75": 0.01,
+     "0.9": 0.0111,
+     "1.0": 0.0175
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.705,
@@ -873,10 +1045,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.7175,
+    "kai~jev": 0.9475,
     "laya~jev": 0.74
    }
   },
   "app.moderation_toxicity": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.745,
+    "macro_f1": 0.7308,
+    "ece": 0.2331,
+    "brier": 0.4797,
+    "nll": 1.6485,
+    "mean_confidence": 0.9755,
+    "acc_at_50_coverage": 0.775,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.1902,
+    "risk_at_coverage": {
+     "0.1": 0.05,
+     "0.25": 0.14,
+     "0.5": 0.225,
+     "0.75": 0.25,
+     "0.9": 0.2444,
+     "1.0": 0.255
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.53,
@@ -996,10 +1192,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.755,
+    "kai~jev": 0.7375,
     "laya~jev": 0.8125
    }
   },
   "app.rag_relevance": {
+   "kai": {
+    "n": 400,
+    "accuracy": 0.6775,
+    "macro_f1": 0.6766,
+    "ece": 0.0845,
+    "brier": 0.4216,
+    "nll": 0.6124,
+    "mean_confidence": 0.7308,
+    "acc_at_50_coverage": 0.77,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 400,
+    "aurc": 0.2319,
+    "risk_at_coverage": {
+     "0.1": 0.15,
+     "0.25": 0.15,
+     "0.5": 0.23,
+     "0.75": 0.29,
+     "0.9": 0.3167,
+     "1.0": 0.3225
+    }
+   },
    "laya": {
     "n": 400,
     "accuracy": 0.625,
@@ -1119,10 +1339,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.7225,
+    "kai~jev": 0.6625,
     "laya~jev": 0.67
    }
   },
   "app.model_routing_domain": {
+   "kai": {
+    "n": 399,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "ece": 0.009,
+    "brier": 0.0006,
+    "nll": 0.0092,
+    "mean_confidence": 0.991,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 399,
+    "aurc": 0.0,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.0
+    }
+   },
    "laya": {
     "n": 399,
     "accuracy": 0.6391,
@@ -1242,10 +1486,49 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.6391,
+    "kai~jev": 0.9774,
     "laya~jev": 0.6516
    }
   },
   "typed_decisions": {
+   "kai": {
+    "n": 2000,
+    "accuracy": 0.728,
+    "macro_f1": 0.7075,
+    "ece": 0.0184,
+    "brier": 0.3698,
+    "nll": 0.6395,
+    "mean_confidence": 0.7388,
+    "acc_at_50_coverage": 0.873,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 2000,
+    "aurc": 0.1334,
+    "risk_at_coverage": {
+     "0.1": 0.035,
+     "0.25": 0.058,
+     "0.5": 0.127,
+     "0.75": 0.1987,
+     "0.9": 0.2383,
+     "1.0": 0.272
+    },
+    "soft_accuracy": 0.529,
+    "brier_vs_soft": 0.1253,
+    "score_mae": 0.3114,
+    "within_1_level": 0.975,
+    "by_workflow": {
+     "agent_trace_observability": 0.716,
+     "customer_service": 0.7,
+     "invoice_processing": 0.794,
+     "security_incidents": 0.702
+    },
+    "by_question_type": {
+     "choice": 0.6983,
+     "noul": 0.8033,
+     "score": 0.6937
+    }
+   },
    "laya": {
     "n": 2000,
     "accuracy": 0.3615,
@@ -1440,10 +1723,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.3485,
+    "kai~jev": 0.6845,
     "laya~jev": 0.335
    }
   },
   "massive.af": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.86,
+    "macro_f1": 0.8485,
+    "ece": 0.0716,
+    "brier": 0.196,
+    "nll": 0.4347,
+    "mean_confidence": 0.9316,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0258,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0267,
+     "0.9": 0.0667,
+     "1.0": 0.14
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.34,
@@ -1563,10 +1870,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.34,
+    "kai~jev": 0.78,
     "laya~jev": 0.33
    }
   },
   "massive.am": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.85,
+    "macro_f1": 0.8309,
+    "ece": 0.0708,
+    "brier": 0.2073,
+    "nll": 0.6333,
+    "mean_confidence": 0.8815,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0238,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0667,
+     "1.0": 0.15
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.15,
@@ -1686,10 +2017,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.15,
+    "kai~jev": 0.8,
     "laya~jev": 0.19
    }
   },
   "massive.ar": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9161,
+    "ece": 0.0538,
+    "brier": 0.1284,
+    "nll": 0.407,
+    "mean_confidence": 0.9056,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0083,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0333,
+     "1.0": 0.08
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.46,
@@ -1809,10 +2164,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.46,
+    "kai~jev": 0.82,
     "laya~jev": 0.44
    }
   },
   "massive.az": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9363,
+    "ece": 0.037,
+    "brier": 0.11,
+    "nll": 0.3177,
+    "mean_confidence": 0.919,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0084,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0333,
+     "1.0": 0.06
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.36,
@@ -1932,10 +2311,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.36,
+    "kai~jev": 0.85,
     "laya~jev": 0.38
    }
   },
   "massive.bn": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9071,
+    "ece": 0.0654,
+    "brier": 0.1622,
+    "nll": 0.5242,
+    "mean_confidence": 0.8997,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0229,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0267,
+     "0.9": 0.0667,
+     "1.0": 0.08
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.45,
@@ -2055,10 +2458,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.44,
+    "kai~jev": 0.85,
     "laya~jev": 0.48
    }
   },
   "massive.cy": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.82,
+    "macro_f1": 0.8125,
+    "ece": 0.076,
+    "brier": 0.2518,
+    "nll": 0.6355,
+    "mean_confidence": 0.8922,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0308,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.1222,
+     "1.0": 0.18
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.16,
@@ -2178,10 +2605,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.18,
+    "kai~jev": 0.7,
     "laya~jev": 0.18
    }
   },
   "massive.da": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9032,
+    "ece": 0.0563,
+    "brier": 0.1127,
+    "nll": 0.2912,
+    "mean_confidence": 0.9419,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.006,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0222,
+     "1.0": 0.08
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.46,
@@ -2301,10 +2752,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.46,
+    "kai~jev": 0.84,
     "laya~jev": 0.47
    }
   },
   "massive.de": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.91,
+    "macro_f1": 0.9052,
+    "ece": 0.0517,
+    "brier": 0.1072,
+    "nll": 0.2632,
+    "mean_confidence": 0.9131,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0058,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0111,
+     "1.0": 0.09
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.53,
@@ -2424,10 +2899,34 @@
     "n_errors": 1
    },
    "agreement": {
+    "kai~laya": 0.53,
+    "kai~jev": 0.8687,
     "laya~jev": 0.5051
    }
   },
   "massive.el": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.9,
+    "macro_f1": 0.8759,
+    "ece": 0.0506,
+    "brier": 0.1599,
+    "nll": 0.3962,
+    "mean_confidence": 0.8974,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0144,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0556,
+     "1.0": 0.1
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.44,
@@ -2547,10 +3046,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.44,
+    "kai~jev": 0.87,
     "laya~jev": 0.45
    }
   },
   "massive.en": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9334,
+    "ece": 0.0515,
+    "brier": 0.0847,
+    "nll": 0.229,
+    "mean_confidence": 0.9551,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0061,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0222,
+     "1.0": 0.06
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.82,
@@ -2670,10 +3193,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.8,
+    "kai~jev": 0.9,
     "laya~jev": 0.81
    }
   },
   "massive.es": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.91,
+    "macro_f1": 0.9032,
+    "ece": 0.0493,
+    "brier": 0.115,
+    "nll": 0.2929,
+    "mean_confidence": 0.9322,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0143,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0333,
+     "1.0": 0.09
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.53,
@@ -2793,10 +3340,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.54,
+    "kai~jev": 0.88,
     "laya~jev": 0.52
    }
   },
   "massive.fa": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.921,
+    "ece": 0.0368,
+    "brier": 0.1053,
+    "nll": 0.3288,
+    "mean_confidence": 0.9382,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0158,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0267,
+     "0.9": 0.0222,
+     "1.0": 0.06
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.51,
@@ -2916,10 +3487,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.51,
+    "kai~jev": 0.9,
     "laya~jev": 0.5
    }
   },
   "massive.fi": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.93,
+    "macro_f1": 0.918,
+    "ece": 0.0369,
+    "brier": 0.1136,
+    "nll": 0.341,
+    "mean_confidence": 0.9395,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0436,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.04,
+     "0.5": 0.02,
+     "0.75": 0.0133,
+     "0.9": 0.0333,
+     "1.0": 0.07
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.3,
@@ -3039,10 +3634,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.3,
+    "kai~jev": 0.88,
     "laya~jev": 0.28
    }
   },
   "massive.fr": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.91,
+    "macro_f1": 0.8974,
+    "ece": 0.0475,
+    "brier": 0.1147,
+    "nll": 0.3026,
+    "mean_confidence": 0.9339,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0087,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0222,
+     "1.0": 0.09
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.6,
@@ -3162,10 +3781,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.62,
+    "kai~jev": 0.87,
     "laya~jev": 0.6
    }
   },
   "massive.he": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.9,
+    "macro_f1": 0.8797,
+    "ece": 0.046,
+    "brier": 0.1531,
+    "nll": 0.3964,
+    "mean_confidence": 0.9208,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0125,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0556,
+     "1.0": 0.1
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.37,
@@ -3285,10 +3928,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.34,
+    "kai~jev": 0.88,
     "laya~jev": 0.36
    }
   },
   "massive.hi": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8832,
+    "ece": 0.0803,
+    "brier": 0.1498,
+    "nll": 0.4258,
+    "mean_confidence": 0.9201,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0146,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0333,
+     "1.0": 0.11
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.46,
@@ -3408,10 +4075,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.44,
+    "kai~jev": 0.89,
     "laya~jev": 0.47
    }
   },
   "massive.hu": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.84,
+    "macro_f1": 0.8205,
+    "ece": 0.0923,
+    "brier": 0.2087,
+    "nll": 0.5621,
+    "mean_confidence": 0.9051,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0263,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.04,
+     "0.9": 0.0778,
+     "1.0": 0.16
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.34,
@@ -3531,10 +4222,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.36,
+    "kai~jev": 0.84,
     "laya~jev": 0.33
    }
   },
   "massive.hy": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.88,
+    "macro_f1": 0.881,
+    "ece": 0.0736,
+    "brier": 0.1605,
+    "nll": 0.5562,
+    "mean_confidence": 0.8984,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0094,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0333,
+     "1.0": 0.12
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.25,
@@ -3654,10 +4369,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.28,
+    "kai~jev": 0.85,
     "laya~jev": 0.25
    }
   },
   "massive.id": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.93,
+    "macro_f1": 0.924,
+    "ece": 0.072,
+    "brier": 0.1025,
+    "nll": 0.2184,
+    "mean_confidence": 0.936,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0054,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0111,
+     "1.0": 0.07
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.36,
@@ -3777,10 +4516,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.36,
+    "kai~jev": 0.89,
     "laya~jev": 0.39
    }
   },
   "massive.is": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.86,
+    "macro_f1": 0.8396,
+    "ece": 0.0936,
+    "brier": 0.2235,
+    "nll": 0.5508,
+    "mean_confidence": 0.8733,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0272,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0533,
+     "0.9": 0.0778,
+     "1.0": 0.14
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.33,
@@ -3900,10 +4663,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.34,
+    "kai~jev": 0.78,
     "laya~jev": 0.38
    }
   },
   "massive.it": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.904,
+    "ece": 0.0361,
+    "brier": 0.1176,
+    "nll": 0.3234,
+    "mean_confidence": 0.9446,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0095,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0333,
+     "1.0": 0.08
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.47,
@@ -4023,10 +4810,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.48,
+    "kai~jev": 0.91,
     "laya~jev": 0.48
    }
   },
   "massive.ja": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.97,
+    "macro_f1": 0.9673,
+    "ece": 0.0458,
+    "brier": 0.065,
+    "nll": 0.1942,
+    "mean_confidence": 0.95,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.007,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0111,
+     "1.0": 0.03
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.64,
@@ -4146,10 +4957,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.62,
+    "kai~jev": 0.95,
     "laya~jev": 0.64
    }
   },
   "massive.jv": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.85,
+    "macro_f1": 0.8282,
+    "ece": 0.1134,
+    "brier": 0.2282,
+    "nll": 0.7107,
+    "mean_confidence": 0.8968,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.024,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.1111,
+     "1.0": 0.15
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.16,
@@ -4269,10 +5104,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.15,
+    "kai~jev": 0.7,
     "laya~jev": 0.2
    }
   },
   "massive.ka": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.79,
+    "macro_f1": 0.7787,
+    "ece": 0.1109,
+    "brier": 0.2951,
+    "nll": 0.8218,
+    "mean_confidence": 0.8735,
+    "acc_at_50_coverage": 0.94,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0603,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.06,
+     "0.75": 0.0933,
+     "0.9": 0.1222,
+     "1.0": 0.21
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.15,
@@ -4392,10 +5251,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.16,
+    "kai~jev": 0.73,
     "laya~jev": 0.15
    }
   },
   "massive.km": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.83,
+    "macro_f1": 0.8221,
+    "ece": 0.0697,
+    "brier": 0.2273,
+    "nll": 0.5174,
+    "mean_confidence": 0.8241,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0321,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0533,
+     "0.9": 0.1222,
+     "1.0": 0.17
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.2,
@@ -4515,10 +5398,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.17,
+    "kai~jev": 0.8,
     "laya~jev": 0.16
    }
   },
   "massive.kn": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8741,
+    "ece": 0.0734,
+    "brier": 0.1785,
+    "nll": 0.5177,
+    "mean_confidence": 0.9028,
+    "acc_at_50_coverage": 0.96,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0291,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.04,
+     "0.75": 0.0267,
+     "0.9": 0.0667,
+     "1.0": 0.11
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.3,
@@ -4638,10 +5545,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.27,
+    "kai~jev": 0.83,
     "laya~jev": 0.27
    }
   },
   "massive.ko": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.937,
+    "ece": 0.0486,
+    "brier": 0.1098,
+    "nll": 0.2987,
+    "mean_confidence": 0.9045,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.005,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0111,
+     "1.0": 0.06
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.47,
@@ -4761,10 +5692,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.44,
+    "kai~jev": 0.94,
     "laya~jev": 0.43
    }
   },
   "massive.lv": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.86,
+    "macro_f1": 0.8448,
+    "ece": 0.0649,
+    "brier": 0.2133,
+    "nll": 0.6352,
+    "mean_confidence": 0.9063,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0351,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.04,
+     "0.5": 0.02,
+     "0.75": 0.0267,
+     "0.9": 0.0778,
+     "1.0": 0.14
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.3,
@@ -4884,10 +5839,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.33,
+    "kai~jev": 0.82,
     "laya~jev": 0.3
    }
   },
   "massive.ml": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.88,
+    "macro_f1": 0.8666,
+    "ece": 0.1022,
+    "brier": 0.2105,
+    "nll": 0.6376,
+    "mean_confidence": 0.8834,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.06,
+    "risk_at_coverage": {
+     "0.1": 0.1,
+     "0.25": 0.04,
+     "0.5": 0.02,
+     "0.75": 0.0533,
+     "0.9": 0.1,
+     "1.0": 0.12
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.28,
@@ -5007,10 +5986,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.25,
+    "kai~jev": 0.87,
     "laya~jev": 0.27
    }
   },
   "massive.mn": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8856,
+    "ece": 0.0749,
+    "brier": 0.188,
+    "nll": 0.5217,
+    "mean_confidence": 0.9171,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0368,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.04,
+     "0.5": 0.02,
+     "0.75": 0.04,
+     "0.9": 0.0778,
+     "1.0": 0.11
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.16,
@@ -5130,10 +6133,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.19,
+    "kai~jev": 0.83,
     "laya~jev": 0.17
    }
   },
   "massive.ms": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.91,
+    "macro_f1": 0.8867,
+    "ece": 0.0454,
+    "brier": 0.1089,
+    "nll": 0.2898,
+    "mean_confidence": 0.9239,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0115,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0133,
+     "0.9": 0.0222,
+     "1.0": 0.09
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.27,
@@ -5253,10 +6280,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.31,
+    "kai~jev": 0.87,
     "laya~jev": 0.27
    }
   },
   "massive.my": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.86,
+    "macro_f1": 0.8468,
+    "ece": 0.0643,
+    "brier": 0.1924,
+    "nll": 0.4356,
+    "mean_confidence": 0.9134,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0291,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0533,
+     "0.9": 0.0778,
+     "1.0": 0.14
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.16,
@@ -5376,10 +6427,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.15,
+    "kai~jev": 0.78,
     "laya~jev": 0.16
    }
   },
   "massive.nb": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.95,
+    "macro_f1": 0.9429,
+    "ece": 0.0385,
+    "brier": 0.0808,
+    "nll": 0.2513,
+    "mean_confidence": 0.9514,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0037,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0111,
+     "1.0": 0.05
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.5,
@@ -5499,10 +6574,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.5,
+    "kai~jev": 0.84,
     "laya~jev": 0.5
    }
   },
   "massive.nl": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.8915,
+    "ece": 0.0622,
+    "brier": 0.1123,
+    "nll": 0.2545,
+    "mean_confidence": 0.9258,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0087,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0133,
+     "0.9": 0.0222,
+     "1.0": 0.08
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.4,
@@ -5622,10 +6721,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.38,
+    "kai~jev": 0.88,
     "laya~jev": 0.37
    }
   },
   "massive.pl": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.9105,
+    "ece": 0.0766,
+    "brier": 0.1223,
+    "nll": 0.2984,
+    "mean_confidence": 0.9318,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0076,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0444,
+     "1.0": 0.08
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.47,
@@ -5745,10 +6868,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.48,
+    "kai~jev": 0.89,
     "laya~jev": 0.43
    }
   },
   "massive.pt": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.92,
+    "macro_f1": 0.8986,
+    "ece": 0.0563,
+    "brier": 0.1314,
+    "nll": 0.3693,
+    "mean_confidence": 0.9251,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0137,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0133,
+     "0.9": 0.0444,
+     "1.0": 0.08
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.44,
@@ -5868,10 +7015,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.42,
+    "kai~jev": 0.89,
     "laya~jev": 0.45
    }
   },
   "massive.ro": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.9,
+    "macro_f1": 0.8817,
+    "ece": 0.0649,
+    "brier": 0.1291,
+    "nll": 0.3323,
+    "mean_confidence": 0.9232,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0089,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0333,
+     "1.0": 0.1
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.37,
@@ -5991,10 +7162,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.36,
+    "kai~jev": 0.88,
     "laya~jev": 0.37
    }
   },
   "massive.ru": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9208,
+    "ece": 0.0443,
+    "brier": 0.0886,
+    "nll": 0.1915,
+    "mean_confidence": 0.9389,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0047,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0222,
+     "1.0": 0.06
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.57,
@@ -6114,10 +7309,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.56,
+    "kai~jev": 0.89,
     "laya~jev": 0.54
    }
   },
   "massive.sl": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.88,
+    "macro_f1": 0.8675,
+    "ece": 0.0689,
+    "brier": 0.1541,
+    "nll": 0.3607,
+    "mean_confidence": 0.9213,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.011,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0444,
+     "1.0": 0.12
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.33,
@@ -6237,10 +7456,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.33,
+    "kai~jev": 0.88,
     "laya~jev": 0.34
    }
   },
   "massive.sq": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.91,
+    "macro_f1": 0.8979,
+    "ece": 0.0641,
+    "brier": 0.1313,
+    "nll": 0.4545,
+    "mean_confidence": 0.9033,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0062,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0222,
+     "1.0": 0.09
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.29,
@@ -6360,10 +7603,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.3,
+    "kai~jev": 0.76,
     "laya~jev": 0.29
    }
   },
   "massive.sv": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.93,
+    "macro_f1": 0.9238,
+    "ece": 0.0508,
+    "brier": 0.0868,
+    "nll": 0.2168,
+    "mean_confidence": 0.9267,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0041,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0111,
+     "1.0": 0.07
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.48,
@@ -6483,10 +7750,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.46,
+    "kai~jev": 0.89,
     "laya~jev": 0.46
    }
   },
   "massive.sw": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.81,
+    "macro_f1": 0.8032,
+    "ece": 0.0833,
+    "brier": 0.2717,
+    "nll": 0.8997,
+    "mean_confidence": 0.8926,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0295,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0533,
+     "0.9": 0.1222,
+     "1.0": 0.19
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.13,
@@ -6606,10 +7897,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.11,
+    "kai~jev": 0.69,
     "laya~jev": 0.13
    }
   },
   "massive.ta": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.87,
+    "macro_f1": 0.8767,
+    "ece": 0.0914,
+    "brier": 0.176,
+    "nll": 0.4641,
+    "mean_confidence": 0.911,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0126,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0667,
+     "1.0": 0.13
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.31,
@@ -6729,10 +8044,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.32,
+    "kai~jev": 0.85,
     "laya~jev": 0.34
    }
   },
   "massive.te": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.84,
+    "macro_f1": 0.8126,
+    "ece": 0.0768,
+    "brier": 0.2382,
+    "nll": 0.5702,
+    "mean_confidence": 0.8897,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0313,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.04,
+     "0.9": 0.1111,
+     "1.0": 0.16
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.22,
@@ -6852,10 +8191,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.24,
+    "kai~jev": 0.87,
     "laya~jev": 0.24
    }
   },
   "massive.th": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.93,
+    "macro_f1": 0.9331,
+    "ece": 0.06,
+    "brier": 0.1104,
+    "nll": 0.3339,
+    "mean_confidence": 0.9468,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0231,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.04,
+     "0.5": 0.02,
+     "0.75": 0.0267,
+     "0.9": 0.0333,
+     "1.0": 0.07
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.48,
@@ -6975,10 +8338,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.5,
+    "kai~jev": 0.88,
     "laya~jev": 0.47
    }
   },
   "massive.tl": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.9,
+    "macro_f1": 0.8979,
+    "ece": 0.0568,
+    "brier": 0.1545,
+    "nll": 0.4165,
+    "mean_confidence": 0.9145,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0201,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0133,
+     "0.9": 0.0444,
+     "1.0": 0.1
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.3,
@@ -7098,10 +8485,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.31,
+    "kai~jev": 0.82,
     "laya~jev": 0.3
    }
   },
   "massive.tr": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.89,
+    "macro_f1": 0.8886,
+    "ece": 0.0769,
+    "brier": 0.1891,
+    "nll": 0.6195,
+    "mean_confidence": 0.9258,
+    "acc_at_50_coverage": 0.98,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0243,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.02,
+     "0.75": 0.0267,
+     "0.9": 0.0778,
+     "1.0": 0.11
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.41,
@@ -7221,10 +8632,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.43,
+    "kai~jev": 0.88,
     "laya~jev": 0.4
    }
   },
   "massive.ur": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.86,
+    "macro_f1": 0.8527,
+    "ece": 0.063,
+    "brier": 0.1728,
+    "nll": 0.4577,
+    "mean_confidence": 0.9013,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0165,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0556,
+     "1.0": 0.14
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.42,
@@ -7344,10 +8779,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.42,
+    "kai~jev": 0.87,
     "laya~jev": 0.43
    }
   },
   "massive.vi": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.88,
+    "macro_f1": 0.8647,
+    "ece": 0.0858,
+    "brier": 0.1846,
+    "nll": 0.457,
+    "mean_confidence": 0.911,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0215,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0267,
+     "0.9": 0.0778,
+     "1.0": 0.12
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.33,
@@ -7467,10 +8926,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.33,
+    "kai~jev": 0.82,
     "laya~jev": 0.29
    }
   },
   "massive.zh-CN": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9379,
+    "ece": 0.0418,
+    "brier": 0.0809,
+    "nll": 0.2594,
+    "mean_confidence": 0.9322,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0031,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0,
+     "1.0": 0.06
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.65,
@@ -7590,10 +9073,34 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.65,
+    "kai~jev": 0.93,
     "laya~jev": 0.63
    }
   },
   "massive.zh-TW": {
+   "kai": {
+    "n": 100,
+    "accuracy": 0.94,
+    "macro_f1": 0.9355,
+    "ece": 0.0506,
+    "brier": 0.0929,
+    "nll": 0.2528,
+    "mean_confidence": 0.9324,
+    "acc_at_50_coverage": 1.0,
+    "unanswered": 0,
+    "zero_prob": 0.0,
+    "questions": 100,
+    "aurc": 0.0045,
+    "risk_at_coverage": {
+     "0.1": 0.0,
+     "0.25": 0.0,
+     "0.5": 0.0,
+     "0.75": 0.0,
+     "0.9": 0.0111,
+     "1.0": 0.06
+    }
+   },
    "laya": {
     "n": 100,
     "accuracy": 0.61,
@@ -7713,6 +9220,8 @@
     "n_errors": 0
    },
    "agreement": {
+    "kai~laya": 0.58,
+    "kai~jev": 0.9,
     "laya~jev": 0.57
    }
   }
@@ -7748,6 +9257,31 @@
    "macro_aurc": 0.0199,
    "macro_acc_at_50_coverage": 0.9953,
    "macro_zero_prob": 0.0176
+  },
+  "kai": {
+   "languages": 51,
+   "n": 5100,
+   "unanswered": 0,
+   "questions": 5100,
+   "english": 0.94,
+   "non_english_macro": 0.895,
+   "above_3x_random": 51,
+   "risk_at_coverage": {
+    "0.1": 0.0039,
+    "0.25": 0.0039,
+    "0.5": 0.0071,
+    "0.75": 0.0193,
+    "0.9": 0.0508,
+    "1.0": 0.1041
+   },
+   "macro_accuracy": 0.8959,
+   "macro_macro_f1": 0.8846,
+   "macro_ece": 0.0642,
+   "macro_brier": 0.1531,
+   "macro_nll": 0.421,
+   "macro_aurc": 0.0181,
+   "macro_acc_at_50_coverage": 0.9929,
+   "macro_zero_prob": 0.0
   },
   "laya": {
    "languages": 51,
