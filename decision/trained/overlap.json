@@ -1,0 +1,544 @@
+{
+ "jev.ag_news": {
+  "rows": 400,
+  "exact": 2,
+  "contained": 78,
+  "share": 0.2,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:88, fancyzhx/ag_news test",
+  "compared": [
+   {
+    "dataset": "fancyzhx/ag_news",
+    "revision": "eb185aade064a813bc0b7f42de02595523103ca4",
+    "split": "train",
+    "files": "data/train-00000-of-00001.parquet",
+    "rows": 120000,
+    "exact": 2,
+    "contained": 78,
+    "share": 0.2
+   }
+  ],
+  "checkpoints": [
+   "laya",
+   "laya-typed-decisions"
+  ],
+  "held": []
+ },
+ "jev.emotion": {
+  "rows": 400,
+  "exact": 0,
+  "contained": 0,
+  "share": 0.0,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:103, dair-ai/emotion test",
+  "compared": [],
+  "checkpoints": [],
+  "held": [
+   "dair-ai/emotion (README.md:872)"
+  ]
+ },
+ "jev.banking77_full": {
+  "rows": 400,
+  "exact": 0,
+  "contained": 0,
+  "share": 0.0,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:118, mteb/banking77 test",
+  "compared": [],
+  "checkpoints": [],
+  "held": [
+   "mteb/banking77 (research/scripts/build_benchmark_nb.py:759)"
+  ]
+ },
+ "app.support_triage": {
+  "rows": 400,
+  "exact": 400,
+  "contained": 0,
+  "share": 1.0,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:149, Tobi-Bueck/customer-support-tickets train",
+  "compared": [
+   {
+    "dataset": "Tobi-Bueck/customer-support-tickets",
+    "revision": "ddf1c81a5475992c4fa6752bf1e8b4e31f07bbeb",
+    "split": "train",
+    "files": "aa_dataset-tickets-multi-lang-5-2-50-version.csv, dataset-tickets-german_normalized_50_5_2.csv, dataset-tickets-multi-lang-4-20k.csv (the train split)",
+    "rows": 61765,
+    "exact": 400,
+    "contained": 0,
+    "share": 1.0
+   }
+  ],
+  "checkpoints": [
+   "laya",
+   "laya-typed-decisions"
+  ],
+  "held": []
+ },
+ "app.email_spam": {
+  "rows": 400,
+  "exact": 68,
+  "contained": 136,
+  "share": 0.51,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:162, SetFit/enron_spam test",
+  "compared": [
+   {
+    "dataset": "SetFit/enron_spam",
+    "revision": "1916f66c89d52221ae33eb57d44498b4f3a5df22",
+    "split": "train",
+    "files": "train.jsonl",
+    "rows": 31716,
+    "exact": 68,
+    "contained": 136,
+    "share": 0.51
+   }
+  ],
+  "checkpoints": [
+   "laya",
+   "laya-typed-decisions"
+  ],
+  "held": []
+ },
+ "app.phishing": {
+  "rows": 400,
+  "exact": 350,
+  "contained": 50,
+  "share": 1.0,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:179, zefang-liu/phishing-email-dataset train",
+  "compared": [
+   {
+    "dataset": "zefang-liu/phishing-email-dataset",
+    "revision": "34085a032c123ca237f314a01a67909cdea35e34",
+    "split": "train",
+    "files": "Phishing_Email.csv (the train split)",
+    "rows": 18650,
+    "exact": 350,
+    "contained": 50,
+    "share": 1.0
+   }
+  ],
+  "checkpoints": [
+   "laya",
+   "laya-typed-decisions"
+  ],
+  "held": []
+ },
+ "app.guardrails_jailbreak": {
+  "rows": 400,
+  "exact": 0,
+  "contained": 0,
+  "share": 0.0,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:197, lmsys/toxic-chat toxicchat0124 test",
+  "compared": [],
+  "checkpoints": [],
+  "held": [
+   "lmsys/toxic-chat (BENCHMARKS.md:131)"
+  ]
+ },
+ "app.moderation_toxicity": {
+  "rows": 400,
+  "exact": 0,
+  "contained": 0,
+  "share": 0.0,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:210, lmsys/toxic-chat toxicchat0124 test",
+  "compared": [],
+  "checkpoints": [],
+  "held": [
+   "lmsys/toxic-chat (BENCHMARKS.md:132)"
+  ]
+ },
+ "app.rag_relevance": {
+  "rows": 400,
+  "exact": 0,
+  "contained": 0,
+  "share": 0.0,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:233, microsoft/ms_marco v1.1 validation",
+  "compared": [
+   {
+    "dataset": "microsoft/ms_marco",
+    "revision": "a47ee7aae8d7d466ba15f9f0bfac3b3681087b3a",
+    "split": "train",
+    "files": "v1.1/train-00000-of-00001.parquet",
+    "rows": 676193,
+    "basis": "whole state: the same query, its passage exact or contained",
+    "same query": 0,
+    "same passage": 47,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   }
+  ],
+  "checkpoints": [
+   "laya",
+   "laya-typed-decisions"
+  ],
+  "held": []
+ },
+ "app.model_routing_domain": {
+  "rows": 399,
+  "exact": 0,
+  "contained": 22,
+  "share": 0.0551,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_apps.py:261, openai/gsm8k, google-research-datasets/mbpp and fancyzhx/ag_news test",
+  "compared": [
+   {
+    "dataset": "fancyzhx/ag_news",
+    "revision": "eb185aade064a813bc0b7f42de02595523103ca4",
+    "split": "train",
+    "files": "data/train-00000-of-00001.parquet",
+    "rows": 120000,
+    "exact": 0,
+    "contained": 22,
+    "share": 0.0551
+   }
+  ],
+  "checkpoints": [
+   "laya",
+   "laya-typed-decisions"
+  ],
+  "held": [
+   "openai/gsm8k, google-research-datasets/mbpp (BENCHMARKS.md:135)"
+  ]
+ },
+ "typed_decisions": {
+  "rows": 400,
+  "exact": 0,
+  "contained": 93,
+  "share": 0.2325,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_local.py:221, LocalLLaMA/typed-decisions all test",
+  "compared": [
+   {
+    "dataset": "LocalLLaMA/typed-decisions",
+    "revision": "c76749ec58bd8c3d2ea706b31c333a9059c38f90",
+    "split": "train",
+    "files": "all/train-00000-of-00001.parquet",
+    "rows": 1200,
+    "exact": 0,
+    "contained": 93,
+    "share": 0.2325
+   }
+  ],
+  "checkpoints": [
+   "laya-typed-decisions"
+  ],
+  "held": [
+   "LocalLLaMA/typed-decisions, by laya and laya-multilingual (research/scripts/build_benchmark_nb.py:760)"
+  ]
+ },
+ "massive": {
+  "rows": 5100,
+  "exact": 0,
+  "contained": 0,
+  "share": 0.0,
+  "drawn": "github.com/hanzoai/laya@970dc8c5f63d7b886a68409493f37d569424f933 research/scripts/bench_local.py:160, mteb/amazon_massive_intent test, 51 languages",
+  "compared": [],
+  "checkpoints": [],
+  "held": [
+   "mteb/amazon_massive_intent (research/scripts/build_benchmark_nb.py:760); laya-multilingual's card names no training sources"
+  ],
+  "languages": {
+   "af": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "am": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ar": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "az": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "bn": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "cy": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "da": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "de": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "el": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "en": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "es": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "fa": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "fi": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "fr": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "he": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "hi": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "hu": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "hy": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "id": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "is": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "it": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ja": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "jv": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ka": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "km": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "kn": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ko": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "lv": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ml": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "mn": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ms": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "my": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "nb": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "nl": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "pl": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "pt": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ro": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ru": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "sl": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "sq": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "sv": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "sw": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ta": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "te": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "th": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "tl": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "tr": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "ur": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "vi": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "zh-CN": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   },
+   "zh-TW": {
+    "rows": 100,
+    "exact": 0,
+    "contained": 0,
+    "share": 0.0
+   }
+  }
+ }
+}
