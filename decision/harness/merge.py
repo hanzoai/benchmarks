@@ -1,14 +1,21 @@
 """Score every backend side by side with the harness's own metric code.
 
 Reads the committed results: questions.json.gz (gold), laya/preds.json.gz (three_way.py kai:
-the three kai-1 checkpoints and the router's choice per case), jev/preds.json.gz, and
-kai/preds.json.gz when present (Kai's Rust bench, `bench preds`). Writes results/scores.json and
-results/table.md.
+the three kai-1 checkpoints and the router's choice per case), jev/preds.json.gz (Jev's recorded
+answers), and kai/preds.json.gz when present (run_kai.py, or `bench preds` in hanzo-inc/kai).
+Writes results/scores.json and results/table.md.
+
+    python harness/merge.py                                                   # results/
+    python harness/merge.py --kai results/kai-1/preds.json.gz --out results/kai-1   # kai-1's record
+
+--kai and --jev name another preds file; --jev recorded (the default) is jev/preds.json.gz, so no
+run of this file calls Jev.
 
 ece_score, macro_f1 and metrics are copied verbatim from research/scripts/bench_local.py, so a
 number here means what it means in the upstream report. A question a backend did not answer
 (a dropped sequence, an API error) counts as unanswered, not as wrong; the count is reported.
 """
+import argparse
 import gzip
 import json
 import math
@@ -166,7 +173,7 @@ MACRO = ("accuracy", "macro_f1", "ece", "brier", "nll", "aurc", "acc_at_50_cover
 
 
 def read(path):
-    """A committed results file, or None when it is not there."""
+    """A results file, relative to results/ unless absolute, or None when it is not there."""
     path = os.path.join(RESULTS, path)
     return json.load(gzip.open(path)) if os.path.exists(path) else None
 
@@ -293,8 +300,14 @@ def table(out):
 
 
 def main():
+    ap = argparse.ArgumentParser(description="Score every backend side by side.")
+    ap.add_argument("--kai", default="kai/preds.json.gz", help="Kai's preds (relative to results/ or a path)")
+    ap.add_argument("--jev", default="recorded", help="recorded (jev/preds.json.gz) or a preds file")
+    ap.add_argument("--out", default=RESULTS, help="directory for scores.json and table.md")
+    a = ap.parse_args()
     gold = read("questions.json.gz")
-    kai, laya, jev = read("kai/preds.json.gz"), read("laya/preds.json.gz"), read("jev/preds.json.gz")
+    kai, laya = read(os.path.abspath(a.kai) if os.path.exists(a.kai) else a.kai), read("laya/preds.json.gz")
+    jev = read("jev/preds.json.gz" if a.jev == "recorded" else os.path.abspath(a.jev))
     out = {"sources": {}, "suites": {}}
     if kai:
         out["sources"]["kai"] = {k: kai[k] for k in ("model", "weights", "device", "dtype")}
@@ -319,9 +332,10 @@ def main():
         out["jev_sequential_latency"] = {"n": len(lat), "p50_ms": pct(lat, 50), "p95_ms": pct(lat, 95)}
         out["jev_total_cost_usd"] = round(sum(s["cost_usd"] for s in jev["suites"].values()), 4)
     out["massive_summary"] = massive(out["suites"])
-    json.dump(out, open(os.path.join(RESULTS, "scores.json"), "w"), indent=1)
+    os.makedirs(a.out, exist_ok=True)
+    json.dump(out, open(os.path.join(a.out, "scores.json"), "w"), indent=1)
     md = table(out)
-    open(os.path.join(RESULTS, "table.md"), "w").write(md)
+    open(os.path.join(a.out, "table.md"), "w").write(md)
     print(md)
 
 

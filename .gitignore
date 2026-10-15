@@ -1,3 +1,6 @@
 /*.test
 *.out
 .DS_Store
+__pycache__/
+decision/harness/data/
+decision/runs/
