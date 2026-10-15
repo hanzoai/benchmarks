@@ -1,0 +1,169 @@
+{
+ "datasets": {
+  "deepset": {
+   "items": 116,
+   "attack": 60,
+   "kai_clean_attack": 50,
+   "benign": 56,
+   "kai_clean_benign": 52
+  },
+  "jackhhao": {
+   "items": 398,
+   "benign": 259,
+   "kai_clean_benign": 259,
+   "attack": 139,
+   "kai_clean_attack": 2
+  },
+  "notinject": {
+   "items": 339,
+   "benign": 339,
+   "kai_clean_benign": 0
+  },
+  "gandalf": {
+   "items": 300,
+   "attack": 300,
+   "kai_clean_attack": 298
+  },
+  "tensortrust": {
+   "items": 743,
+   "attack": 334,
+   "kai_clean_attack": 333,
+   "benign": 409,
+   "kai_clean_benign": 406
+  },
+  "bipia": {
+   "items": 343,
+   "attack": 180,
+   "kai_clean_attack": 180,
+   "benign": 163,
+   "kai_clean_benign": 163
+  },
+  "wild": {
+   "items": 1888,
+   "attack": 1288,
+   "kai_clean_attack": 32,
+   "benign": 600,
+   "kai_clean_benign": 600
+  },
+  "wildjailbreak": {
+   "items": 710,
+   "attack": 500,
+   "kai_clean_attack": 500,
+   "benign": 210,
+   "kai_clean_benign": 205
+  },
+  "jbb": {
+   "items": 200,
+   "attack": 100,
+   "kai_clean_attack": 33,
+   "benign": 100,
+   "kai_clean_benign": 0
+  },
+  "jbbresp": {
+   "items": 200,
+   "attack": 100,
+   "kai_clean_attack": 0,
+   "benign": 100,
+   "kai_clean_benign": 0
+  },
+  "harmbench": {
+   "items": 359,
+   "attack": 180,
+   "kai_clean_attack": 175,
+   "benign": 179,
+   "kai_clean_benign": 173
+  },
+  "hc3": {
+   "items": 1000,
+   "benign": 500,
+   "kai_clean_benign": 499,
+   "attack": 500,
+   "kai_clean_attack": 500
+  },
+  "m4": {
+   "items": 999,
+   "benign": 499,
+   "kai_clean_benign": 499,
+   "attack": 500,
+   "kai_clean_attack": 500
+  },
+  "mt-harmful": {
+   "items": 1314,
+   "attack": 1314,
+   "kai_clean_attack": 1314
+  },
+  "mt-benign": {
+   "items": 761,
+   "benign": 761,
+   "kai_clean_benign": 761
+  },
+  "mt-semibenign": {
+   "items": 777,
+   "benign": 777,
+   "kai_clean_benign": 777
+  },
+  "ultrachat": {
+   "items": 249,
+   "benign": 249,
+   "kai_clean_benign": 249
+  }
+ },
+ "dropped_within_dataset": {
+  "deepset/repeat": 0,
+  "jackhhao/repeat": 2,
+  "notinject/repeat": 0,
+  "gandalf/repeat": 0,
+  "tensortrust/repeat": 163,
+  "tensortrust/conflict": 5,
+  "bipia/repeat": 17,
+  "wild/conflict": 150,
+  "wild/repeat": 629,
+  "wildjailbreak/repeat": 0,
+  "jbb/repeat": 0,
+  "jbbresp/repeat": 0,
+  "harmbench/repeat": 1,
+  "hc3/repeat": 0,
+  "m4/repeat": 1
+ },
+ "reasons": {
+  "bipia: clean": 343,
+  "deepset: JailbreakHub train (Kai's builder)": 2,
+  "deepset: clean": 102,
+  "deepset: deepset/prompt-injections train": 10,
+  "deepset: toxic-chat 0124 train": 2,
+  "gandalf: clean": 298,
+  "gandalf: wildjailbreak train": 2,
+  "harmbench: HarmBench HumanJailbreaks/test": 7,
+  "harmbench: HarmBench HumanJailbreaks/val": 1,
+  "harmbench: JailbreakHub train (Kai's builder)": 1,
+  "harmbench: clean": 348,
+  "harmbench: wildjailbreak train": 2,
+  "hc3: LLMail-Inject phase 2": 1,
+  "hc3: clean": 999,
+  "jackhhao: JailbreakHub jailbreak row outside the builder's output": 36,
+  "jackhhao: JailbreakHub train (Kai's builder)": 101,
+  "jackhhao: clean": 261,
+  "jbb: HarmBench HumanJailbreaks/test": 1,
+  "jbb: JBB behaviors": 106,
+  "jbb: JBB judge_comparison": 48,
+  "jbb: JailbreakHub train (Kai's builder)": 12,
+  "jbb: clean": 33,
+  "jbbresp: Kai's registry reads JBB judge_comparison": 200,
+  "m4: clean": 999,
+  "mt-benign: clean": 761,
+  "mt-harmful: clean": 1314,
+  "mt-semibenign: clean": 777,
+  "notinject: Kai's registry reads NotInject whole": 339,
+  "tensortrust: JailbreakHub train (Kai's builder)": 3,
+  "tensortrust: clean": 739,
+  "tensortrust: wildjailbreak train": 1,
+  "ultrachat: clean": 249,
+  "wild: HarmBench HumanJailbreaks/val": 2,
+  "wild: JailbreakHub row Kai's builder trained on (or the guard now catches)": 1242,
+  "wild: JailbreakHub train (Kai's builder)": 12,
+  "wild: clean": 632,
+  "wildjailbreak: JailbreakHub train (Kai's builder)": 5,
+  "wildjailbreak: clean": 705
+ },
+ "reference_texts": 482238
+}

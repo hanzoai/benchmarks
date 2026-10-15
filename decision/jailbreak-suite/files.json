@@ -1,0 +1,232 @@
+[
+ {
+  "path": "deepset/data/test-00000-of-00001-701d16158af87368.parquet",
+  "url": "https://huggingface.co/datasets/deepset/prompt-injections/resolve/4f61ecb038e9c3fb77e21034b22511b523772cdd/data/test-00000-of-00001-701d16158af87368.parquet",
+  "sha256": "39ac797cabc157eeed58435a08593b2952bb6cb16fc394a2d383f447cc7b246e"
+ },
+ {
+  "path": "jackhhao/default/jailbreak_dataset_test.csv",
+  "url": "https://huggingface.co/datasets/jackhhao/jailbreak-classification/resolve/2f2ceeb39658696fd3f462403562b6eea5306287/default/jailbreak_dataset_test.csv",
+  "sha256": "a546ce540973d8f5ef87ce3be4bd21ee5923154b9dda86eba5a12c7fa00829da"
+ },
+ {
+  "path": "notinject/data/NotInject_one-00000-of-00001.parquet",
+  "url": "https://huggingface.co/datasets/leolee99/NotInject/resolve/847ae76cf8fea5ed325429e569ae8cfef022d2e0/data/NotInject_one-00000-of-00001.parquet",
+  "sha256": "5b1d3a8ec341205305efd8c6d2cabeb5ba0f594dd8726b08ee7fde1a46ddc6ec"
+ },
+ {
+  "path": "notinject/data/NotInject_two-00000-of-00001.parquet",
+  "url": "https://huggingface.co/datasets/leolee99/NotInject/resolve/847ae76cf8fea5ed325429e569ae8cfef022d2e0/data/NotInject_two-00000-of-00001.parquet",
+  "sha256": "a5a8c1b3b851b0b5acc3b6caf8bfee26d7da631b2967dd31ca90358df8883feb"
+ },
+ {
+  "path": "notinject/data/NotInject_three-00000-of-00001.parquet",
+  "url": "https://huggingface.co/datasets/leolee99/NotInject/resolve/847ae76cf8fea5ed325429e569ae8cfef022d2e0/data/NotInject_three-00000-of-00001.parquet",
+  "sha256": "d5c685b123570c092a0f374ba6bdf324b2026d905a2751a243eb2bb360d411a8"
+ },
+ {
+  "path": "gandalf/data/train-00000-of-00001-ded53be747ff55cd.parquet",
+  "url": "https://huggingface.co/datasets/Lakera/gandalf_ignore_instructions/resolve/04737b65e90a6794ec227012e4a255a7def6344b/data/train-00000-of-00001-ded53be747ff55cd.parquet",
+  "sha256": "5b6acf3e5a5998d21f8e1222bb45bbdec25a14408747b1cd63bebef4a75fa439"
+ },
+ {
+  "path": "gandalf/data/validation-00000-of-00001-94481a2a09ff2fff.parquet",
+  "url": "https://huggingface.co/datasets/Lakera/gandalf_ignore_instructions/resolve/04737b65e90a6794ec227012e4a255a7def6344b/data/validation-00000-of-00001-94481a2a09ff2fff.parquet",
+  "sha256": "f51ab3e3407a368845b0f57932cc745c09280429416d7507bd178a16326a79f6"
+ },
+ {
+  "path": "gandalf/data/test-00000-of-00001-bc92128b9288a6d1.parquet",
+  "url": "https://huggingface.co/datasets/Lakera/gandalf_ignore_instructions/resolve/04737b65e90a6794ec227012e4a255a7def6344b/data/test-00000-of-00001-bc92128b9288a6d1.parquet",
+  "sha256": "56b646d133335ebc535266bd55dbe1b5bee7caa4b95bf49d040684b9b5dd9972"
+ },
+ {
+  "path": "tensortrust/benchmarks/hijacking-robustness/v1/hijacking_robustness_dataset.jsonl",
+  "url": "https://huggingface.co/datasets/qxcv/tensor-trust/resolve/4de2b2fe01ba0cb6fbf7cbb9f1a3fabaf8157372/benchmarks/hijacking-robustness/v1/hijacking_robustness_dataset.jsonl",
+  "sha256": "2ad3c2343bbf43cb1924f3ec5d6f830864ce3c879e9832b01d93a991e7e2e680"
+ },
+ {
+  "path": "bipia/bipia/train-00000-of-00001.parquet",
+  "url": "https://huggingface.co/datasets/geodesic-research/bipia/resolve/003f58372e1696726b7cddde274a74bee0b1938a/bipia/train-00000-of-00001.parquet",
+  "sha256": "2ec55ad51b2f14c0d211a76f9ec49dcfca308afdecc24654642308e5ab8e7c0d"
+ },
+ {
+  "path": "bipia-raw/email.jsonl",
+  "url": "https://raw.githubusercontent.com/microsoft/BIPIA/a004b69ec0dd446e0afd461d98cb5e96e120a5d0/benchmark/email/test.jsonl",
+  "sha256": "217b403faaa1d0cb12c24892bea39f4a0b9e2819919ac7e2b902006e28278cdb"
+ },
+ {
+  "path": "bipia-raw/table.jsonl",
+  "url": "https://raw.githubusercontent.com/microsoft/BIPIA/a004b69ec0dd446e0afd461d98cb5e96e120a5d0/benchmark/table/test.jsonl",
+  "sha256": "3d5eaab192b80bada762e3cd7655583a14e5888ba8b845a01f0434e4ccc4291e"
+ },
+ {
+  "path": "bipia-raw/code.jsonl",
+  "url": "https://raw.githubusercontent.com/microsoft/BIPIA/a004b69ec0dd446e0afd461d98cb5e96e120a5d0/benchmark/code/test.jsonl",
+  "sha256": "ed40b84f541352fb45753032a80750922de8d5e0b70997924df3d04cf942e058"
+ },
+ {
+  "path": "wild/jailbreak_2023_12_25/train-00000-of-00001.parquet",
+  "url": "https://huggingface.co/datasets/TrustAIRLab/in-the-wild-jailbreak-prompts/resolve/a10aab8eff1c73165a442d4464dce192bd28b9c5/jailbreak_2023_12_25/train-00000-of-00001.parquet",
+  "sha256": "55bbc5e2be771ee16ed67aed4edb5ecef5f44ac69cea317a67e5405c5c6057a4"
+ },
+ {
+  "path": "wild/regular_2023_12_25/train-00000-of-00001.parquet",
+  "url": "https://huggingface.co/datasets/TrustAIRLab/in-the-wild-jailbreak-prompts/resolve/a10aab8eff1c73165a442d4464dce192bd28b9c5/regular_2023_12_25/train-00000-of-00001.parquet",
+  "sha256": "23e90010ccbc85574bf46678528cddce5b02abc86d9a047209218af65cb37c68"
+ },
+ {
+  "path": "wildjailbreak/eval/eval.tsv",
+  "url": "https://huggingface.co/datasets/allenai/wildjailbreak/resolve/5ddc12a7894f842b0619b8e1c7ee496b198af009/eval/eval.tsv",
+  "sha256": "eeb7e43aafa0151588f5cb8994b99adc0ee34a57819d92f43a6084f0b7fe4fa4"
+ },
+ {
+  "path": "jbbart/GCG/transfer/gpt-3.5-turbo-1106.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/GCG/transfer/gpt-3.5-turbo-1106.json",
+  "sha256": "ff185b1dc73732d830e96efdb3f4a92294ee72e9c88a1800b1d11d4ecb3d4cdf"
+ },
+ {
+  "path": "jbbart/GCG/transfer/gpt-4-0125-preview.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/GCG/transfer/gpt-4-0125-preview.json",
+  "sha256": "af54543a06e3702256315517ee6e6a7b0edf182dd2c6d938216fa58cbea8de23"
+ },
+ {
+  "path": "jbbart/GCG/white_box/llama-2-7b-chat-hf.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/GCG/white_box/llama-2-7b-chat-hf.json",
+  "sha256": "f76cbaf899c79ca8eed6a6ed26d6f8789933c5595a9a5ee028e305dec4dd95f7"
+ },
+ {
+  "path": "jbbart/GCG/white_box/vicuna-13b-v1.5.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/GCG/white_box/vicuna-13b-v1.5.json",
+  "sha256": "9eff8b6f78cae002737868ca8cdd886be5afcd1cbbbe4cf51ff837bc688b01b1"
+ },
+ {
+  "path": "jbbart/JBC/manual/gpt-3.5-turbo-1106.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/JBC/manual/gpt-3.5-turbo-1106.json",
+  "sha256": "5999b8f2fc5e85fd4f7d6553abaeaa66f2dc10c5354faa41622e511c08eab871"
+ },
+ {
+  "path": "jbbart/JBC/manual/gpt-4-0125-preview.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/JBC/manual/gpt-4-0125-preview.json",
+  "sha256": "1785f7cf838522461b5b9af3fa606715ecf55c194581f4c8c5c9f1945b59db05"
+ },
+ {
+  "path": "jbbart/JBC/manual/llama-2-7b-chat-hf.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/JBC/manual/llama-2-7b-chat-hf.json",
+  "sha256": "1607a5a5b9f50abc7f2ff9e07b7257dfde7228b88cfdf73c20f5f56108ffdd23"
+ },
+ {
+  "path": "jbbart/JBC/manual/vicuna-13b-v1.5.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/JBC/manual/vicuna-13b-v1.5.json",
+  "sha256": "1d5df5aa451c3d1bb8a4c048a7b2e1e6132e72f2970cb9d94ffc77f44e0edb39"
+ },
+ {
+  "path": "jbbart/PAIR/black_box/gpt-3.5-turbo-1106.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/PAIR/black_box/gpt-3.5-turbo-1106.json",
+  "sha256": "49e007ce488e606cede7ffc8b022e35080b7f3870956e4cb2423d9b42749c78f"
+ },
+ {
+  "path": "jbbart/PAIR/black_box/gpt-4-0125-preview.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/PAIR/black_box/gpt-4-0125-preview.json",
+  "sha256": "6dd214eee78184daf048ac8af166641724b49fd25bc831e5d7201469c162004d"
+ },
+ {
+  "path": "jbbart/PAIR/black_box/llama-2-7b-chat-hf.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/PAIR/black_box/llama-2-7b-chat-hf.json",
+  "sha256": "02819296c5d992568d732d37813b2ce34624068a20f21025c04c04d52820b029"
+ },
+ {
+  "path": "jbbart/PAIR/black_box/vicuna-13b-v1.5.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/PAIR/black_box/vicuna-13b-v1.5.json",
+  "sha256": "18b101386419a98fbdf45cb987069f83af3a40d5e0f7f0d32c4e9dc5ecc049b4"
+ },
+ {
+  "path": "jbbart/prompt_with_random_search/black_box/gpt-3.5-turbo-1106.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/prompt_with_random_search/black_box/gpt-3.5-turbo-1106.json",
+  "sha256": "d4a0691eda37b02dc948b6d6d08460f7d5cd3f15099121b388a58634ffb7bd76"
+ },
+ {
+  "path": "jbbart/prompt_with_random_search/black_box/gpt-4-0125-preview.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/prompt_with_random_search/black_box/gpt-4-0125-preview.json",
+  "sha256": "4a0573dba6823c676cab99ed54b8191244080883948270fac9b75255b7c69206"
+ },
+ {
+  "path": "jbbart/prompt_with_random_search/black_box/llama-2-7b-chat-hf.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/prompt_with_random_search/black_box/llama-2-7b-chat-hf.json",
+  "sha256": "45df98af6e1c0e35747f6b9c80cdc606e96c76a511e09a1a49ad5b00cfb51c0a"
+ },
+ {
+  "path": "jbbart/prompt_with_random_search/black_box/vicuna-13b-v1.5.json",
+  "url": "https://raw.githubusercontent.com/JailbreakBench/artifacts/909e68c01d94222b8ad2e397a017e2e12e2adb73/attack-artifacts/prompt_with_random_search/black_box/vicuna-13b-v1.5.json",
+  "sha256": "9d87a56659f617438feb5770bb2c8e4c2dbbd1bd62964f2c1a8775988017ac5d"
+ },
+ {
+  "path": "jbb/data/benign-behaviors.csv",
+  "url": "https://huggingface.co/datasets/JailbreakBench/JBB-Behaviors/resolve/886acc352a31533ffbcf4ef22c744658688086fc/data/benign-behaviors.csv",
+  "sha256": "3cda234d21a991fa309bbfea4b6d9dae31ccdf8e9d452424b6a983e4fdc33468"
+ },
+ {
+  "path": "jbb/data/judge-comparison.csv",
+  "url": "https://huggingface.co/datasets/JailbreakBench/JBB-Behaviors/resolve/886acc352a31533ffbcf4ef22c744658688086fc/data/judge-comparison.csv",
+  "sha256": "dacaf76a1057785f11b0fc6aa07b9a73cdab588319ddfc5e8cef2909e5b112a5"
+ },
+ {
+  "path": "harmbenchval/text_behaviors_val_set.json",
+  "url": "https://raw.githubusercontent.com/centerforaisafety/HarmBench/8e1604d1171fe8a48d8febecd22f600e462bdcdd/data/classifier_val_sets/text_behaviors_val_set.json",
+  "sha256": "e740727b6874e492063e097122a9916833d57f9bd2ce3e86713ec188741a41c8"
+ },
+ {
+  "path": "hc3/all.jsonl",
+  "url": "https://huggingface.co/datasets/Hello-SimpleAI/HC3/resolve/4d0ff18143b5a7e1b1e79beb540c04549d1e59d3/all.jsonl",
+  "sha256": "ee231f82283d754050a4dc58ecf9331afaf5daea7283c6da0b096ed0fb2774cf"
+ },
+ {
+  "path": "m4/arxiv_chatGPT.jsonl",
+  "url": "https://raw.githubusercontent.com/mbzuai-nlp/M4/628bf0fcb2e8c6b7ffa71fd1af6be413aced8f7d/data/arxiv_chatGPT.jsonl",
+  "sha256": "8dbea783239002794f931a088cbd2e9db657a06f0dd9fe4a9cce9511126b5823"
+ },
+ {
+  "path": "m4/reddit_cohere.jsonl",
+  "url": "https://raw.githubusercontent.com/mbzuai-nlp/M4/628bf0fcb2e8c6b7ffa71fd1af6be413aced8f7d/data/reddit_cohere.jsonl",
+  "sha256": "5be21903f1a8ece6b5b2e7204ddcae0170d4a9d57a36379d795e9e89077e36e2"
+ },
+ {
+  "path": "m4/wikihow_davinci.jsonl",
+  "url": "https://raw.githubusercontent.com/mbzuai-nlp/M4/628bf0fcb2e8c6b7ffa71fd1af6be413aced8f7d/data/wikihow_davinci.jsonl",
+  "sha256": "dd6ffbc23a5e591261be71f49dc3600f7bd61ff0791f433daf9642f56ce2fc36"
+ },
+ {
+  "path": "m4/wikipedia_bloomz.jsonl",
+  "url": "https://raw.githubusercontent.com/mbzuai-nlp/M4/628bf0fcb2e8c6b7ffa71fd1af6be413aced8f7d/data/wikipedia_bloomz.jsonl",
+  "sha256": "fd93d6e0e5725e691011f9e3200f5713910675bf227efa04c07cc60ae199c17e"
+ },
+ {
+  "path": "m4/peerread_llama.jsonl",
+  "url": "https://raw.githubusercontent.com/mbzuai-nlp/M4/628bf0fcb2e8c6b7ffa71fd1af6be413aced8f7d/data/peerread_llama.jsonl",
+  "sha256": "02245667197bcfb894fff5bbd53083ec5d84b012548d377ca2da21cd25d67b44"
+ },
+ {
+  "path": "m4/reddit_dolly.jsonl",
+  "url": "https://raw.githubusercontent.com/mbzuai-nlp/M4/628bf0fcb2e8c6b7ffa71fd1af6be413aced8f7d/data/reddit_dolly.jsonl",
+  "sha256": "77442afc865ff0a43e7bd0ad64a5dadf3604ac23e4c3e2751473fe085b7ed3c7"
+ },
+ {
+  "path": "multiturn/Harmful Dataset.csv",
+  "url": "https://huggingface.co/datasets/tom-gibbs/multi-turn_jailbreak_attack_datasets/resolve/e3b30257c4d6be5438ea19f0989ac82c24234fe4/Harmful%20Dataset.csv",
+  "sha256": "9b84edb9ebbf695b4884a897284022c4f75e382a577359bd031c6ec902a45f17"
+ },
+ {
+  "path": "multiturn/Completely-Benign Dataset.csv",
+  "url": "https://huggingface.co/datasets/tom-gibbs/multi-turn_jailbreak_attack_datasets/resolve/e3b30257c4d6be5438ea19f0989ac82c24234fe4/Completely-Benign%20Dataset.csv",
+  "sha256": "4efb90f0b4c8d54ad66353acd89bf4008413c80b9bf45ddc812b1f36847c7398"
+ },
+ {
+  "path": "multiturn/Semi-Benign Dataset.csv",
+  "url": "https://huggingface.co/datasets/tom-gibbs/multi-turn_jailbreak_attack_datasets/resolve/e3b30257c4d6be5438ea19f0989ac82c24234fe4/Semi-Benign%20Dataset.csv",
+  "sha256": "9acd4d02efaf7cdf79ac52841541e07bf405e7d9257884af7b55793fe0c839da"
+ },
+ {
+  "path": "ultrachat/data/test_sft-00000-of-00001-f7dfac4afe5b93f4.parquet",
+  "url": "https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k/resolve/8049631c405ae6576f93f445c6b8166f76f5505a/data/test_sft-00000-of-00001-f7dfac4afe5b93f4.parquet",
+  "sha256": "c18fd6e77395577652bdefbc5a87044ea799e989451ecfca5c6cf977ae5c6f70"
+ }
+]

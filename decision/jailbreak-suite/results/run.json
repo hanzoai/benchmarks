@@ -1,0 +1,47 @@
+{
+ "date": "2026-10-14, 19:55 to 21:39 PDT",
+ "host": "arm64-host (GB10, 20 arm64 cores, 121 GB), CPU only; the GPU untouched",
+ "kai": {
+  "binary": "target/release/kai 0.4.6, sha256 3ea2dc28e29b4dd71db6a4b6a6bbee581b8136fcd0e354d9b155427d16f1cbd8",
+  "folder": "the kai-1.2 release folder, SHA256SUMS sha256 e45dd919623b83f01595b6dffbcd63315adeab70bfb7dd5d6a942380b320d575; weights 0834a74f...; reader (Bernoulli primitive) 3b85b6bd...",
+  "serve": "kai serve --device cpu --reach 32768 --deadline 3600000, four replicas (two at RAYON_NUM_THREADS 8, two at 4; answers bit for bit alike across them, checked on 6 items), nice 19, ionice idle",
+  "load": "the box ran other agents' builds, trainers and kai servers: load average 5 to 75 during the read; Kai's latencies are contention and are not a speed result",
+  "latency": {
+   "H": {
+    "answers_timed": 6214,
+    "p50_ms": 2986.5
+   },
+   "P": {
+    "answers_timed": 8560,
+    "p50_ms": 1521.0
+   }
+  }
+ },
+ "jev": {
+  "model": "typesafe/jev-1.13 (answered as typesafe/jev-1.13-20260917, provider TypeSafe) through the same binary's OpenRouter backend",
+  "answers": "probabilities in hundredths (99 distinct values over 8,138 H answers)",
+  "spend_usd": "0.4345 by the answers' own reported cost (USD 0.042 per million input tokens); the OpenRouter key's usage rose 5.4145 -> 6.1064 over the window, a key other sessions also use",
+  "latency": {
+   "H": {
+    "answers_timed": 8138,
+    "p50_ms": 206.0
+   },
+   "P": {
+    "answers_timed": 10696,
+    "p50_ms": 205.0
+   }
+  }
+ },
+ "reads": {
+  "kai": {
+   "H": 6214,
+   "P": 8560
+  },
+  "jev": {
+   "H": 8138,
+   "P": 10696
+  },
+  "refused": 0
+ },
+ "plan": "Kai read amendment 2's reduced plan first, reordered by amendment 3 (steps 1 to 6), then the rest of the preregistered plan (steps 7 to 9): every preregistered Kai read was made"
+}
