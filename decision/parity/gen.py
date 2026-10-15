@@ -5,7 +5,7 @@ and act output, the temperature applied and the sequence length of every row, an
 it published; for every state, the router's checkpoint and reason. Run on CPU in float32 with
 autocast off, which is the numerics the Rust port is held to.
 
-The reference is the Python package of release 0.3.20, the runtime the harness scores as `laya`. The checkpoints are read
+The reference is the upstream Python package of release 0.3.20, the harness builders' runtime. The checkpoints are read
 from the hanzoai/kai-1 bundle at a pinned commit: its root, `multilingual/` and
 `typed-decisions/` hold the same weights as hanzoai/kai-1, hanzoai/kai-1-multilingual and
 hanzoai/kai-1-agent.

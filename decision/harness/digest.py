@@ -2,7 +2,7 @@
 
 A run filed at api.hanzo.ai/v1/research names the predictions it was scored from by one SHA-256
 per suite: the suite's slice of the preds file ({"suites": {name: ...}}, or {"route", "models"}
-for Laya's file; MASSIVE's 51 languages together) written as compact JSON in the file's own key
+for a routed file; MASSIVE's 51 languages together) written as compact JSON in the file's own key
 order, numbers in their shortest round-trip form. This prints those digests, so a reader can
 check that a committed file is the one a published number came from.
 

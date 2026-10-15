@@ -17,9 +17,9 @@ Rows 1 to 15 are recomputed from committed files by scripts in this directory, w
 | 9 | Model routing | 1.0000 | .9774 | same | same |
 | 10 | Typed decisions | .7590 | .7355 | same | same |
 | 11 | MASSIVE, 51 languages, macro | .9096 | .8902 | same | same |
-| 12 | Choice among 16 options | 374 / 400 (.9350) | 341 / 400 (.8525) | `capability/results/cardinality.json` | `python capability/cardinality.py --score` |
+| 12 | Choice among 16 options | 374 / 400 (.9350) | 341 / 400 (.8525) | `capability/results/cardinality.json` | `python3 capability/cardinality.py --score` |
 | 13 | Choice among 77 options | 363 / 400 (.9075) | 337 / 400 (.8425) | same | same |
-| 14 | Same request three times, identical answers | 4,200 / 4,200 | 1,858 / 4,200 | `stability/results/*.json.gz` | `python stability/score.py` |
+| 14 | Same request three times, identical answers | 4,200 / 4,200 | 1,858 / 4,200 | `stability/results/*.json.gz` | `python3 stability/score.py` |
 | 15 | False alarms on real benign prompts (in the wild) | 24 / 600 (4.0%) | 126 / 600 (21.0%) | `jailbreak-suite/results/report.txt` | `python3 jailbreak-suite/score.py` |
 | 16 | Price, per million input tokens | $0.021 | $0.042 | `GET https://api.hanzo.ai/v1/models` | `curl -s https://api.hanzo.ai/v1/models` |
 
@@ -37,7 +37,7 @@ Commands run from `decision/`. Rows 1 to 11 are accuracy as `merge.py` reports i
 
 ## Where each number is
 
-**Rows 1 to 11, the frozen harness** (`README.md`): 9,499 cases built by the Laya 0.3.20 harness builders at seed 13, `results/states.json.gz`, gold in `results/questions.json.gz`. Kai's answers are `results/kai-1/preds.json.gz`, Jev's `results/jev/preds.json.gz`; `merge.py` scores both with the harness's own metric code and writes `results/kai-1/scores.json` and `table.md`. `python harness/digest.py results/kai-1/preds.json.gz` prints each suite's digest, equal to the `preds sha256` in the notes of that suite's research run (`https://api.hanzo.ai/v1/research/runs?org=hanzo`), Kai's and Jev's alike. The harness's twelfth suite, jailbreak (toxic-chat), is not a row: there Kai reads 91.8% and Jev 94.0%, in the same file.
+**Rows 1 to 11, the frozen harness** (`README.md`): 9,499 cases built by the upstream harness builders at seed 13, `results/states.json.gz`, gold in `results/questions.json.gz`. Kai's answers are `results/kai-1/preds.json.gz`, Jev's `results/jev/preds.json.gz`; `merge.py` scores both with the harness's own metric code and writes `results/kai-1/scores.json` and `table.md`. `python3 harness/digest.py results/kai-1/preds.json.gz` prints each suite's digest, equal to the `preds sha256` in the notes of that suite's research run (`https://api.hanzo.ai/v1/research/runs?org=hanzo`), Kai's and Jev's alike. The harness's twelfth suite, jailbreak (toxic-chat), is not a row: there Kai reads 91.8% and Jev 94.0%, in the same file.
 
 **Rows 12 and 13, choosing among many options** (`capability/README.md`): Banking77's 400 harness cases, at 16 options the gold label and its 15 nearest labels by word overlap, at 77 every Banking77 label; `cardinality.py` rebuilds the same cases, and `--check` scores kai-1's and Jev's recorded answers on the rebuilt cases and reproduces both records question by question. The same file holds the other sizes, the board's rows aside: 4 options Kai 96.8%, Jev 90.5%; 150 (CLINC150) Kai 90.8%, Jev 94.0%; 1,000 and more (WordNet) both near zero.
 
@@ -57,9 +57,9 @@ Each row's directory has a runner that sends its cases to `POST /v1/decisions` (
 
 ```sh
 export HANZO_API_KEY=...
-python harness/run_kai.py && uv run --with numpy python harness/merge.py               # rows 1-11
+python3 harness/run_kai.py && uv run --with numpy python harness/merge.py              # rows 1-11
 uv run --with datasets python capability/cardinality.py --url https://api.hanzo.ai --out runs/kai   # rows 12-13
-python stability/run.py --url https://api.hanzo.ai --out runs/kai.jsonl && python stability/score.py runs/kai.jsonl   # row 14
+python3 stability/run.py --url https://api.hanzo.ai --out runs/kai.jsonl && python3 stability/score.py runs/kai.jsonl   # row 14
 python3 -I jailbreak-suite/fetch.py data && uv run --with pyarrow python3 -I jailbreak-suite/build.py data items
 python3 -I jailbreak-suite/read.py items/items.jsonl H runs/kai-H.jsonl --clean --same jailbreak-suite/results/kai-H.jsonl.gz
 python3 jailbreak-suite/score.py --kai runs                                               # row 15

@@ -81,12 +81,14 @@ class Score(unittest.TestCase):
 
 class Sides(unittest.TestCase):
     def test_routed_takes_the_routers_checkpoint_per_case(self):
-        laya = {"route": {"s": ["english", "multilingual"]},
-                "models": {"english": {"s": {"p": {"0/q": [1, 0], "1/q": [1, 0]}}},
-                           "multilingual": {"s": {"p": {"0/q": [0, 1], "1/q": [0, 1]}}}}}
-        self.assertEqual(merge.routed(laya, "s", gold(0, 1)), {"0/q": [1, 0], "1/q": [0, 1]})
-        b = merge.backends("s", gold(0, 1), {"suites": {"s": {"p": {"0/q": [0.5, 0.5]}}}}, laya, None)
-        self.assertEqual(list(b), ["kai", "laya", "laya:english", "laya:multilingual"])
+        ref = {"route": {"s": ["english", "multilingual"]},
+               "models": {"english": {"s": {"p": {"0/q": [1, 0], "1/q": [1, 0]}}},
+                          "multilingual": {"s": {"p": {"0/q": [0, 1], "1/q": [0, 1]}}}}}
+        self.assertEqual(merge.routed(ref, "s", gold(0, 1)), {"0/q": [1, 0], "1/q": [0, 1]})
+        b = merge.backends("s", gold(0, 1), {"suites": {"s": {"p": {"0/q": [0.5, 0.5]}}}}, ref, None)
+        r = merge.REF
+        self.assertEqual(list(b), ["kai", r, r + ":english", r + ":multilingual"])
+        self.assertEqual(merge.shown({w: {} for w in b} | {"jev": {}}), ["kai", "jev"])
 
     def test_massive_macro_over_languages(self):
         def lang(acc, ece):
@@ -94,7 +96,7 @@ class Sides(unittest.TestCase):
             m.update({"n": 100, "unanswered": 0, "questions": 100, "accuracy": acc, "ece": ece,
                       "risk_at_coverage": {str(k): 1 - acc for k in merge.COVERAGE}})
             return m
-        suites = {"massive.en-US": {"jev": lang(0.9, 0.1)}, "massive.de-DE": {"jev": lang(0.5, 0.3), "laya": lang(0.1, 0.2)},
+        suites = {"massive.en-US": {"jev": lang(0.9, 0.1)}, "massive.de-DE": {"jev": lang(0.5, 0.3), "kai": lang(0.1, 0.2)},
                   "jev.ag_news": {"jev": lang(0.0, 0.0)}}
         s = merge.massive(suites)
         self.assertEqual(s["jev"]["languages"], 2)
@@ -102,7 +104,7 @@ class Sides(unittest.TestCase):
         self.assertEqual(s["jev"]["macro_ece"], 0.2)
         self.assertEqual((s["jev"]["english"], s["jev"]["non_english_macro"]), (0.9, 0.5))
         self.assertEqual(s["jev"]["risk_at_coverage"]["0.5"], 0.3)
-        self.assertEqual(s["laya"]["above_3x_random"], 0)
+        self.assertEqual(s["kai"]["above_3x_random"], 0)
         self.assertEqual(s["jev"]["above_3x_random"], 2)
 
 

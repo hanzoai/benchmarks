@@ -3,7 +3,7 @@
 Reads results/states.json.gz ({suite: [[state, questions, gold], ...]}), sends each case as one
 request {"model", "state", "questions"} to URL/v1/decisions, and writes one probability vector per
 question in the harness's option order (three_way.order), the shape of results/jev/preds.json.gz,
-so merge.py scores it beside Laya and Jev. A question with no answer (a refusal, an error after
+so merge.py scores it beside Jev's. A question with no answer (a refusal, an error after
 six tries) is written as null and counted by merge.py as unanswered, never as wrong.
 
     export HANZO_API_KEY=...                                    # api.hanzo.ai; a local kai serve needs none

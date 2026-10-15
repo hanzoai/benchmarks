@@ -1,21 +1,22 @@
 """Kai vs Jev on identical questions.
 
-The suites are the upstream Laya harness's own builders (research/scripts/bench_apps.py and
-bench_local.py), unchanged: the thirteen application suites, typed-decisions, and MASSIVE
-intent. Each backend answers every question and writes one probability vector per question,
-in the harness's option order, to preds_<backend>.json. merge.py scores all backends from
-those files with the harness's metric code, so every backend is scored by the same function.
+The suites are the upstream harness's own builders (research/scripts/bench_apps.py and
+bench_local.py, from the checkout upstream() names), unchanged: the thirteen application suites,
+typed-decisions, and MASSIVE intent. Each backend answers every question and writes one
+probability vector per question, in the harness's option order, to preds_<backend>.json. merge.py
+scores all backends from those files with the harness's metric code, so every backend is scored by
+the same function.
 
-    python three_way.py kai    # the three Kai checkpoints, reference runtime, CPU f32
     python three_way.py jev    # typesafe/jev-1.13 through OpenRouter's Decisions API
-    python three_way.py kai --states <states.json.gz> --out <dir>
+    python three_way.py jev --states <states.json.gz> --out <dir>
+    python three_way.py kai    # the hanzoai/kai-1 bundle at REV on the upstream reference runtime, CPU f32
 
 --states runs the cases of a {suite: [[state, questions, gold], ...]} gzip JSON file (the format of
-results/states.json.gz) instead of the builders; --out is where preds_<backend>.json and
-gold_<backend>.json go (default: this directory).
+results/states.json.gz) instead of the builders, so it needs no upstream checkout for jev; --out is
+where preds_<backend>.json and gold_<backend>.json go (default: this directory).
 
-Kai's weights are byte-identical to upstream Laya's (SHA-256 checked), so the kai run is
-also the Laya run.
+The kai backend's three checkpoints are the upstream release's weights byte for byte (SHA-256
+checked), not the Kai the Decision Suite scores (results/kai-1/, `bench preds` in hanzo-inc/kai).
 """
 import argparse
 import concurrent.futures as cf

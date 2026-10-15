@@ -1,9 +1,9 @@
 """Score every backend side by side with the harness's own metric code.
 
-Reads the committed results: questions.json.gz (gold), laya/preds.json.gz (three_way.py kai:
-the three kai-1 checkpoints and the router's choice per case), jev/preds.json.gz (Jev's recorded
-answers), and kai/preds.json.gz when present (run_kai.py, or `bench preds` in hanzo-inc/kai).
-Writes results/scores.json and results/table.md.
+Reads the committed results: questions.json.gz (gold), jev/preds.json.gz (Jev's recorded answers),
+kai/preds.json.gz when present (run_kai.py, or `bench preds` in hanzo-inc/kai), and the reference
+runtime's recorded answers (REF below). Writes scores.json, every backend's numbers, and table.md,
+Kai's and Jev's, to results/ or --out.
 
     python harness/merge.py                                                   # results/
     python harness/merge.py --kai results/kai-1/preds.json.gz --out results/kai-1   # kai-1's record
@@ -163,11 +163,11 @@ def risk_coverage(conf, corr):
                                           for k in COVERAGE}
 
 
-LAYA = ("english", "multilingual", "typed-decisions")
-# the kai-1 checkpoint Laya ships for a suite, which its router does not pick
-OWN = {"typed_decisions": "laya:typed-decisions"}
-SHOWN = ("kai", "laya", "jev")
-PAIRS = (("kai", "laya"), ("kai", "jev"), ("laya", "jev"))
+# The reference runtime's recorded answers: three checkpoints and its router's pick per case. Their key
+# in scores.json and their path under results/ are the ones hanzo-inc/kai's bench reads (score, gate, post).
+REF, CHECKPOINTS = "laya", ("english", "multilingual", "typed-decisions")
+SHOWN = ("kai", "jev")
+PAIRS = (("kai", REF), ("kai", "jev"), (REF, "jev"))
 # the metrics a MASSIVE summary averages over languages, in table order
 MACRO = ("accuracy", "macro_f1", "ece", "brier", "nll", "aurc", "acc_at_50_coverage", "zero_prob")
 
@@ -178,26 +178,26 @@ def read(path):
     return json.load(gzip.open(path)) if os.path.exists(path) else None
 
 
-def routed(laya, name, gold):
-    """Each case answered by the kai-1 checkpoint Laya's router chose for it."""
+def routed(ref, name, gold):
+    """Each case answered by the checkpoint the reference router chose for it."""
     out = {}
     for ci, (_, qs) in enumerate(gold):
-        p = laya["models"][laya["route"][name][ci]][name]["p"]
+        p = ref["models"][ref["route"][name][ci]][name]["p"]
         for qid in qs:
             out["%d/%s" % (ci, qid)] = p.get("%d/%s" % (ci, qid))
     return out
 
 
-def backends(name, gold, kai, laya, jev):
-    """{backend: preds} for one suite: kai, laya (routed), each kai-1 checkpoint, jev."""
+def backends(name, gold, kai, ref, jev):
+    """{backend: preds} for one suite: kai, the reference (routed) and each of its checkpoints, jev."""
     out = {}
     if kai and name in kai["suites"]:
         out["kai"] = kai["suites"][name]["p"]
-    if laya and name in laya["route"]:
-        out["laya"] = routed(laya, name, gold)
-        for m in LAYA:
-            if name in laya["models"].get(m, {}):
-                out["laya:" + m] = laya["models"][m][name]["p"]
+    if ref and name in ref["route"]:
+        out[REF] = routed(ref, name, gold)
+        for m in CHECKPOINTS:
+            if name in ref["models"].get(m, {}):
+                out[REF + ":" + m] = ref["models"][m][name]["p"]
     if jev and name in jev["suites"]:
         out["jev"] = jev["suites"][name]["p"]
     return out
@@ -228,27 +228,26 @@ def f(v):
     return "–" if v is None else "%.3f" % v
 
 
-def shown(name, row):
+def shown(row):
     """The backends a table shows for a suite, in column order."""
-    return [w for w in ("kai", "laya", OWN.get(name), "jev") if w in row]
+    return [w for w in SHOWN if w in row]
 
 
 def table(out):
     """The scores as markdown."""
     suites, mass = out["suites"], out["massive_summary"]
-    lines = ["# decision: Kai, Laya and Jev on the frozen harness", "",
+    lines = ["# decision: Kai and Jev on the frozen harness", "",
              "Written by `harness/merge.py` from the committed results; every backend is scored by the same functions.", ""]
-    for who, s in out["sources"].items():
-        lines.append("- **%s**: %s" % (who, ", ".join("%s `%s`" % (k, v) for k, v in s.items())))
-    lines += ["- **laya** answers each case with the kai-1 checkpoint Laya 0.3.20's router picked for it; "
-              "**laya:typed-decisions** is the checkpoint Laya ships for typed decisions, which the router does not pick.",
-              "", "## Every suite", ""]
+    for who in SHOWN:
+        if who in out["sources"]:
+            lines.append("- **%s**: %s" % (who, ", ".join("%s `%s`" % (k, v) for k, v in out["sources"][who].items())))
+    lines += ["", "## Every suite", ""]
     cols = ("suite", "backend", "answered", "acc", "macro F1", "ECE", "Brier", "log loss", "AURC", "acc@50%",
             "P(gold)≈0", "score MAE")
     lines += ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
     for name, row in suites.items():
         if not name.startswith("massive."):
-            for w in shown(name, row):
+            for w in shown(row):
                 m = row[w]
                 lines.append("| %s | %s | %d/%d | %s |" % (name, w, m["n"], m["questions"], " | ".join(
                     f(m.get(k)) for k in MACRO + ("score_mae",))))
@@ -263,7 +262,7 @@ def table(out):
               "|" + "---|" * (2 + len(COVERAGE))]
     for name, row in suites.items():
         if not name.startswith("massive."):
-            for w in shown(name, row):
+            for w in shown(row):
                 lines.append("| %s | %s | %s |" % (name, w, " | ".join(
                     f(row[w]["risk_at_coverage"].get(str(k))) for k in COVERAGE)))
     for w in SHOWN:
@@ -306,18 +305,18 @@ def main():
     ap.add_argument("--out", default=RESULTS, help="directory for scores.json and table.md")
     a = ap.parse_args()
     gold = read("questions.json.gz")
-    kai, laya = read(os.path.abspath(a.kai) if os.path.exists(a.kai) else a.kai), read("laya/preds.json.gz")
+    kai, ref = read(os.path.abspath(a.kai) if os.path.exists(a.kai) else a.kai), read(REF + "/preds.json.gz")
     jev = read("jev/preds.json.gz" if a.jev == "recorded" else os.path.abspath(a.jev))
     out = {"sources": {}, "suites": {}}
     if kai:
         out["sources"]["kai"] = {k: kai[k] for k in ("model", "weights", "device", "dtype")}
-    if laya:
-        out["sources"]["laya"] = {k: laya[k] for k in ("bundle", "revision", "runtime", "device", "dtype")}
+    if ref:
+        out["sources"][REF] = {k: ref[k] for k in ("bundle", "revision", "runtime", "device", "dtype")}
     if jev:
         out["sources"]["jev"] = {"model": jev["model"],
                                  "served": sorted({m for s in jev["suites"].values() for m in s["served"]})}
     for name, g in gold.items():
-        preds = backends(name, g, kai, laya, jev)
+        preds = backends(name, g, kai, ref, jev)
         row = {w: score(g, p, name == "typed_decisions") for w, p in preds.items()}
         if "jev" in row:
             js = jev["suites"][name]

@@ -41,7 +41,7 @@ python3 jailbreak-suite/score.py --kai runs                          # Kai from 
 
 | file | what |
 |---|---|
-| `prereg.json` | the preregistration and its amendments, as written on 2026-10-14; host names, local paths and private file and dataset names in it are replaced by descriptions, nothing else changed |
+| `prereg.json` | the preregistration and its amendments, as written on 2026-10-14; host names, local paths, private file and dataset names and an upstream model's name in it are replaced by descriptions, nothing else changed |
 | `files.json`, `fetch.py` | every dataset file build.py reads: path, URL at its pinned revision, SHA-256 |
 | `build.py` | the items, drawn as `prereg.json` fixes them; takes each item's clean-for-Kai flag from the manifest after checking the item's text against it |
 | `manifest.jsonl.gz` | per item: id (dataset and row key), label, task, pool, dataset metadata, clean for Kai and why not, the SHA-256 of its text. No text |

@@ -2,9 +2,9 @@
 
 {suite: [[state, questions, gold], ...]}, from three_way.py suites(). Dropping the states gives
 results/questions.json.gz exactly; the script checks that. Kai's Rust bench reads this file
-(`bench preds`, `bench speed`).
+(`bench preds`, `bench speed`). LAYA_SRC is the upstream checkout three_way.upstream() names.
 
-    LAYA_SRC=/path/to/laya uv run --python 3.11 --with torch --with pandas --with pyarrow \\
+    LAYA_SRC=/path/to/checkout uv run --python 3.11 --with torch --with pandas --with pyarrow \\
       --with datasets --with "$LAYA_SRC" python harness/states.py
 """
 import gzip, json, os

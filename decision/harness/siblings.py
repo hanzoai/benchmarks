@@ -4,8 +4,8 @@
 
 
 A sibling: a training record the contamination barrier caught as a near duplicate of the item
-(the build's contamination_report.json, `catches` with suite typed_decisions). Laya's typed
-checkpoint trained on those records; Kai's build dropped them.
+(the build's contamination_report.json, `catches` with suite typed_decisions). A checkpoint
+fine-tuned on typed-decisions' train split read those records; Kai's build dropped them.
 """
 import gzip, json, sys
 H, report = sys.argv[1], sys.argv[2]
