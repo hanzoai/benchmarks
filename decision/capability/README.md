@@ -27,3 +27,15 @@ $B tex --harness decision --out <paper>/kai/tables                           # h
 Laya is the three kai-1 checkpoints on the same runtime (`kai::joint`, at parity with Laya 0.3.20's reference: `results/laya/parity.json`), answered as the harness's engine answers, each case on the checkpoint Laya's router picks unless a suite names one. Jev is `typesafe/jev-1.13` through OpenRouter's Decisions API (`OPENROUTER_API_KEY`, else the file `OR_KEY_FILE` names; never tracked); every call is ledgered in `results/jev_spend.json` and refused past `--jev-cap` (USD 5). A failure (refusal, truncation, error, timeout) is counted in `unanswered`/`rejected`, never dropped; a backend or suite that fails is recorded and the rest still run. Cases are drawn with CPython's `random` and numpy's PCG64 permutation; `--limit 5 --results <dir>` is a smoke run. `--data` (default `~/scratch/capability/data`) holds the sources (WordNet 3.0, UCI HAR, C-MAPSS, MIMII), fetched and checked against their pinned hashes when absent; `cases/*.json.gz` (MIMII audio among them, used, not redistributed) are never tracked.
 
 Each result file's `meta` names every run's host, checkpoint, weights, device and dtype.
+
+## cardinality.py
+
+`cardinality.json` holds kai-1 (weights `0834a74f…`, CUDA F32, 2026-10-03) beside Laya and Jev, and `results/cardinality/kai.*` its answers. `cardinality.py` reads the choice sizes where every option is scored, 4, 16, 77 and 150, in Python and over HTTP, with no Rust:
+
+```sh
+python capability/cardinality.py --score                                   # kai-1 and Jev, from their recorded answers
+uv run --with datasets python capability/cardinality.py --check            # the rebuilt cases reproduce both records question by question
+HANZO_API_KEY=... uv run --with datasets python capability/cardinality.py --url https://api.hanzo.ai --out runs/kai [--limit 40]
+```
+
+It builds the cases as `bench cap` does (Banking77's 400 harness cases at 4, 16 and 77 options, CLINC150 test at 150), asks Kai one request a case, and prints its accuracy beside the recorded kai-1 and Jev. Jev is never called (`--jev recorded`). WordNet at 1,000 options and more and the shortlist variants stay as recorded.
