@@ -2,6 +2,8 @@
 
 Typed-decision benchmarks: Kai, Laya and Jev on identical questions.
 
+[`SUITE.md`](SUITE.md) is the Decision Suite hanzo.ai publishes: sixteen rows of Kai against Jev, each with its result file here and the command that reads it again. Its other parts live beside the harness: [`capability/`](capability/) (choosing among many options), [`stability/`](stability/) (the same request three times) and [`jailbreak-suite/`](jailbreak-suite/) (17 public jailbreak and injection sets).
+
 ## Harness
 
 The questions come from the Laya 0.3.20 harness builders (`research/scripts/bench_apps.py` and `bench_local.py`), used unchanged. The seed is 13.
@@ -25,7 +27,16 @@ uv run --with numpy python harness/merge.py  # results/scores.json and results/t
 uv run --with numpy python -m unittest discover -s harness   # merge.py's metrics on hand-computed cases
 ```
 
-`bench` in `hanzoai/decision` runs Kai on the same states and scores and times all three:
+Kai answers the same states over HTTP, at api.hanzo.ai or a local `kai serve`; Jev is scored from its recorded preds (`--jev recorded`, the default), never called:
+
+```sh
+HANZO_API_KEY=... python harness/run_kai.py [--limit 5] [--url http://127.0.0.1:8080]   # results/kai/preds.json.gz
+uv run --with numpy python harness/merge.py --kai results/kai/preds.json.gz --out <dir>
+uv run --with numpy python harness/merge.py --kai results/kai-1/preds.json.gz --out results/kai-1   # kai-1's record
+python harness/digest.py results/kai-1/preds.json.gz   # each suite's digest, as its research run's notes record it
+```
+
+`bench` in hanzo-inc/kai (private) runs Kai in process on the same states and scores and times all three:
 
 ```sh
 bench preds --model <dir | owner/name[@rev]> --states results/states.json.gz --out results/kai/preds.json.gz
@@ -46,7 +57,8 @@ bench tex --harness . --out <paper>/kai/tables                                  
 | `results/questions.json.gz` | the question set | every question with its gold label, in harness order |
 | `results/states.json.gz` | the question set with states | `[state, questions, gold]` per case, in harness order; `harness/states.py` writes it from the same builders and checks it reproduces `questions.json.gz` |
 | `results/laya/preds.json.gz` | Laya 0.3.20 reference runtime, CPU f32 | `three_way.py kai` on all 62 suites: every question under each kai-1 checkpoint, and the checkpoint Laya's router picks per case |
-| `results/kai/preds.json.gz` | Kai, hanzo-ml | `bench preds`: one factorized Kai checkpoint's probability vectors; `merge.py` scores it when present |
+| `results/kai-1/` | kai-1, CUDA BF16 | `model.safetensors` SHA-256 `0834a74f…`; its preds, and `merge.py`'s `scores.json` and `table.md` over them beside Laya and Jev: the Decision Suite's harness rows (`results/kai-1/README.md`) |
+| `results/kai/preds.json.gz` | Kai over HTTP | `harness/run_kai.py`, or `bench preds`: one Kai's probability vectors; `merge.py` scores it when present (not committed) |
 | `results/scores.json`, `results/table.md` | all of the above | `merge.py`: Kai, Laya and Jev side by side on every suite, with accuracy, macro F1, ECE, Brier, log loss, risk-coverage (AURC and risk at 10–100% coverage), the rate of zero probability on gold, score MAE, and MASSIVE by language |
 | `trained/overlap.json` | every headline suite | the share of its rows in the data Laya trained on; see [Trained on](#trained-on) |
 
