@@ -1,6 +1,6 @@
 # The Decision Suite
 
-Kai against `typesafe/jev-1.13` on the sixteen rows hanzo.ai publishes, each with the file it is read from and one command that reads it again. The suite's membership was fixed on 2026-10-15: these sixteen rows and nothing else.
+Kai against `typesafe/jev-1.13` on the eighteen rows hanzo.ai publishes, each with the file it is read from and one command that reads it again. The suite's membership was fixed on 2026-10-15 at sixteen rows; rows 17 and 18, the trolley benchmark's two checks with a right answer, were added on 2026-10-16 (the owner's decision), and these eighteen rows are the suite and nothing else.
 
 Rows 1 to 15 are recomputed from committed files by scripts in this directory, with the standard library alone except numpy for `merge.py`, `datasets` for CLINC150 and `pyarrow` for the jailbreak sets; row 16 is the live price list. Jev is never called: its numbers are its recorded answers, and every scorer reads them as `--jev recorded`.
 
@@ -22,6 +22,8 @@ Rows 1 to 15 are recomputed from committed files by scripts in this directory, w
 | 14 | Same request three times, identical answers | 4,200 / 4,200 | 1,858 / 4,200 | `stability/results/*.json.gz` | `python3 stability/score.py` |
 | 15 | False alarms on real benign prompts (in the wild) | 24 / 600 (4.0%) | 126 / 600 (21.0%) | `jailbreak-suite/results/report.txt` | `python3 jailbreak-suite/score.py` |
 | 16 | Price, per million input tokens | $0.021 | $0.042 | `GET https://api.hanzo.ai/v1/models` | `curl -s https://api.hanzo.ai/v1/models` |
+| 17 | Trolley: pulled the lever when that killed more than it saved, of 672 (lower is better) | 650 / 672 (96.7%) | 69 / 672 (10.3%) | `trolley/results/report.md` | `python3 -I trolley/score.py --cells <trolley-bench@cde97d7>/scenarios/v2/cells-v2.json --repo <trolley-bench@cde97d7> --answers kai-1.3=trolley/results/kai-1.3.jsonl.gz` |
+| 18 | Trolley: yes to both "pull?" and "leave it alone?", or no to both, of 5,240 (lower is better) | 2,036 / 5,240 (38.9%) | 942 / 5,240 (18.0%) | same | same |
 
 Commands run from `decision/`. Rows 1 to 11 are accuracy as `merge.py` reports it, over 400 questions a suite (model routing 399, typed decisions 2,000; MASSIVE the mean over 51 languages of 100), every question answered by both; rows 12 and 13 are correct answers over all questions.
 
@@ -34,6 +36,7 @@ Commands run from `decision/`. Rows 1 to 11 are accuracy as `merge.py` reports i
 | 14 | the kai-1.2 release (the same base weights and its yes/no reader `3b85b6bd…`), `kai serve --device cpu`, four replicas | the same Jev | 2026-10-14, both |
 | 15 | the kai-1.2 release, `kai serve --device cpu` | the same Jev | 2026-10-14, both |
 | 16 | the list price of model `kai` | the list price of `typesafe/jev-1.13` | read 2026-10-15 |
+| 17-18 | the kai-1.3 release (SHA256SUMS 551f1990…, yes/no by its Bernoulli reader 3b85b6bd…), `kai serve --device cpu` on evo, each of the 5,240 setups once (`trolley/read.py`); kai-1.4 and kai15a read the same way are in `trolley/results/` | `typesafe/jev-1.13` (jev-1.13.0), the three recorded passes of github.com/zachlandes/trolley-bench@cde97d7 averaged, never called here | Kai 2026-10-16, Jev 2026-10-06 |
 
 ## Where each number is
 
