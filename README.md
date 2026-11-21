@@ -1,5 +1,7 @@
 # hanzoai/benchmarks
 
+[![Open in Hanzo](https://hanzo.app/badges/open-in-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/benchmarks&ref=main&action=open) [![Edit with Hanzo](https://hanzo.app/badges/edit-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/benchmarks&ref=main&action=edit)
+
 Every benchmark for the Hanzo stack, in one repository, with the records they
 produced. Clone it, run a lane, compare against the committed run.
 
